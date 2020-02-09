@@ -39,13 +39,16 @@ div.con_wrap div.content{
     min-width: 950px;
     padding: 30px;
 }
-
-div.new_bord table{margin-top:50px;width: 100%; }
+div.new_bord div.table_wrap{padding-top: 30px;}
+div.new_bord div.filters b{margin-left: 10px;}
+div.new_bord div.filters select {float: right; vertical-align: middle; width: 130px;}
+div.new_bord table{margin-top:20px;width: 100%; }
 div.new_bord table tr{height: 70px; line-height: 70px; text-align: center;}
 div.new_bord table thead tr{height: 40px; line-height: 40px; background-color: #d0d0d0;}
 div.new_bord table tbody tr{border-bottom: 1px solid #d0d0d0;}
 div.new_bord table tr td:nth-child(1){width: 10%;}
-div.new_bord table tr td:nth-child(2){width: 20%;}
-div.new_bord table tr td:nth-child(3){width: 60%;}
-div.new_bord table tr td:nth-child(4){width: 10%;}
+div.new_bord table tr td:nth-child(2){width: 10%;}
+div.new_bord table tr td:nth-child(3){width: 10%;}
+div.new_bord table tr td:nth-child(4){width: 60%;}
+div.new_bord table tr td:nth-child(5){width: 10%;}
 
