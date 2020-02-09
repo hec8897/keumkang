@@ -3,7 +3,11 @@ const router = new VueRouter({
       {
           path: '/newsbord',
           component: NewsBord,
-      }
+      },
+      {
+        path: '/consul',
+        component: Consul,
+    }
   ]
 })
 

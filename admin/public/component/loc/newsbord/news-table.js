@@ -33,8 +33,8 @@ Vue.component('news-bord',{
             </div>`,
             data(){
                 return{
-                    lists:null,
-                    results:undefined,
+                    lists:Array,
+                    results:Array
                 }
             },
             created(){
