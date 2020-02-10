@@ -1,33 +1,59 @@
+@charset "UTF-8";
+
+html,body{position:relative; width:100%; height:100%; background:#fff}
+html,body,ul,ol,img,div,span,iframe,a,p{margin:0; padding:0; border:0; outline:none}
+html,body,ul,ol,li,img,div,span,iframe,a,p,input,textarea,select,i{
+    font-family:'Roboto','Noto Sans KR', sans-serif; font-weight:400; font-style:normal; font-size:14px; word-break:keep-all; color:#222;
+}
+a{text-decoration:none; color:#666; font-family:'Roboto','Noto Sans KR', sans-serif}
+a:hover,a:active,a:focus{text-decoration:none}
+img{border:none; max-width:100%; width:auto; height:auto}
+ul,ol{list-style:none}
+iframe,object,video,embed{position:relative; top:0; left:0; max-width:100%}
+
+h2{
+	font-size: 1.6rem;
+	font-weight: bold;
+}
+
 header{
     width: 100%;
     height: 60px;
-    background-color: #424242;
+    background-color: #222;
     line-height: 60px;
     padding-left: 20px;
     box-sizing: border-box;
+    position: fixed;
+    z-index: 10;
+    box-shadow:  0 3px 5px rgba(0,0,0,0.3);
 }
+
 header h1{color: white; font-weight: bold; font-size: 1.5rem;}
 nav{
     width: 100%;
-    max-width: 250px;
+    max-width: 200px;
     height: 100vh;
     position: fixed;
     left: 0px;
-    background-color: #d0d0d0;
+    top: 60px;
+    z-index: 5;
+    background-color: #f0f0f0;
     box-sizing: border-box;
 }
+
 nav ul{
     width: 100%;
 }
 nav ul li{
     height: 50px;
     padding-left: 20px;
-    border-bottom: 1px solid #999;
+    border-bottom: 1px solid #d9d9d9;
     line-height: 50px;
     cursor: pointer;
-    font-weight: bold;
+    
 }
-.router-link-exact-active{background-color: white;}
+tr.new_view_tr{cursor: pointer;}
+.router-link-active{background-color: rgb(255,255,255);}
 
 div.con_wrap{
     position: absolute;
@@ -38,6 +64,7 @@ div.con_wrap div.content{
     width: 100%;
     min-width: 950px;
     padding: 30px;
+    padding-top: 100px;
 }
 div.new_bord div.table_wrap{padding-top: 30px;}
 div.new_bord div.filters b{margin-left: 10px;}
@@ -45,6 +72,8 @@ div.new_bord div.filters select {float: right; vertical-align: middle; width: 13
 div.new_bord table{margin-top:20px;width: 100%; }
 div.new_bord table tr{height: 70px; line-height: 70px; text-align: center;}
 div.new_bord table thead tr{height: 40px; line-height: 40px; background-color: #d0d0d0;}
+div.new_bord table thead tr td{border-top:1px solid #222; border-bottom: 1px solid #222; background-color: #f0f0f0;}
+
 div.new_bord table tbody tr{border-bottom: 1px solid #d0d0d0;}
 div.new_bord table tr td:nth-child(1){width: 10%;}
 div.new_bord table tr td:nth-child(2){width: 10%;}
@@ -52,3 +81,8 @@ div.new_bord table tr td:nth-child(3){width: 10%;}
 div.new_bord table tr td:nth-child(4){width: 60%;}
 div.new_bord table tr td:nth-child(5){width: 10%;}
 
+.page{clear:both; margin:30px auto 10px auto; text-align:center}
+.page span{cursor: pointer; display:inline-block; border:1px solid #dfdfdf; width:40px; height:40px; line-height:40px; background:#fff; margin: 2px;}
+.page span.on{border:1px solid #d90125; color:#d90125;}
+.page span:hover{border:1px solid #d90125; color:#d90125;}
+.page span.none{pointer-events:none; opacity:0.3}
