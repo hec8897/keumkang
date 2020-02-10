@@ -1,5 +1,5 @@
-Vue.component('news-bord',{
-    template:`<div class='table_wrap'>
+Vue.component('news-bord', {
+    template: `<div class='table_wrap'>
                 <div class='filters'>
                     <span>총 게시물수</span><b>{{this.results.length}}건</b>
                     <select v-on:change="searchCate($event)">
@@ -33,233 +33,260 @@ Vue.component('news-bord',{
                 <list-number v-bind:nowpage = 'this.limit-10' v-bind:DataLength='Math.ceil((this.results.length)/10)'></list-number>
 
             </div>`,
-            data(){
-                return{
-                    lists:Array,
-                    results:Array,
-                    start:0,
-                    limit:10
-                }
+    data() {
+        return {
+            lists: Array,
+            results: Array,
+            start: 0,
+            limit: 10
+        }
+    },
+    created() {
+        // db에서 가져온데이터를 this.lists에 담아야함
+        this.lists = [{
+                idx: 0,
+                img: "",
+                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
+                join: 340,
+                cate: "삼성"
             },
-            created(){
-                // db에서 가져온데이터를 this.lists에 담아야함
-                this.lists = [
-                    {
-                        idx:0,
-                        img:"",
-                        title:'천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                        join:340,
-                        cate:"삼성"
-                    },
-                    {
-                        idx:1,
-                        img:"",
-                        title:"인천 검단산업단지 안동포사거리 지하차도 착공",
-                        join:340,
-                        cate:"천안"
-                    },
-                    {
-                        idx:1,
-                        img:"",
-                        title:"인천 검단산업단지 안동포사거리 지하차도",
-                        join:340,
-                        cate:"부동산"
-                    },
-                    {
-                        idx:0,
-                        img:"",
-                        title:'천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                        join:340,
-                        cate:"삼성"
-                    },
-                    {
-                        idx:1,
-                        img:"",
-                        title:"인천 검단산업단지 안동포사거리 지하차도 착공",
-                        join:340,
-                        cate:"천안"
-                    },
-                    {
-                        idx:1,
-                        img:"",
-                        title:"인천 검단산업단지 안동포사거리 지하차도",
-                        join:340,
-                        cate:"부동산"
-                    },
-                    {
-                        idx:0,
-                        img:"",
-                        title:'천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                        join:340,
-                        cate:"삼성"
-                    },
-                    {
-                        idx:1,
-                        img:"",
-                        title:"인천 검단산업단지 안동포사거리 지하차도 착공",
-                        join:340,
-                        cate:"천안"
-                    },
-                    {
-                        idx:1,
-                        img:"",
-                        title:"인천 검단산업단지 안동포사거리 지하차도",
-                        join:340,
-                        cate:"부동산"
-                    },
-                    {
-                        idx:0,
-                        img:"",
-                        title:'천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                        join:340,
-                        cate:"삼성"
-                    },
-                    {
-                        idx:1,
-                        img:"",
-                        title:"인천 검단산업단지 안동포사거리 지하차도 착공",
-                        join:340,
-                        cate:"천안"
-                    },
-                    {
-                        idx:1,
-                        img:"",
-                        title:"인천 검단산업단지 안동포사거리 지하차도",
-                        join:340,
-                        cate:"부동산"
-                    },
-                    {
-                        idx:0,
-                        img:"",
-                        title:'천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                        join:340,
-                        cate:"삼성"
-                    },
-                    {
-                        idx:1,
-                        img:"",
-                        title:"인천 검단산업단지 안동포사거리 지하차도 착공",
-                        join:340,
-                        cate:"천안"
-                    },
-                    {
-                        idx:1,
-                        img:"",
-                        title:"인천 검단산업단지 안동포사거리 지하차도",
-                        join:340,
-                        cate:"부동산"
-                    },
-                    {
-                        idx:0,
-                        img:"",
-                        title:'천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                        join:340,
-                        cate:"삼성"
-                    },
-                    {
-                        idx:1,
-                        img:"",
-                        title:"인천 검단산업단지 안동포사거리 지하차도 착공",
-                        join:340,
-                        cate:"천안"
-                    },
-                    {
-                        idx:1,
-                        img:"",
-                        title:"인천 검단산업단지 안동포사거리 지하차도",
-                        join:340,
-                        cate:"부동산"
-                    },
-                    {
-                        idx:0,
-                        img:"",
-                        title:'천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                        join:340,
-                        cate:"삼성"
-                    },
-                    {
-                        idx:1,
-                        img:"",
-                        title:"인천 검단산업단지 안동포사거리 지하차도 착공",
-                        join:340,
-                        cate:"천안"
-                    },
-                    {
-                        idx:1,
-                        img:"",
-                        title:"인천 검단산업단지 안동포사거리 지하차도",
-                        join:340,
-                        cate:"부동산"
-                    },   {
-                        idx:0,
-                        img:"",
-                        title:'천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                        join:340,
-                        cate:"삼성"
-                    },
-                    {
-                        idx:1,
-                        img:"",
-                        title:"인천 검단산업단지 안동포사거리 지하차도 착공",
-                        join:340,
-                        cate:"천안"
-                    },
-                    {
-                        idx:1,
-                        img:"",
-                        title:"인천 검단산업단지 안동포사거리 지하차도",
-                        join:340,
-                        cate:"부동산"
-                    },
-                    {
-                        idx:0,
-                        img:"",
-                        title:'천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                        join:340,
-                        cate:"삼성"
-                    },
-                    {
-                        idx:1,
-                        img:"",
-                        title:"인천 검단산업단지 안동포사거리 지하차도 착공",
-                        join:340,
-                        cate:"천안"
-                    },
-                    {
-                        idx:1,
-                        img:"",
-                        title:"인천 검단산업단지 안동포사거리 지하차도",
-                        join:340,
-                        cate:"부동산"
-                    }
-                ]
-                
+            {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
+                join: 340,
+                cate: "천안"
+            }, {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
+                join: 340,
+                cate: "천안"
+            }, {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
+                join: 340,
+                cate: "천안"
+            }, {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
+                join: 340,
+                cate: "천안"
             },
-            mounted() {
+            {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도",
+                join: 340,
+                cate: "부동산"
+            },
+            {
+                idx: 0,
+                img: "",
+                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
+                join: 340,
+                cate: "삼성"
+            },
+            {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
+                join: 340,
+                cate: "천안"
+            },
+            {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도",
+                join: 340,
+                cate: "부동산"
+            },
+            {
+                idx: 0,
+                img: "",
+                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
+                join: 340,
+                cate: "삼성"
+            },
+            {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
+                join: 340,
+                cate: "천안"
+            },
+            {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도",
+                join: 340,
+                cate: "부동산"
+            },
+            {
+                idx: 0,
+                img: "",
+                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
+                join: 340,
+                cate: "삼성"
+            },
+            {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
+                join: 340,
+                cate: "천안"
+            },
+            {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도",
+                join: 340,
+                cate: "부동산"
+            },
+            {
+                idx: 0,
+                img: "",
+                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
+                join: 340,
+                cate: "삼성"
+            },
+            {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
+                join: 340,
+                cate: "천안"
+            },
+            {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도",
+                join: 340,
+                cate: "부동산"
+            },
+            {
+                idx: 0,
+                img: "",
+                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
+                join: 340,
+                cate: "삼성"
+            },
+            {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
+                join: 340,
+                cate: "천안"
+            },
+            {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도",
+                join: 340,
+                cate: "부동산"
+            },
+            {
+                idx: 0,
+                img: "",
+                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
+                join: 340,
+                cate: "삼성"
+            },
+            {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
+                join: 340,
+                cate: "천안"
+            },
+            {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도",
+                join: 340,
+                cate: "부동산"
+            }, {
+                idx: 0,
+                img: "",
+                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
+                join: 340,
+                cate: "삼성"
+            },
+            {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
+                join: 340,
+                cate: "천안"
+            },
+            {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도",
+                join: 340,
+                cate: "부동산"
+            },
+            {
+                idx: 0,
+                img: "",
+                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
+                join: 340,
+                cate: "삼성"
+            },
+            {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
+                join: 340,
+                cate: "천안"
+            },
+            {
+                idx: 1,
+                img: "",
+                title: "인천 검단산업단지 안동포사거리 지하차도",
+                join: 340,
+                cate: "부동산"
+            }
+        ]
+
+    },
+    mounted() {
+        this.results = this.lists;
+        eventBus.$emit('UpdateList', {
+            DataLength: Math.ceil((this.results.length) / 10),
+            nowpage: this.limit - 10
+        })
+
+        eventBus.$on('NextPage', (Data) => {
+            this.start = Data * 10;
+            this.limit = (Data * 10) + 10
+        })
+    },
+    methods: {
+        searchCate(event) {
+            const lists = this.lists;
+            const targetData = event.target.value;
+
+            const result = lists.filter((x) => {
+                return x.cate == targetData
+            })
+
+            this.results = result;
+            if (targetData == '전체') {
                 this.results = this.lists;
-                eventBus.$emit('UpdateList', {
-                    DataLength: Math.ceil((this.results.length) / 10),
-                    nowpage: this.limit - 10
-                })
-                eventBus.$on('NextPage', (Data) => {
-                    this.start = Data * 10;
-                    this.limit = (Data * 10) + 10
-                })  
-            },
-            methods: {
-                searchCate(event){
-                    const lists = this.lists;
-                    const targetData = event.target.value;
+            }
+            this.start = 0;
+            this.limit = 10;
 
-                    const result = lists.filter((x)=>{
-                        return x.cate == targetData
-                    })
 
-                    this.results = result;
-                    if(targetData == '전체'){
-                        this.results = this.lists;
-                    }
-                }
+            eventBus.$emit('UpdateList', {
                 
-            },
+                DataLength: Math.ceil((this.results.length) / 10),
+                nowpage: this.limit - 10
+            })
+        }
+
+    },
 })
