@@ -258,7 +258,6 @@ Vue.component('news-bord', {
             DataLength: Math.ceil((this.results.length) / 10),
             nowpage: this.limit - 10
         })
-
         eventBus.$on('NextPage', (Data) => {
             this.start = Data * 10;
             this.limit = (Data * 10) + 10
@@ -268,7 +267,6 @@ Vue.component('news-bord', {
         searchCate(event) {
             const lists = this.lists;
             const targetData = event.target.value;
-
             const result = lists.filter((x) => {
                 return x.cate == targetData
             })
@@ -277,12 +275,10 @@ Vue.component('news-bord', {
             if (targetData == '전체') {
                 this.results = this.lists;
             }
+
             this.start = 0;
             this.limit = 10;
-
-
             eventBus.$emit('UpdateList', {
-                
                 DataLength: Math.ceil((this.results.length) / 10),
                 nowpage: this.limit - 10
             })
