@@ -8,7 +8,7 @@ const NewsBord = {
         </div>
     </div>`,
     components:{
-        'news-bord':newsTable
+        'news-bord' : newsTable
     }
     // components:{
         // 'news-bord':newsTable

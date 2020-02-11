@@ -27,7 +27,10 @@ const newsTable = {
                         <router-link class='new_view_tr' tag='tr' v-for='(result,i) in results' v-bind:to = "'/newsbord/newbordview/'+result.idx" v-if='i < limit && i >= start'>
                             <td>{{i+1}}</td>
                             <td>{{result.cate}}</td>
-                            <td>{{result.img}}</td>
+                            <td>
+                                <img v-bind:src='result.img' v-if="result.img!=''" alt='미리보기'>
+                                <img src='images/dev_img2.png' v-else alt='미리보기'>
+                            </td>
                             <td>{{result.title}}</td>
                             <td>{{result.join}}</td>
                         </router-link>
@@ -54,19 +57,24 @@ const newsTable = {
     created() {
 
         // db에서 가져온데이터를 this.lists에 담아야함
-        this.lists = [{
+        this.lists = [
+            {
                 idx: 0,
                 img: "",
                 title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
                 join: 340,
-                cate: "삼성"
+                cate: "삼성",
+                img: "images/dev_img.png"
+
             },
             {
                 idx: 1,
                 img: "",
                 title: "인천 검단산업단지 안동포사거리 지하차도 착공",
                 join: 340,
-                cate: "천안"
+                cate: "천안",
+                img: "images/dev_img.png"
+
             }, {
                 idx: 1,
                 img: "",

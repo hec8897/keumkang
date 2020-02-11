@@ -30,7 +30,7 @@ const NavComponent = {
                             보도자료
                         </router-link>
 
-                        <router-link tag='li' to='/Consul'>
+                        <router-link tag='li' to='/consul'>
                             <b class="caret fr"></b>
                             상담신청
                         </router-link>
