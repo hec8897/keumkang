@@ -1,10 +1,8 @@
 import HeaderComponent from './glc/header.js';
 import NavComponent from './glc/nav.js';
-
 import NewsBord from './loc/newsbord/newsbord.js';
 import NewsView from './loc/newsbord/newview.js';
 import newsTable from './loc/newsbord/news-table.js';
-
 import Consul from './loc/cosul/consul.js';
 import ConsulView from './loc/cosul/consul-view.js';
 

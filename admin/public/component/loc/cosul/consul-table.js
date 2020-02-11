@@ -55,7 +55,7 @@ const ConsulView = {
     },
 
     created() {
-        this.results = [
+        this.lists = [
             {
                 idx:0,
                 cate:'삼성',
@@ -79,7 +79,7 @@ const ConsulView = {
 
     },
     mounted() {
-        // this.results = this.lists;
+        this.results = this.lists;
         eventBus.$emit('UpdateList', {
             DataLength: Math.ceil((this.results.length) / 10),
             nowpage: this.limit - 10

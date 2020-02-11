@@ -12,13 +12,9 @@ const NavComponent = {
 
                         <router-link tag='li' to='/2'>
                             <b class="caret fr"></b>
-                            엑셀파일 관리
+                            엑셀파일 관리/입주의향서
                         </router-link>
 
-                        <router-link tag='li' to='/3'>
-                            <b class="caret fr"></b>
-                            입주의향서
-                        </router-link>
 
                         <router-link tag='li' to='/4'>
                             <b class="caret fr"></b>
