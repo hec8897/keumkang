@@ -7,26 +7,27 @@ import newsTable from './loc/newsbord/news-table.js';
 
 
 const router = new VueRouter({
-  routes: [
-    {
+  routes: [{
       path: '/newsbord',
-          component: NewsBord,
-          children:[
-            {path:'/newbordview:id',component:NewsView,props:true}
-          ]
-      },
-      {
-        path: '/consul',
-        component: Consul,
+      component: NewsBord,
+    },
+    {
+      path: '/newsbord/newbordview/:id',
+      component: NewsView,
+      props:true
+    },
+    {
+      path: '/consul',
+      component: Consul,
     }
   ]
 })
 
-const app = new Vue({
+new Vue({
   router,
-    components: {
-      'component-header': HeaderComponent,
-      'component-nav':NavComponent,
-      'news-bord':newsTable
-      }
+  components: {
+    'component-header': HeaderComponent,
+    'component-nav': NavComponent,
+    'news-bord': newsTable
+  }
 }).$mount('#app')

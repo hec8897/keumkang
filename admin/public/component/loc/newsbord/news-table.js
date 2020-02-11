@@ -34,6 +34,9 @@ const newsTable = {
                     </tbody>
                 </table>
                 <list-number v-bind:nowpage = 'this.limit-10' v-bind:DataLength='Math.ceil((this.results.length)/10)'></list-number>
+                <div class="foot_btn">
+                    <router-link to='newsbord/newbordview/new' class="b_add b_blue">등록</router-link>
+                </div>
 
             </div>`,
     components: {
