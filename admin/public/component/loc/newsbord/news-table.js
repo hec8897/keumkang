@@ -1,4 +1,8 @@
-Vue.component('news-bord', {
+import ListNumber from '../../glc/list-numbering.js';
+import eventBus from '../../glc/eventbus.js'
+
+
+const newsTable = {
     template: `<div class='table_wrap'>
                 <div class='filters'>
                     <span>총 게시물수</span><b>{{this.results.length}}건</b>
@@ -8,7 +12,6 @@ Vue.component('news-bord', {
                         <option value='천안'>천안</option>
                         <option value='부동산'>부동산</option>
                     </select>
-
                 </div>
                 <table>
                     <thead>
@@ -33,6 +36,9 @@ Vue.component('news-bord', {
                 <list-number v-bind:nowpage = 'this.limit-10' v-bind:DataLength='Math.ceil((this.results.length)/10)'></list-number>
 
             </div>`,
+    components: {
+        'list-number': ListNumber,
+    },
     data() {
         return {
             lists: Array,
@@ -41,7 +47,9 @@ Vue.component('news-bord', {
             limit: 10
         }
     },
+
     created() {
+
         // db에서 가져온데이터를 this.lists에 담아야함
         this.lists = [{
                 idx: 0,
@@ -284,5 +292,7 @@ Vue.component('news-bord', {
             })
         }
 
-    },
-})
+    }
+}
+
+export default newsTable;

@@ -1,4 +1,4 @@
-const Nav = {
+const NavComponent = {
     template: `<nav>
                     <ul>
                         <router-link tag='li' to='/0'>
@@ -43,3 +43,5 @@ const Nav = {
     }
 
 }
+
+export default NavComponent;

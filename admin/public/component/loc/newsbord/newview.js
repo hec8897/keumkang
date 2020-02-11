@@ -1,4 +1,3 @@
-
 const NewsView = {
     template:`
     <div class="con_wrap">
@@ -8,3 +7,4 @@ const NewsView = {
     </div>`,
 }
 
+export default NewsView;

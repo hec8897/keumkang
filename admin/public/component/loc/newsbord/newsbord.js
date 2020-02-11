@@ -1,4 +1,4 @@
-
+import newsTable from './news-table.js';
 const NewsBord = {
     template:`
     <div class="con_wrap">
@@ -7,5 +7,14 @@ const NewsBord = {
                 <news-bord></news-bord>
         </div>
     </div>`,
+    components:{
+        'news-bord':newsTable
+    }
+    // components:{
+        // 'news-bord':newsTable
+    // }
 }
+
+export default NewsBord;
+
 

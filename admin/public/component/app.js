@@ -1,7 +1,15 @@
+import HeaderComponent from './glc/header.js';
+import NavComponent from './glc/nav.js';
+import Consul from './loc/cosul/consul.js';
+import NewsBord from './loc/newsbord/newsbord.js';
+import NewsView from './loc/newsbord/newview.js';
+import newsTable from './loc/newsbord/news-table.js';
+
+
 const router = new VueRouter({
   routes: [
-      {
-          path: '/newsbord',
+    {
+      path: '/newsbord',
           component: NewsBord,
           children:[
             {path:'/newbordview:id',component:NewsView,props:true}
@@ -13,12 +21,12 @@ const router = new VueRouter({
     }
   ]
 })
-const eventBus = new Vue();
 
 const app = new Vue({
-    router,
+  router,
     components: {
-        'component-header': header,
-        'component-nav':Nav
+      'component-header': HeaderComponent,
+      'component-nav':NavComponent,
+      'news-bord':newsTable
       }
 }).$mount('#app')

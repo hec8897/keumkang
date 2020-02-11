@@ -1,7 +1,7 @@
-// 리스트 넘버링 컴포넌트
-//DataLegnth
 
-Vue.component('list-number', {
+import eventBus from './eventbus.js'
+
+const listNumber = {
     props: ['DataLength','nowpage'],
     template: `<div class="page">
                 <span class="none" v-if="start === 1"><i class="material-icons vam">navigate_before</i></span>
@@ -23,6 +23,7 @@ Vue.component('list-number', {
         }
     },
     created(){
+
         this.thisNumber = this.DataLength
         if(this.DataLength <= 10){
             this.limit = this.DataLength
@@ -110,4 +111,6 @@ Vue.component('list-number', {
 
     }
   
-})
+}
+
+export default listNumber;

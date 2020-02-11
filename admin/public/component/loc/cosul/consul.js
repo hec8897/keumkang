@@ -1,4 +1,3 @@
-
 const Consul = {
     template:`
     <div class="con_wrap">
@@ -11,3 +10,4 @@ const Consul = {
     </div>`,
 }
 
+export default Consul;
