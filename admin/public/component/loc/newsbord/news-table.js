@@ -1,7 +1,6 @@
 import ListNumber from '../../glc/list-numbering.js';
 import eventBus from '../../glc/eventbus.js'
 
-
 const newsTable = {
     template: `<div class='table_wrap'>
                 <div class='filters'>
@@ -53,9 +52,7 @@ const newsTable = {
             limit: 10
         }
     },
-
     created() {
-
         // db에서 가져온데이터를 this.lists에 담아야함
         this.lists = [
             {
@@ -269,7 +266,6 @@ const newsTable = {
                 cate: "부동산"
             }
         ]
-
     },
     mounted() {
         this.results = this.lists;
@@ -289,12 +285,10 @@ const newsTable = {
             const result = lists.filter((x) => {
                 return x.cate == targetData
             })
-
             this.results = result;
             if (targetData == '전체') {
                 this.results = this.lists;
             }
-
             this.start = 0;
             this.limit = 10;
             eventBus.$emit('UpdateList', {
