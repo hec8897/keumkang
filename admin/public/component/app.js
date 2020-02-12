@@ -1,3 +1,4 @@
+
 import HeaderComponent from './glc/header.js';
 import NavComponent from './glc/nav.js';
 import NewsBord from './loc/newsbord/newsbord.js';
@@ -8,8 +9,7 @@ import ConsulView from './loc/cosul/consul-view.js';
 import userMain from './loc/user/user.main.js'
 import shareConsulView from './loc/cosul/consil-table-share'
 import Login from './loc/login/login_page'
-
-
+import 'es6-promise/auto'
 const router = new VueRouter({
 
   routes: [{
