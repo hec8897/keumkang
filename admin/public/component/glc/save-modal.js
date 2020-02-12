@@ -5,8 +5,7 @@ const saveModal = {
                 <div class="alert">
                     <div class="alert_con">
                         <i class="material-icons blue">error_outline</i>
-                        <p v-if="mode==='new'">보도자료를 등록 하시겠습니까?</p>
-                        <p v-else>보도자료를 수정 하시겠습니까?</p>
+                        <p>{{ment}}</p>
                     </div>
                     <div class="modal_foot">
                         <span class="b_blue">확인</span>
@@ -18,16 +17,24 @@ const saveModal = {
         return {
             idx: null,
             Data:null,
-            mode:null
+            mode:null,
+            ment:"보도자료를 등록 하시겠습니까?"
         }
     },
     mounted(){
-        eventBus.$on('updateNews',(Data)=>{
-            this.mode = 'update'
-        })
         eventBus.$on('new',(Data)=>{
+            this.ment = '보도자료를 등록 하시겠습니까?'
             this.mode = 'new'
         })
+        eventBus.$on('updateNews',(Data)=>{
+            this.ment = '보도자료를 수정 하시겠습니까?'
+            this.mode = 'update'
+        })
+        eventBus.$on('account_use',(Data)=>{
+            this.ment = '계정 사용을 승인합니다'
+            this.mode = 'acc'
+        })
+       
 
     },
 

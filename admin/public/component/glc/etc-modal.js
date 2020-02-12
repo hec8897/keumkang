@@ -1,0 +1,66 @@
+import eventBus from './eventbus.js';
+
+const etcModal = {
+    template: `<div class="pop-window fade" id="modal-etc">
+                <div class="alert">
+                    <div class="alert_con">
+                        <i class="material-icons blue">error_outline</i>
+                        <p>패스워드 변경</p>
+                        <ul class='inputs'>
+                            <form>
+                            <li>
+                                <input type='password' id='reqpassword' placeholder='변경하실 패스워드'>
+                            </li>
+                            <li>
+                                <input type='password' id='reqpassword_re' placeholder='변경하실 패스워드 확인'>
+                            </li>
+                            </form>
+                        </ul>
+                    </div>
+
+                    <div class="modal_foot">
+                        <span class="b_blue" @click='PostData'>확인</span>
+                        <span v-on:click='ModalClose' class="b_sgrey">취소</span>
+                    </div>
+                </div>
+            </div>`,
+    data() {
+        return {
+            idx: null,
+            Data: null,
+            mode: null
+        }
+    },
+    mounted() {
+
+
+    },
+
+    methods: {
+        ModalClose() {
+            const Modal = document.getElementById('modal-etc')
+            Modal.style.opacity = '0';
+
+            setTimeout(() => {
+                Modal.style.display = 'none';
+            }, 100);
+        },
+        PostData(a) {
+            const reqPassword = document.getElementById('reqpassword')
+            const reqPasswordRe = document.getElementById('reqpassword_re')
+            if (reqPassword.value == reqPasswordRe.value) {
+                console.log('일치2')
+            } else {
+                console.log('불일치')
+            }
+            // if(this.mode == 'user'){
+            //     eventBus.$on('idx',(Data)=>{
+            //         this.Data = Data.Data
+            //     })
+            // }
+        },
+
+    }
+}
+
+export default etcModal;2

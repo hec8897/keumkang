@@ -2,10 +2,14 @@ import ListNumber from '../../glc/list-numbering.js';
 import eventBus from '../../glc/eventbus.js'
 
 
-const ConsulView = {
-    template: `<div class='table_wrap consul_wrap'>
+const shareConsulView = {
+    template: `
+        <div class="con_wrap">
+        <div class='content consul_bord'>
+            <h2>배정된상담신청</h2>
+    <div class='table_wrap consul_wrap'>
                 <div class='filters'>
-                    <span>상담신청 건</span><b>{{this.results.length}}건</b>
+                    <span>배정자료</span><b>{{this.results.length}}건</b>
                     <select v-on:change="searchCate($event)">
                         <option value='전체'>전체</option>
                         <option value='삼성'>삼성</option>
@@ -13,7 +17,6 @@ const ConsulView = {
                         <option value='부동산'>부동산</option>
                     </select>
 
-                    <span class='share_btn b_blue'>상담사 배정</span>
 
                 </div>
                 <table class='consul_tb'>
@@ -41,7 +44,11 @@ const ConsulView = {
                     </tbody>
                 </table>
                 <list-number v-bind:nowpage = 'this.limit-10' v-bind:DataLength='Math.ceil((this.results.length)/10)'></list-number>
-            </div>`,
+            </div>
+            <div>
+            </div>
+        </div>
+    </div>`,
     components: {
         'list-number': ListNumber,
     },
@@ -55,27 +62,26 @@ const ConsulView = {
     },
 
     created() {
-        this.lists = [
-            {
-                idx:0,
-                cate:'삼성',
-                reqName:'개발자',
-                reqPhone:'01023866487',
-                Class:"금강",
-                Cflag:'김다우'
+        this.lists = [{
+                idx: 0,
+                cate: '삼성',
+                reqName: '개발자',
+                reqPhone: '01023866487',
+                Class: "금강",
+                Cflag: '김다우'
             },
             {
-                idx:0,
-                cate:'삼성',
-                reqName:'개발자',
-                reqPhone:'01023866487',
-                Class:"금강",
-                Cflag:'김다우'
+                idx: 0,
+                cate: '삼성',
+                reqName: '개발자',
+                reqPhone: '01023866487',
+                Class: "금강",
+                Cflag: '김다우'
             }
         ]
 
         // db에서 가져온데이터를 this.lists에 담아야함
-      
+
 
     },
     mounted() {
@@ -113,4 +119,4 @@ const ConsulView = {
     }
 }
 
-export default ConsulView;
+export default shareConsulView;

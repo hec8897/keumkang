@@ -102,6 +102,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _loc_newsbord_news_table_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./loc/newsbord/news-table.js */ "./public/component/loc/newsbord/news-table.js");
 /* harmony import */ var _loc_cosul_consul_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./loc/cosul/consul.js */ "./public/component/loc/cosul/consul.js");
 /* harmony import */ var _loc_cosul_consul_view_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./loc/cosul/consul-view.js */ "./public/component/loc/cosul/consul-view.js");
+/* harmony import */ var _loc_user_user_main_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./loc/user/user.main.js */ "./public/component/loc/user/user.main.js");
+/* harmony import */ var _loc_cosul_consil_table_share__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./loc/cosul/consil-table-share */ "./public/component/loc/cosul/consil-table-share.js");
+
+
 
 
 
@@ -112,7 +116,13 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const router = new VueRouter({
-  routes: [{
+  
+  routes: [
+    {
+      path:'/userview',
+      component:_loc_user_user_main_js__WEBPACK_IMPORTED_MODULE_7__["default"]
+    },
+    {
       path: '/newsbord',
       component: _loc_newsbord_newsbord_js__WEBPACK_IMPORTED_MODULE_2__["default"],
     },
@@ -120,10 +130,15 @@ const router = new VueRouter({
       path: '/newsbord/newbordview/:idx',
       component: _loc_newsbord_newview_js__WEBPACK_IMPORTED_MODULE_3__["default"],
       props: true
+      
     },
     {
       path: '/consul',
       component: _loc_cosul_consul_js__WEBPACK_IMPORTED_MODULE_5__["default"],
+    },
+    {
+      path: '/cflag',
+      component:_loc_cosul_consil_table_share__WEBPACK_IMPORTED_MODULE_8__["default"]
     },
     {
       path: '/consul/consulview/:idx',
@@ -157,14 +172,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _eventbus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./eventbus.js */ "./public/component/glc/eventbus.js");
 
 
-const DelteModal =  {
-    props:['tb'],
+const DelteModal = {
+    props: ['tb'],
     template: `<div class="pop-window fade" id="modal-del">
                 <div class="alert">
                     <div class="alert_con">
                         <i class="material-icons red">error_outline</i>
-                        <p>정말로 삭제 하시겠습니까?</p>
-                            <p>(삭제후엔 복구가 불가능합니다)</p>
+                        <p>{{ment}}</p>
+                        <p>{{ment2}}</p>
                     </div>
                     <div class="modal_foot">
                         <span  class="b_red">확인</span>
@@ -172,31 +187,47 @@ const DelteModal =  {
                     </div>
                 </div>
             </div>`,
-    data(){
-        return{
-            idx:null,
-            thisTarget:null,
-            Data:null
+    data() {
+        return {
+            idx: null,
+            thisTarget: null,
+            Data: null,
+            ment: '정말로 삭제 하시겠습니까?',
+            ment2:'(삭제후엔 복구가 불가능합니다)'
         }
     },
-    created(){
-        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('News',(Data)=>{
+    created() {
+        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('News', (Data) => {
+            this.ment = '보도자료를 삭제합니다'
             console.log(Data)
         })
-        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('consul',(Data)=>{
-            console.log('상담신청삭제'+Data)
+        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('consul', (Data) => {
+            this.ment = '상담내역을 삭제합니다'
+            console.log('상담신청삭제' + Data)
         })
-        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('NewsImg',(Data)=>{
-            console.log('이미지삭제'+Data)
+        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('NewsImg', (Data) => {
+            this.ment = '메인 이미지를 삭제합니다'
+            console.log('이미지삭제' + Data)
+        })
+        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('account_del', (Data) => {
+            this.ment = '사용자 계정을 삭제합니다'
+
+            console.log('사용자계정 삭제' + Data)
+        })
+        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('account_use', (Data) => {
+            this.ment = '사용자 계정 접근을 중단합니다'
+            this.ment2 = ''
+
+            console.log('사용자 계정 비승인' + Data)
         })
     },
-    methods:{
+    methods: {
         ModalClose() {
             const Modal = document.getElementById('modal-del')
-            Modal.style.opacity='0';
+            Modal.style.opacity = '0';
 
             setTimeout(() => {
-                Modal.style.display='none';
+                Modal.style.display = 'none';
             }, 100);
         }
 
@@ -204,6 +235,85 @@ const DelteModal =  {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (DelteModal);
+
+/***/ }),
+
+/***/ "./public/component/glc/etc-modal.js":
+/*!*******************************************!*\
+  !*** ./public/component/glc/etc-modal.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _eventbus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./eventbus.js */ "./public/component/glc/eventbus.js");
+
+
+const etcModal = {
+    template: `<div class="pop-window fade" id="modal-etc">
+                <div class="alert">
+                    <div class="alert_con">
+                        <i class="material-icons blue">error_outline</i>
+                        <p>패스워드 변경</p>
+                        <ul class='inputs'>
+                            <form>
+                            <li>
+                                <input type='password' id='reqpassword' placeholder='변경하실 패스워드'>
+                            </li>
+                            <li>
+                                <input type='password' id='reqpassword_re' placeholder='변경하실 패스워드 확인'>
+                            </li>
+                            </form>
+                        </ul>
+                    </div>
+
+                    <div class="modal_foot">
+                        <span class="b_blue" @click='PostData'>확인</span>
+                        <span v-on:click='ModalClose' class="b_sgrey">취소</span>
+                    </div>
+                </div>
+            </div>`,
+    data() {
+        return {
+            idx: null,
+            Data: null,
+            mode: null
+        }
+    },
+    mounted() {
+
+
+    },
+
+    methods: {
+        ModalClose() {
+            const Modal = document.getElementById('modal-etc')
+            Modal.style.opacity = '0';
+
+            setTimeout(() => {
+                Modal.style.display = 'none';
+            }, 100);
+        },
+        PostData(a) {
+            const reqPassword = document.getElementById('reqpassword')
+            const reqPasswordRe = document.getElementById('reqpassword_re')
+            if (reqPassword.value == reqPasswordRe.value) {
+                console.log('일치2')
+            } else {
+                console.log('불일치')
+            }
+            // if(this.mode == 'user'){
+            //     eventBus.$on('idx',(Data)=>{
+            //         this.Data = Data.Data
+            //     })
+            // }
+        },
+
+    }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (etcModal);2
 
 /***/ }),
 
@@ -387,9 +497,23 @@ __webpack_require__.r(__webpack_exports__);
 const NavComponent = {
     template: `<nav>
                     <ul>
-                        <router-link tag='li' to='/0'>
+                        
+                    <router-link tag='li' to='/consul'>
+                            <b class="caret fr"></b>
+                            상담신청
+                        </router-link>
+                        
+                        <router-link tag='li' to='/cflag'>
+                            <b class="caret fr"></b>
+                            배정받은상담
+                        </router-link>
+                        <router-link tag='li' to='/userview'>
                             <b class="caret fr"></b>
                             사용자관리
+                        </router-link>
+                        <router-link tag='li' to='/newsbord'>
+                            <b class="caret fr"></b>
+                            보도자료
                         </router-link>
                         <router-link tag='li' to='/1'>
                             <b class="caret fr"></b>
@@ -401,21 +525,13 @@ const NavComponent = {
                             엑셀파일 관리/입주의향서
                         </router-link>
 
-
                         <router-link tag='li' to='/4'>
                             <b class="caret fr"></b>
                             현장사진/드론영상
                         </router-link>
 
-                        <router-link tag='li' to='/newsbord'>
-                            <b class="caret fr"></b>
-                            보도자료
-                        </router-link>
+                  
 
-                        <router-link tag='li' to='/consul'>
-                            <b class="caret fr"></b>
-                            상담신청
-                        </router-link>
                     </ul>
                 </nav>`,
     data() {
@@ -447,8 +563,7 @@ const saveModal = {
                 <div class="alert">
                     <div class="alert_con">
                         <i class="material-icons blue">error_outline</i>
-                        <p v-if="mode==='new'">보도자료를 등록 하시겠습니까?</p>
-                        <p v-else>보도자료를 수정 하시겠습니까?</p>
+                        <p>{{ment}}</p>
                     </div>
                     <div class="modal_foot">
                         <span class="b_blue">확인</span>
@@ -460,16 +575,24 @@ const saveModal = {
         return {
             idx: null,
             Data:null,
-            mode:null
+            mode:null,
+            ment:"보도자료를 등록 하시겠습니까?"
         }
     },
     mounted(){
-        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('updateNews',(Data)=>{
-            this.mode = 'update'
-        })
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('new',(Data)=>{
+            this.ment = '보도자료를 등록 하시겠습니까?'
             this.mode = 'new'
         })
+        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('updateNews',(Data)=>{
+            this.ment = '보도자료를 수정 하시겠습니까?'
+            this.mode = 'update'
+        })
+        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('account_use',(Data)=>{
+            this.ment = '계정 사용을 승인합니다'
+            this.mode = 'acc'
+        })
+       
 
     },
 
@@ -518,6 +641,142 @@ const saveModal = {
 
 /***/ }),
 
+/***/ "./public/component/loc/cosul/consil-table-share.js":
+/*!**********************************************************!*\
+  !*** ./public/component/loc/cosul/consil-table-share.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _glc_list_numbering_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../glc/list-numbering.js */ "./public/component/glc/list-numbering.js");
+/* harmony import */ var _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../glc/eventbus.js */ "./public/component/glc/eventbus.js");
+
+
+
+
+const shareConsulView = {
+    template: `
+        <div class="con_wrap">
+        <div class='content consul_bord'>
+            <h2>배정된상담신청</h2>
+    <div class='table_wrap consul_wrap'>
+                <div class='filters'>
+                    <span>배정자료</span><b>{{this.results.length}}건</b>
+                    <select v-on:change="searchCate($event)">
+                        <option value='전체'>전체</option>
+                        <option value='삼성'>삼성</option>
+                        <option value='천안'>천안</option>
+                        <option value='부동산'>부동산</option>
+                    </select>
+
+
+                </div>
+                <table class='consul_tb'>
+                    <thead>
+                        <tr>
+                            <td></td>
+                            <td>번호</td>
+                            <td>분류</td>
+                            <td>고객명</td>
+                            <td>전화번호</td>
+                            <td>소속</td>
+                            <td>담당</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for='(result,i) in results' v-if='i < limit && i >= start'>
+                            <td><input type="checkbox" id="checkbox_1" value="" /></td>
+                            <router-link tag='td' class='tb_cursor' v-bind:to = "'consul/consulview/'+result.idx" >{{i+1}}</router-link>
+                            <router-link tag='td' class='tb_cursor' v-bind:to = "'consul/consulview/'+result.idx" >{{result.cate}}</router-link>
+                            <router-link tag='td' class='tb_cursor' v-bind:to = "'consul/consulview/'+result.idx" >{{result.reqName}}</router-link>
+                            <router-link tag='td' class='tb_cursor' v-bind:to = "'consul/consulview/'+result.idx" >{{result.reqPhone}}</router-link>
+                            <router-link tag='td' class='tb_cursor' v-bind:to = "'consul/consulview/'+result.idx" >{{result.Class}}</router-link>
+                            <router-link tag='td' class='tb_cursor' v-bind:to = "'consul/consulview/'+result.idx" >{{result.Cflag}}</router-link>
+                        </tr>
+                    </tbody>
+                </table>
+                <list-number v-bind:nowpage = 'this.limit-10' v-bind:DataLength='Math.ceil((this.results.length)/10)'></list-number>
+            </div>
+            <div>
+            </div>
+        </div>
+    </div>`,
+    components: {
+        'list-number': _glc_list_numbering_js__WEBPACK_IMPORTED_MODULE_0__["default"],
+    },
+    data() {
+        return {
+            lists: Array,
+            results: Array,
+            start: 0,
+            limit: 10
+        }
+    },
+
+    created() {
+        this.lists = [{
+                idx: 0,
+                cate: '삼성',
+                reqName: '개발자',
+                reqPhone: '01023866487',
+                Class: "금강",
+                Cflag: '김다우'
+            },
+            {
+                idx: 0,
+                cate: '삼성',
+                reqName: '개발자',
+                reqPhone: '01023866487',
+                Class: "금강",
+                Cflag: '김다우'
+            }
+        ]
+
+        // db에서 가져온데이터를 this.lists에 담아야함
+
+
+    },
+    mounted() {
+        this.results = this.lists;
+        _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('UpdateList', {
+            DataLength: Math.ceil((this.results.length) / 10),
+            nowpage: this.limit - 10
+        })
+        _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_1__["default"].$on('NextPage', (Data) => {
+            this.start = Data * 10;
+            this.limit = (Data * 10) + 10
+        })
+    },
+    methods: {
+        searchCate(event) {
+            const lists = this.lists;
+            const targetData = event.target.value;
+            const result = lists.filter((x) => {
+                return x.cate == targetData
+            })
+
+            this.results = result;
+            if (targetData == '전체') {
+                this.results = this.lists;
+            }
+
+            this.start = 0;
+            this.limit = 10;
+            _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('UpdateList', {
+                DataLength: Math.ceil((this.results.length) / 10),
+                nowpage: this.limit - 10
+            })
+        }
+
+    }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (shareConsulView);
+
+/***/ }),
+
 /***/ "./public/component/loc/cosul/consul-table.js":
 /*!****************************************************!*\
   !*** ./public/component/loc/cosul/consul-table.js ***!
@@ -536,7 +795,7 @@ __webpack_require__.r(__webpack_exports__);
 const ConsulView = {
     template: `<div class='table_wrap consul_wrap'>
                 <div class='filters'>
-                    <span>총 게시물수</span><b>{{this.results.length}}건</b>
+                    <span>상담신청 건</span><b>{{this.results.length}}건</b>
                     <select v-on:change="searchCate($event)">
                         <option value='전체'>전체</option>
                         <option value='삼성'>삼성</option>
@@ -1322,6 +1581,281 @@ const NewsView = {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (NewsView);
+
+/***/ }),
+
+/***/ "./public/component/loc/user/component/user_info.js":
+/*!**********************************************************!*\
+  !*** ./public/component/loc/user/component/user_info.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _glc_eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../glc/eventbus */ "./public/component/glc/eventbus.js");
+
+const userInfo = {
+    props:['userData','dataIndex'],
+    template:`
+    <tr class='user_info'>
+        <td><input type='checkbox' class='user_tool_check' v-on:click="PostDataUserTool($event,this.value)"></td>
+        <td>{{list.userName}}</td>
+        <td>{{list.userId}}</td>
+        <td>{{list.Class}}</td>
+        <td>{{list.userPhone}}</td>
+        <td>{{list.DataCount}}</td>
+        <td v-if="list.Activation === 1">정상</td>
+        <td v-else>비승인</td>
+    </tr>`,
+
+    data(){
+        return{
+            list:Array
+        }
+    },
+    created(){
+        this.list = this.userData;
+    },
+    methods:{
+        
+        PostDataUserTool(event,thisValue){
+            let CheckedValue = event.target.checked;
+            const userToolCheck = document.querySelectorAll('.user_tool_check')
+            if(CheckedValue == true){
+                _glc_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('GetUsertool', this.list)
+                for(let i = 0; i<userToolCheck.length; i++){
+                    userToolCheck[i].checked = false
+                }
+                event.target.checked = true
+            }
+
+        }
+
+    }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (userInfo);
+
+/***/ }),
+
+/***/ "./public/component/loc/user/component/user_tool.js":
+/*!**********************************************************!*\
+  !*** ./public/component/loc/user/component/user_tool.js ***!
+  \**********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _glc_eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../glc/eventbus */ "./public/component/glc/eventbus.js");
+/* harmony import */ var _glc_del_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../glc/del-modal */ "./public/component/glc/del-modal.js");
+/* harmony import */ var _glc_etc_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../glc/etc-modal */ "./public/component/glc/etc-modal.js");
+/* harmony import */ var _glc_save_modal__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../glc/save-modal */ "./public/component/glc/save-modal.js");
+
+
+
+
+
+
+const userTool = {
+    props:['userData'],
+    template:`<div class='user_tool'>
+        <del-modal></del-modal>
+        <etc-modal></etc-modal>
+        <save-modal></save-modal>
+        <h4>선택된데이터 </h4>
+        <ul>
+            <li>이름:  <span>{{list.userName}}</span></li>
+            <li>연락처 <span>{{list.userPhone}}</span></li>
+            <li>소속: <span>{{list.Class}}</span></li>
+            <li>아이디: <span>{{list.userId}}</span></li>
+            <li>상태: <span v-if="list.Activation === 1">정상</span><span v-else-if ="list.Activation===0">비승인</span></li>
+
+        </ul>
+        <div class='tb_box'>
+            <table>
+                <thead>
+                    <tr>
+                        <td>번호</td>
+                        <td>고객명</td>
+                        <td>연락처</td>
+                        <td>분류</td>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                        <td>성함</td>
+                        <td>성함</td>
+                        <td>성함</td>
+                        <td>성함</td>
+                    </tr>
+                    <tr>
+                        <td>성함</td>
+                        <td>성함</td>
+                        <td>성함</td>
+                        <td>성함</td>
+                    </tr>
+                    <tr>
+                        <td>성함</td>
+                        <td>성함</td>
+                        <td>성함</td>
+                        <td>성함</td>
+                    </tr>
+                    <tr>
+                        <td>성함</td>
+                        <td>성함</td>
+                        <td>성함</td>
+                        <td>성함</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class='btns'>
+            <span class='b_blue'@click="OpenEtcModal(this.idx,'account_del')">패스워드 변경</span>
+
+            <span class='b_red' v-if="list.Activation === 1" @click="OpenDelteModal(this.idx,'account_beactive')">계정 접속 제한</span>
+            <span class='b_blue' v-else-if ="list.Activation === 0" @click="OpenSaveModal(this.idx,'account_use')">계정 접속 승인</span>
+
+            <span class='b_red' @click="OpenDelteModal(this.idx,'account_del')">계정 삭제</span>
+
+        </div>
+
+    </div>`,
+    components:{
+        'del-modal':_glc_del_modal__WEBPACK_IMPORTED_MODULE_1__["default"],
+        'etc-modal':_glc_etc_modal__WEBPACK_IMPORTED_MODULE_2__["default"],
+        'save-modal':_glc_save_modal__WEBPACK_IMPORTED_MODULE_3__["default"]
+    },
+    data(){
+        return{
+            list:Array
+        }
+    },
+    created(){
+        _glc_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('GetUsertool', (Data)=>{
+            this.list = Data
+        })
+    },
+    methods:{
+        OpenSaveModal(Data, mode) {
+            if(this.list.length == 1){
+                alert('계정을 선택해주세요')
+            }
+            else{
+                const Modal = document.getElementById('modal-alert')
+                Modal.style.display = 'block';
+                setTimeout(() => {
+                    Modal.style.opacity = '1';
+                }, 100);
+                _glc_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit(mode, Data)
+            }
+        },
+        OpenDelteModal(Data, mode) {
+            if(this.list.length == 1){
+                alert('계정을 선택해주세요')
+            }
+            else{
+
+                const Modal = document.getElementById('modal-del')
+                Modal.style.display = 'block';
+                setTimeout(() => {
+                    Modal.style.opacity = '1';
+                }, 100);
+                _glc_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit(mode, Data)
+            }
+        },
+        OpenEtcModal(Data, mode) {
+            if(this.list.length == 1){
+                alert('계정을 선택해주세요')
+            }
+            else{
+                const Modal = document.getElementById('modal-etc')
+                Modal.style.display = 'block';
+                setTimeout(() => {
+                    Modal.style.opacity = '1';
+                }, 100);
+                _glc_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('changePw', this.list.idx)
+            }
+        }
+    }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (userTool);
+
+/***/ }),
+
+/***/ "./public/component/loc/user/user.main.js":
+/*!************************************************!*\
+  !*** ./public/component/loc/user/user.main.js ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component_user_info__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component/user_info */ "./public/component/loc/user/component/user_info.js");
+/* harmony import */ var _component_user_tool__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component/user_tool */ "./public/component/loc/user/component/user_tool.js");
+
+
+const userMain = {
+    template: `<div class="con_wrap">
+    <div class='content user_bord'>
+        <h2>사용자관리</h2>
+        <user-tool></user-tool>
+        <table class='user_tb'>
+        <thead>
+            <tr>
+                <td></td>
+                <td>이름</td>
+                <td>아이디</td>
+                <td>소속</td>
+                <td>연락처</td>
+                <td>배분건수</td>
+                <td>상태</td>
+            </tr>
+        </thead>
+        <tbody>
+        <user-info v-for = 'list in lists' v-bind:userData='list'></user-info>
+        </tbody>
+        </table>
+        <div>
+        </div>
+    </div>
+</div>`,
+    components: {
+        'user-info': _component_user_info__WEBPACK_IMPORTED_MODULE_0__["default"],
+        'user-tool':_component_user_tool__WEBPACK_IMPORTED_MODULE_1__["default"]
+    },
+    data(){
+        return{
+            lists:[
+                {
+                    idx:0,
+                    userId:'hec8897',
+                    userName:'김다운',
+                    userPhone:'01000000000',
+                    Class:'금강',
+                    DataCount:2,
+                    Activation:0
+                },
+                {
+                    idx:0,
+                    userId:'hec8897',
+                    userName:'김다운22',
+                    userPhone:'01000000000',
+                    Class:'금강',
+                    DataCount:2,
+                    Activation:1
+
+                }
+            ]
+        }
+    }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (userMain);
+
 
 /***/ })
 
