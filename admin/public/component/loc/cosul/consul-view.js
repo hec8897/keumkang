@@ -48,20 +48,30 @@ const ConsulView = {
     },
     data() {
         return {
-            list: {
-                idx: 0,
-                cate: '삼성',
-                InsertDate: '2020-02-11',
-                reqName: '개발자',
-                reqPhone: '01023866487',
-                reqMemo: '상담내용상담내영',
-                Class: "금강",
-                Cflag: '김다우'
-            }
+            list:Array
+            // list: {
+            //     idx: 0,
+            //     cate: '삼성',
+            //     InsertDate: '2020-02-11',
+            //     reqName: '개발자',
+            //     reqPhone: '01023866487',
+            //     reqMemo: '상담내용상담내영',
+            //     Class: "금강",
+            //     Cflag: '김다우'
+            // }
         }
     },
-    mounted() {
-
+    created() {
+        const baseURI = 'api/getdata.consult.php';
+        axios.post(`${baseURI}`, {
+            idx:this.idx
+            })
+            .then((result) => {
+                    if (result.data.phpResult == 'ok') {
+                        this.list = result.data.result[0]
+                    }
+            })
+            .catch(err => console.log('Login: ', err));
     },
     methods: {
         OpenDelteModal(Data, mode) {

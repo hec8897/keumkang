@@ -7,14 +7,18 @@ import Consul from './loc/cosul/consul.js';
 import ConsulView from './loc/cosul/consul-view.js';
 import userMain from './loc/user/user.main.js'
 import shareConsulView from './loc/cosul/consil-table-share'
+import Login from './loc/login/login_page'
 
 
 const router = new VueRouter({
-  
-  routes: [
+
+  routes: [{
+      path: '#/',
+      component: Login
+    },
     {
-      path:'/userview',
-      component:userMain
+      path: '/userview',
+      component: userMain
     },
     {
       path: '/newsbord',
@@ -24,7 +28,7 @@ const router = new VueRouter({
       path: '/newsbord/newbordview/:idx',
       component: NewsView,
       props: true
-      
+
     },
     {
       path: '/consul',
@@ -32,11 +36,12 @@ const router = new VueRouter({
     },
     {
       path: '/cflag',
-      component:shareConsulView
+      component: shareConsulView
     },
     {
       path: '/consul/consulview/:idx',
       component: ConsulView,
+      props: true
     },
   ]
 })
@@ -48,5 +53,13 @@ new Vue({
     'component-header': HeaderComponent,
     'component-nav': NavComponent,
     'news-bord': newsTable
-  }
+  },
+  template: `
+  <div>
+        <component-header></component-header>
+        <component-nav></component-nav>
+        <router-view></router-view>
+  </div>
+  `
+
 }).$mount('#app')

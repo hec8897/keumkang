@@ -2,7 +2,6 @@ import ListNumber from '../../glc/list-numbering.js';
 import etcModal from '../../glc/etc-modal'
 import eventBus from '../../glc/eventbus.js'
 
-
 const ConsulView = {
     template: `<div class='table_wrap consul_wrap'>
                 <share-modal></share-modal>
@@ -58,28 +57,37 @@ const ConsulView = {
     },
 
     created() {
-        this.lists = [
-            {
-                idx:0,
-                cate:'삼성',
-                reqName:'개발자',
-                reqPhone:'01023866487',
-                Class:"금강",
-                Cflag:'김다우'
-            },
-            {
-                idx:1,
-                cate:'삼성',
-                reqName:'개발자',
-                reqPhone:'01023866487',
-                Class:"금강",
-                Cflag:'김다우'
-            }
-        ]
-        // db에서 가져온데이터를 this.lists에 담아야함
+        const baseURI = 'api/getdata.consult.php';
+        axios.post(`${baseURI}`, {
+            })
+            .then((result) => {
+                    if (result.data.phpResult == 'ok') {
+                        this.lists = result.data.result
+                        this.results = this.lists;
+                    }
+            })
+            .catch(err => console.log('Login: ', err));
+        // this.lists = [
+        //     {
+        //         idx:0,
+        //         cate:'삼성',
+        //         reqName:'개발자',
+        //         reqPhone:'01023866487',
+        //         Class:"금강",
+        //         Cflag:'김다우'
+        //     },
+        //     {
+        //         idx:1,
+        //         cate:'삼성',
+        //         reqName:'개발자',
+        //         reqPhone:'01023866487',
+        //         Class:"금강",
+        //         Cflag:'김다우'
+        //     }
+        // ]
     },
     mounted() {
-        this.results = this.lists;
+        // this.results = this.lists;
         eventBus.$emit('UpdateList', {
             DataLength: Math.ceil((this.results.length) / 10),
             nowpage: this.limit - 10

@@ -104,6 +104,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _loc_cosul_consul_view_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./loc/cosul/consul-view.js */ "./public/component/loc/cosul/consul-view.js");
 /* harmony import */ var _loc_user_user_main_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./loc/user/user.main.js */ "./public/component/loc/user/user.main.js");
 /* harmony import */ var _loc_cosul_consil_table_share__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./loc/cosul/consil-table-share */ "./public/component/loc/cosul/consil-table-share.js");
+/* harmony import */ var _loc_login_login_page__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./loc/login/login_page */ "./public/component/loc/login/login_page.js");
+
 
 
 
@@ -116,11 +118,14 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const router = new VueRouter({
-  
-  routes: [
+
+  routes: [{
+      path: '#/',
+      component: _loc_login_login_page__WEBPACK_IMPORTED_MODULE_9__["default"]
+    },
     {
-      path:'/userview',
-      component:_loc_user_user_main_js__WEBPACK_IMPORTED_MODULE_7__["default"]
+      path: '/userview',
+      component: _loc_user_user_main_js__WEBPACK_IMPORTED_MODULE_7__["default"]
     },
     {
       path: '/newsbord',
@@ -130,7 +135,7 @@ const router = new VueRouter({
       path: '/newsbord/newbordview/:idx',
       component: _loc_newsbord_newview_js__WEBPACK_IMPORTED_MODULE_3__["default"],
       props: true
-      
+
     },
     {
       path: '/consul',
@@ -138,11 +143,12 @@ const router = new VueRouter({
     },
     {
       path: '/cflag',
-      component:_loc_cosul_consil_table_share__WEBPACK_IMPORTED_MODULE_8__["default"]
+      component: _loc_cosul_consil_table_share__WEBPACK_IMPORTED_MODULE_8__["default"]
     },
     {
       path: '/consul/consulview/:idx',
       component: _loc_cosul_consul_view_js__WEBPACK_IMPORTED_MODULE_6__["default"],
+      props: true
     },
   ]
 })
@@ -154,7 +160,15 @@ new Vue({
     'component-header': _glc_header_js__WEBPACK_IMPORTED_MODULE_0__["default"],
     'component-nav': _glc_nav_js__WEBPACK_IMPORTED_MODULE_1__["default"],
     'news-bord': _loc_newsbord_news_table_js__WEBPACK_IMPORTED_MODULE_4__["default"]
-  }
+  },
+  template: `
+  <div>
+        <component-header></component-header>
+        <component-nav></component-nav>
+        <router-view></router-view>
+  </div>
+  `
+
 }).$mount('#app')
 
 
@@ -824,7 +838,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 const ConsulView = {
     template: `<div class='table_wrap consul_wrap'>
                 <share-modal></share-modal>
@@ -880,28 +893,37 @@ const ConsulView = {
     },
 
     created() {
-        this.lists = [
-            {
-                idx:0,
-                cate:'삼성',
-                reqName:'개발자',
-                reqPhone:'01023866487',
-                Class:"금강",
-                Cflag:'김다우'
-            },
-            {
-                idx:1,
-                cate:'삼성',
-                reqName:'개발자',
-                reqPhone:'01023866487',
-                Class:"금강",
-                Cflag:'김다우'
-            }
-        ]
-        // db에서 가져온데이터를 this.lists에 담아야함
+        const baseURI = 'api/getdata.consult.php';
+        axios.post(`${baseURI}`, {
+            })
+            .then((result) => {
+                    if (result.data.phpResult == 'ok') {
+                        this.lists = result.data.result
+                        this.results = this.lists;
+                    }
+            })
+            .catch(err => console.log('Login: ', err));
+        // this.lists = [
+        //     {
+        //         idx:0,
+        //         cate:'삼성',
+        //         reqName:'개발자',
+        //         reqPhone:'01023866487',
+        //         Class:"금강",
+        //         Cflag:'김다우'
+        //     },
+        //     {
+        //         idx:1,
+        //         cate:'삼성',
+        //         reqName:'개발자',
+        //         reqPhone:'01023866487',
+        //         Class:"금강",
+        //         Cflag:'김다우'
+        //     }
+        // ]
     },
     mounted() {
-        this.results = this.lists;
+        // this.results = this.lists;
         _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit('UpdateList', {
             DataLength: Math.ceil((this.results.length) / 10),
             nowpage: this.limit - 10
@@ -1021,20 +1043,30 @@ const ConsulView = {
     },
     data() {
         return {
-            list: {
-                idx: 0,
-                cate: '삼성',
-                InsertDate: '2020-02-11',
-                reqName: '개발자',
-                reqPhone: '01023866487',
-                reqMemo: '상담내용상담내영',
-                Class: "금강",
-                Cflag: '김다우'
-            }
+            list:Array
+            // list: {
+            //     idx: 0,
+            //     cate: '삼성',
+            //     InsertDate: '2020-02-11',
+            //     reqName: '개발자',
+            //     reqPhone: '01023866487',
+            //     reqMemo: '상담내용상담내영',
+            //     Class: "금강",
+            //     Cflag: '김다우'
+            // }
         }
     },
-    mounted() {
-
+    created() {
+        const baseURI = 'api/getdata.consult.php';
+        axios.post(`${baseURI}`, {
+            idx:this.idx
+            })
+            .then((result) => {
+                    if (result.data.phpResult == 'ok') {
+                        this.list = result.data.result[0]
+                    }
+            })
+            .catch(err => console.log('Login: ', err));
     },
     methods: {
         OpenDelteModal(Data, mode) {
@@ -1097,6 +1129,23 @@ const Consul = {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (Consul);
+
+/***/ }),
+
+/***/ "./public/component/loc/login/login_page.js":
+/*!**************************************************!*\
+  !*** ./public/component/loc/login/login_page.js ***!
+  \**************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+const LoginPage = {
+    template:`<div>13</div>`
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (LoginPage);
 
 /***/ }),
 
