@@ -1,4 +1,3 @@
-
 const NewsBord = {
     template:`
     <div class="con_wrap">
