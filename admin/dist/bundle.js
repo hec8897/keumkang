@@ -256,7 +256,7 @@ const etcModal = {
                     <div class="alert_con">
                         <i class="material-icons blue">error_outline</i>
                         <p>패스워드 변경</p>
-                        <ul class='inputs'>
+                        <ul class='inputs' v-if="this.mode === 'chpw'">
                             <form>
                             <li>
                                 <input type='password' id='reqpassword' placeholder='변경하실 패스워드'>
@@ -266,10 +266,27 @@ const etcModal = {
                             </li>
                             </form>
                         </ul>
+                        <ul class='inputs' v-else-if="this.mode === 'cflag'">
+                            <form>
+                            <li>
+                                <select disabled>
+                                    <option>배정팀(비활성화)</option>
+                                </select>
+                            </li>
+                            <li>
+                         
+                                <select>
+                                    <option>배정할 상담사</option>
+                                </select>
+                            </li>
+                         
+                            </form>
+                        </ul>
                     </div>
 
                     <div class="modal_foot">
-                        <span class="b_blue" @click='PostData'>확인</span>
+                        <span class="b_blue" @click='PostData' v-if="mode === 'chpw'">확인</span>
+                        <span class="b_blue" @click=' shareData' v-else-if="mode === 'cflag'">확인</span>
                         <span v-on:click='ModalClose' class="b_sgrey">취소</span>
                     </div>
                 </div>
@@ -281,11 +298,21 @@ const etcModal = {
             mode: null
         }
     },
-    mounted() {
+    created() {
+        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('changePw', (Data) => {
+            console.log('패스워드 변경')
+            this.mode = 'chpw';
+        })
+
+        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('shareCflag', (Data) => {
+            console.log('상담사배정')
+            this.mode = 'cflag';
+            console.log(Data)
+        })
 
 
     },
-
+  
     methods: {
         ModalClose() {
             const Modal = document.getElementById('modal-etc')
@@ -294,6 +321,9 @@ const etcModal = {
             setTimeout(() => {
                 Modal.style.display = 'none';
             }, 100);
+        },
+        shareData(){
+
         },
         PostData(a) {
             const reqPassword = document.getElementById('reqpassword')
@@ -313,7 +343,8 @@ const etcModal = {
     }
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (etcModal);2
+/* harmony default export */ __webpack_exports__["default"] = (etcModal);
+2
 
 /***/ }),
 
@@ -787,13 +818,16 @@ const shareConsulView = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _glc_list_numbering_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../glc/list-numbering.js */ "./public/component/glc/list-numbering.js");
-/* harmony import */ var _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../glc/eventbus.js */ "./public/component/glc/eventbus.js");
+/* harmony import */ var _glc_etc_modal__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../glc/etc-modal */ "./public/component/glc/etc-modal.js");
+/* harmony import */ var _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../glc/eventbus.js */ "./public/component/glc/eventbus.js");
+
 
 
 
 
 const ConsulView = {
     template: `<div class='table_wrap consul_wrap'>
+                <share-modal></share-modal>
                 <div class='filters'>
                     <span>상담신청 건</span><b>{{this.results.length}}건</b>
                     <select v-on:change="searchCate($event)">
@@ -802,8 +836,7 @@ const ConsulView = {
                         <option value='천안'>천안</option>
                         <option value='부동산'>부동산</option>
                     </select>
-
-                    <span class='share_btn b_blue'>상담사 배정</span>
+                    <span class='share_btn b_blue' @click='OpenEtcModal'>상담사 배정</span>
 
                 </div>
                 <table class='consul_tb'>
@@ -820,7 +853,7 @@ const ConsulView = {
                     </thead>
                     <tbody>
                         <tr v-for='(result,i) in results' v-if='i < limit && i >= start'>
-                            <td><input type="checkbox" id="checkbox_1" value="" /></td>
+                            <td><input type="checkbox" id="checkbox_1" v-on:click='SelectData($event,result.idx)' value="" /></td>
                             <router-link tag='td' class='tb_cursor' v-bind:to = "'consul/consulview/'+result.idx" >{{i+1}}</router-link>
                             <router-link tag='td' class='tb_cursor' v-bind:to = "'consul/consulview/'+result.idx" >{{result.cate}}</router-link>
                             <router-link tag='td' class='tb_cursor' v-bind:to = "'consul/consulview/'+result.idx" >{{result.reqName}}</router-link>
@@ -834,13 +867,15 @@ const ConsulView = {
             </div>`,
     components: {
         'list-number': _glc_list_numbering_js__WEBPACK_IMPORTED_MODULE_0__["default"],
+        'share-modal': _glc_etc_modal__WEBPACK_IMPORTED_MODULE_1__["default"]
     },
     data() {
         return {
             lists: Array,
             results: Array,
             start: 0,
-            limit: 10
+            limit: 10,
+            SelectDataArray:[]
         }
     },
 
@@ -855,7 +890,7 @@ const ConsulView = {
                 Cflag:'김다우'
             },
             {
-                idx:0,
+                idx:1,
                 cate:'삼성',
                 reqName:'개발자',
                 reqPhone:'01023866487',
@@ -863,23 +898,27 @@ const ConsulView = {
                 Cflag:'김다우'
             }
         ]
-
         // db에서 가져온데이터를 this.lists에 담아야함
-      
-
     },
     mounted() {
         this.results = this.lists;
-        _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('UpdateList', {
+        _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit('UpdateList', {
             DataLength: Math.ceil((this.results.length) / 10),
             nowpage: this.limit - 10
         })
-        _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_1__["default"].$on('NextPage', (Data) => {
+        _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$on('NextPage', (Data) => {
             this.start = Data * 10;
             this.limit = (Data * 10) + 10
         })
     },
     methods: {
+        SelectData(event,Data){
+            if(event.target.checked == true){
+                this.SelectDataArray.push(Data)
+            }else{
+                this.SelectDataArray.splice(this.SelectDataArray.indexOf(Data),1);
+            }
+        },
         searchCate(event) {
             const lists = this.lists;
             const targetData = event.target.value;
@@ -894,10 +933,24 @@ const ConsulView = {
 
             this.start = 0;
             this.limit = 10;
-            _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('UpdateList', {
+            _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit('UpdateList', {
                 DataLength: Math.ceil((this.results.length) / 10),
                 nowpage: this.limit - 10
             })
+        },
+        OpenEtcModal() {
+            if(this.SelectDataArray.length < 1){
+                alert('자료를 선택해주세요')
+
+            }
+            else{
+                const Modal = document.getElementById('modal-etc')
+                Modal.style.display = 'block';
+                setTimeout(() => {
+                    Modal.style.opacity = '1';
+                }, 100);
+                _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit('shareCflag', this.SelectDataArray)
+            }
         }
 
     }
@@ -1608,17 +1661,15 @@ const userInfo = {
         <td v-if="list.Activation === 1">정상</td>
         <td v-else>비승인</td>
     </tr>`,
-
     data(){
         return{
-            list:Array
+            list:Array,
         }
     },
     created(){
         this.list = this.userData;
     },
     methods:{
-        
         PostDataUserTool(event,thisValue){
             let CheckedValue = event.target.checked;
             const userToolCheck = document.querySelectorAll('.user_tool_check')
@@ -1629,12 +1680,9 @@ const userInfo = {
                 }
                 event.target.checked = true
             }
-
         }
-
     }
 }
-
 /* harmony default export */ __webpack_exports__["default"] = (userInfo);
 
 /***/ }),
@@ -1765,7 +1813,7 @@ const userTool = {
                 _glc_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit(mode, Data)
             }
         },
-        OpenEtcModal(Data, mode) {
+        OpenEtcModal(Data) {
             if(this.list.length == 1){
                 alert('계정을 선택해주세요')
             }
@@ -1796,6 +1844,9 @@ const userTool = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _component_user_info__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component/user_info */ "./public/component/loc/user/component/user_info.js");
 /* harmony import */ var _component_user_tool__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component/user_tool */ "./public/component/loc/user/component/user_tool.js");
+/* harmony import */ var _glc_list_numbering__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../glc/list-numbering */ "./public/component/glc/list-numbering.js");
+
+
 
 
 const userMain = {
@@ -1819,16 +1870,26 @@ const userMain = {
         <user-info v-for = 'list in lists' v-bind:userData='list'></user-info>
         </tbody>
         </table>
+        <list-number v-bind:nowpage = 'this.limit-10' v-bind:DataLength='Math.ceil((this.results.length)/10)'></list-number>
+
         <div>
         </div>
     </div>
 </div>`,
     components: {
         'user-info': _component_user_info__WEBPACK_IMPORTED_MODULE_0__["default"],
-        'user-tool':_component_user_tool__WEBPACK_IMPORTED_MODULE_1__["default"]
+        'user-tool':_component_user_tool__WEBPACK_IMPORTED_MODULE_1__["default"],
+        'list-number': _glc_list_numbering__WEBPACK_IMPORTED_MODULE_2__["default"],
+
+    },
+    mounted(){
+        this.results = this.lists;
     },
     data(){
         return{
+            start: 0,
+            limit: 10,
+            results:Array,
             lists:[
                 {
                     idx:0,

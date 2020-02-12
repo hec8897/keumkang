@@ -12,17 +12,15 @@ const userInfo = {
         <td v-if="list.Activation === 1">정상</td>
         <td v-else>비승인</td>
     </tr>`,
-
     data(){
         return{
-            list:Array
+            list:Array,
         }
     },
     created(){
         this.list = this.userData;
     },
     methods:{
-        
         PostDataUserTool(event,thisValue){
             let CheckedValue = event.target.checked;
             const userToolCheck = document.querySelectorAll('.user_tool_check')
@@ -33,10 +31,7 @@ const userInfo = {
                 }
                 event.target.checked = true
             }
-
         }
-
     }
 }
-
 export default userInfo;

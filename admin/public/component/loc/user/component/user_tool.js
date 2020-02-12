@@ -111,7 +111,7 @@ const userTool = {
                 eventBus.$emit(mode, Data)
             }
         },
-        OpenEtcModal(Data, mode) {
+        OpenEtcModal(Data) {
             if(this.list.length == 1){
                 alert('계정을 선택해주세요')
             }

@@ -6,7 +6,7 @@ const etcModal = {
                     <div class="alert_con">
                         <i class="material-icons blue">error_outline</i>
                         <p>패스워드 변경</p>
-                        <ul class='inputs'>
+                        <ul class='inputs' v-if="this.mode === 'chpw'">
                             <form>
                             <li>
                                 <input type='password' id='reqpassword' placeholder='변경하실 패스워드'>
@@ -16,10 +16,27 @@ const etcModal = {
                             </li>
                             </form>
                         </ul>
+                        <ul class='inputs' v-else-if="this.mode === 'cflag'">
+                            <form>
+                            <li>
+                                <select disabled>
+                                    <option>배정팀(비활성화)</option>
+                                </select>
+                            </li>
+                            <li>
+                         
+                                <select>
+                                    <option>배정할 상담사</option>
+                                </select>
+                            </li>
+                         
+                            </form>
+                        </ul>
                     </div>
 
                     <div class="modal_foot">
-                        <span class="b_blue" @click='PostData'>확인</span>
+                        <span class="b_blue" @click='PostData' v-if="mode === 'chpw'">확인</span>
+                        <span class="b_blue" @click=' shareData' v-else-if="mode === 'cflag'">확인</span>
                         <span v-on:click='ModalClose' class="b_sgrey">취소</span>
                     </div>
                 </div>
@@ -31,11 +48,21 @@ const etcModal = {
             mode: null
         }
     },
-    mounted() {
+    created() {
+        eventBus.$on('changePw', (Data) => {
+            console.log('패스워드 변경')
+            this.mode = 'chpw';
+        })
+
+        eventBus.$on('shareCflag', (Data) => {
+            console.log('상담사배정')
+            this.mode = 'cflag';
+            console.log(Data)
+        })
 
 
     },
-
+  
     methods: {
         ModalClose() {
             const Modal = document.getElementById('modal-etc')
@@ -44,6 +71,9 @@ const etcModal = {
             setTimeout(() => {
                 Modal.style.display = 'none';
             }, 100);
+        },
+        shareData(){
+
         },
         PostData(a) {
             const reqPassword = document.getElementById('reqpassword')
@@ -63,4 +93,5 @@ const etcModal = {
     }
 }
 
-export default etcModal;2
+export default etcModal;
+2

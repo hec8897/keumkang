@@ -1,9 +1,11 @@
 import ListNumber from '../../glc/list-numbering.js';
+import etcModal from '../../glc/etc-modal'
 import eventBus from '../../glc/eventbus.js'
 
 
 const ConsulView = {
     template: `<div class='table_wrap consul_wrap'>
+                <share-modal></share-modal>
                 <div class='filters'>
                     <span>상담신청 건</span><b>{{this.results.length}}건</b>
                     <select v-on:change="searchCate($event)">
@@ -12,8 +14,7 @@ const ConsulView = {
                         <option value='천안'>천안</option>
                         <option value='부동산'>부동산</option>
                     </select>
-
-                    <span class='share_btn b_blue'>상담사 배정</span>
+                    <span class='share_btn b_blue' @click='OpenEtcModal'>상담사 배정</span>
 
                 </div>
                 <table class='consul_tb'>
@@ -30,7 +31,7 @@ const ConsulView = {
                     </thead>
                     <tbody>
                         <tr v-for='(result,i) in results' v-if='i < limit && i >= start'>
-                            <td><input type="checkbox" id="checkbox_1" value="" /></td>
+                            <td><input type="checkbox" id="checkbox_1" v-on:click='SelectData($event,result.idx)' value="" /></td>
                             <router-link tag='td' class='tb_cursor' v-bind:to = "'consul/consulview/'+result.idx" >{{i+1}}</router-link>
                             <router-link tag='td' class='tb_cursor' v-bind:to = "'consul/consulview/'+result.idx" >{{result.cate}}</router-link>
                             <router-link tag='td' class='tb_cursor' v-bind:to = "'consul/consulview/'+result.idx" >{{result.reqName}}</router-link>
@@ -44,13 +45,15 @@ const ConsulView = {
             </div>`,
     components: {
         'list-number': ListNumber,
+        'share-modal': etcModal
     },
     data() {
         return {
             lists: Array,
             results: Array,
             start: 0,
-            limit: 10
+            limit: 10,
+            SelectDataArray:[]
         }
     },
 
@@ -65,7 +68,7 @@ const ConsulView = {
                 Cflag:'김다우'
             },
             {
-                idx:0,
+                idx:1,
                 cate:'삼성',
                 reqName:'개발자',
                 reqPhone:'01023866487',
@@ -73,10 +76,7 @@ const ConsulView = {
                 Cflag:'김다우'
             }
         ]
-
         // db에서 가져온데이터를 this.lists에 담아야함
-      
-
     },
     mounted() {
         this.results = this.lists;
@@ -90,6 +90,13 @@ const ConsulView = {
         })
     },
     methods: {
+        SelectData(event,Data){
+            if(event.target.checked == true){
+                this.SelectDataArray.push(Data)
+            }else{
+                this.SelectDataArray.splice(this.SelectDataArray.indexOf(Data),1);
+            }
+        },
         searchCate(event) {
             const lists = this.lists;
             const targetData = event.target.value;
@@ -108,6 +115,20 @@ const ConsulView = {
                 DataLength: Math.ceil((this.results.length) / 10),
                 nowpage: this.limit - 10
             })
+        },
+        OpenEtcModal() {
+            if(this.SelectDataArray.length < 1){
+                alert('자료를 선택해주세요')
+
+            }
+            else{
+                const Modal = document.getElementById('modal-etc')
+                Modal.style.display = 'block';
+                setTimeout(() => {
+                    Modal.style.opacity = '1';
+                }, 100);
+                eventBus.$emit('shareCflag', this.SelectDataArray)
+            }
         }
 
     }

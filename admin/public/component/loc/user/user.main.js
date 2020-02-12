@@ -1,5 +1,7 @@
 import userInfo from './component/user_info'
 import userTool from './component/user_tool'
+import ListNumber from '../../glc/list-numbering';
+
 const userMain = {
     template: `<div class="con_wrap">
     <div class='content user_bord'>
@@ -21,16 +23,26 @@ const userMain = {
         <user-info v-for = 'list in lists' v-bind:userData='list'></user-info>
         </tbody>
         </table>
+        <list-number v-bind:nowpage = 'this.limit-10' v-bind:DataLength='Math.ceil((this.results.length)/10)'></list-number>
+
         <div>
         </div>
     </div>
 </div>`,
     components: {
         'user-info': userInfo,
-        'user-tool':userTool
+        'user-tool':userTool,
+        'list-number': ListNumber,
+
+    },
+    mounted(){
+        this.results = this.lists;
     },
     data(){
         return{
+            start: 0,
+            limit: 10,
+            results:Array,
             lists:[
                 {
                     idx:0,
