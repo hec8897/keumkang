@@ -57,7 +57,6 @@ const etcModal = {
         eventBus.$on('shareCflag', (Data) => {
             console.log('상담사배정')
             this.mode = 'cflag';
-            console.log(Data)
         })
 
 
