@@ -1,9 +1,23 @@
-const Nav = {
+const NavComponent = {
     template: `<nav>
                     <ul>
-                        <router-link tag='li' to='/0'>
+                        
+                    <router-link tag='li' to='/consul'>
+                            <b class="caret fr"></b>
+                            상담신청
+                        </router-link>
+                        
+                        <router-link tag='li' to='/cflag'>
+                            <b class="caret fr"></b>
+                            배정받은상담
+                        </router-link>
+                        <router-link tag='li' to='/userview'>
                             <b class="caret fr"></b>
                             사용자관리
+                        </router-link>
+                        <router-link tag='li' to='/newsbord'>
+                            <b class="caret fr"></b>
+                            보도자료
                         </router-link>
                         <router-link tag='li' to='/1'>
                             <b class="caret fr"></b>
@@ -12,12 +26,7 @@ const Nav = {
 
                         <router-link tag='li' to='/2'>
                             <b class="caret fr"></b>
-                            엑셀파일 관리
-                        </router-link>
-
-                        <router-link tag='li' to='/3'>
-                            <b class="caret fr"></b>
-                            입주의향서
+                            엑셀파일 관리/입주의향서
                         </router-link>
 
                         <router-link tag='li' to='/4'>
@@ -25,15 +34,8 @@ const Nav = {
                             현장사진/드론영상
                         </router-link>
 
-                        <router-link tag='li' to='/newsbord'>
-                            <b class="caret fr"></b>
-                            보도자료
-                        </router-link>
+                  
 
-                        <router-link tag='li' to='/Consul'>
-                            <b class="caret fr"></b>
-                            상담신청
-                        </router-link>
                     </ul>
                 </nav>`,
     data() {
@@ -43,3 +45,5 @@ const Nav = {
     }
 
 }
+
+export default NavComponent;

@@ -1,4 +1,8 @@
-Vue.component('news-bord', {
+import ListNumber from '../../glc/list-numbering.js';
+import eventBus from '../../glc/eventbus.js'
+
+
+const newsTable = {
     template: `<div class='table_wrap'>
                 <div class='filters'>
                     <span>총 게시물수</span><b>{{this.results.length}}건</b>
@@ -8,7 +12,6 @@ Vue.component('news-bord', {
                         <option value='천안'>천안</option>
                         <option value='부동산'>부동산</option>
                     </select>
-
                 </div>
                 <table>
                     <thead>
@@ -24,15 +27,24 @@ Vue.component('news-bord', {
                         <router-link class='new_view_tr' tag='tr' v-for='(result,i) in results' v-bind:to = "'/newsbord/newbordview/'+result.idx" v-if='i < limit && i >= start'>
                             <td>{{i+1}}</td>
                             <td>{{result.cate}}</td>
-                            <td>{{result.img}}</td>
+                            <td>
+                                <img v-bind:src='result.img' v-if="result.img!=''" alt='미리보기'>
+                                <img src='images/dev_img2.png' v-else alt='미리보기'>
+                            </td>
                             <td>{{result.title}}</td>
                             <td>{{result.join}}</td>
                         </router-link>
                     </tbody>
                 </table>
                 <list-number v-bind:nowpage = 'this.limit-10' v-bind:DataLength='Math.ceil((this.results.length)/10)'></list-number>
+                <div class="foot_btn">
+                    <router-link to='newsbord/newbordview/new' class="b_add b_blue">등록</router-link>
+                </div>
 
             </div>`,
+    components: {
+        'list-number': ListNumber,
+    },
     data() {
         return {
             lists: Array,
@@ -41,21 +53,28 @@ Vue.component('news-bord', {
             limit: 10
         }
     },
+
     created() {
+
         // db에서 가져온데이터를 this.lists에 담아야함
-        this.lists = [{
+        this.lists = [
+            {
                 idx: 0,
                 img: "",
                 title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
                 join: 340,
-                cate: "삼성"
+                cate: "삼성",
+                img: "images/dev_img.png"
+
             },
             {
                 idx: 1,
                 img: "",
                 title: "인천 검단산업단지 안동포사거리 지하차도 착공",
                 join: 340,
-                cate: "천안"
+                cate: "천안",
+                img: "images/dev_img.png"
+
             }, {
                 idx: 1,
                 img: "",
@@ -284,5 +303,7 @@ Vue.component('news-bord', {
             })
         }
 
-    },
-})
+    }
+}
+
+export default newsTable;

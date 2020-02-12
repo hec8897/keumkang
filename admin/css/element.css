@@ -378,9 +378,9 @@ textarea {
     font-weight: 400;
     border-radius: 0;
     box-sizing: border-box;
-    -webkit-appearance: none;
+    /* -webkit-appearance: none;
     -moz-appearance: none;
-    appearance: none
+    appearance: none */
 }
 
 input {
@@ -631,4 +631,10 @@ select:focus {
     border-top: 4px solid transparent;
     border-bottom: 4px solid transparent;
     box-sizing: border-box;
+}
+input[type="checkbox"]{
+    display: inline;
+    width: 15px;
+    height:15px;
+    vertical-align: middle;
 }
