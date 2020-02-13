@@ -212,6 +212,8 @@ div.consul_bord table tr td img{max-width:100px; vertical-align: middle;}
 .pop-window i.blue{color:#1a93d9}
 
 #modal-etc .alert{height: 300px;}
+#modal-join .alert{height: 500px;}
+
 #modal-etc .alert_con{padding-bottom: 0px;}
 
 /* modify */

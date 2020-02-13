@@ -63,7 +63,7 @@ const LoginPage = {
             this.$store.state.Name = '개발자'
             this.$store.state.Class = '금강'
             this.$store.state.Activation = '1'
-            this.$store.state.comcode = 100
+            this.$store.state.comcode = 1
 
             sessionStorage.setItem("name", this.$store.state.Name);
             sessionStorage.setItem("ID",  this.$store.state.id);
