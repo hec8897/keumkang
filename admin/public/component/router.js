@@ -8,7 +8,6 @@ import userMain from './loc/user/user.main.js'
 import shareConsulView from './loc/cosul/consil-table-share';
 
 const router = new VueRouter({
-
   routes: [{
       path: '/',
       component: LoginPage,
@@ -19,6 +18,7 @@ const router = new VueRouter({
       component: userMain,
       beforeEnter: (to, from, next) => {
         if (sessionStorage.length == 0) {
+          console.log(to)
           router.push({
             path: '/',
             component: LoginPage,
@@ -112,9 +112,7 @@ const router = new VueRouter({
             name: 'login'
           })
         } else {
-          if(sessionStorage.comcode == 1){
             next()
-          }
         }
       }
     },

@@ -3247,7 +3247,6 @@ const etcModal = {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (etcModal);
-2
 
 /***/ }),
 
@@ -3302,6 +3301,63 @@ const HeaderComponent = {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (HeaderComponent);
+
+/***/ }),
+
+/***/ "./public/component/glc/join_modal.js":
+/*!********************************************!*\
+  !*** ./public/component/glc/join_modal.js ***!
+  \********************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _eventbus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./eventbus.js */ "./public/component/glc/eventbus.js");
+
+
+const joinModal = {
+    template: `<div class="pop-window fade" id="modal-join">
+                <div class="alert">
+                    <div class="alert_con">
+                        <i class="material-icons blue">error_outline</i>
+                        <p>패스워드 변경</p>
+                        <ul class='inputs' v-if="this.mode === 'chpw'">
+                            <form>
+                            <li>
+                                <input type='password' id='reqpassword' placeholder='변경하실 패스워드'>
+                            </li>
+                            <li>
+                                <input type='password' id='reqpassword_re' placeholder='변경하실 패스워드 확인'>
+                            </li>
+                            </form>
+                        </ul>
+                        <ul class='inputs' v-else-if="this.mode === 'cflag'">
+                            <form>
+                            <li>
+                                <select disabled>
+                                    <option>배정팀(비활성화)</option>
+                                </select>
+                            </li>
+                            <li>
+                         
+                                <select>
+                                    <option>배정할 상담사</option>
+                                </select>
+                            </li>
+                         
+                            </form>
+                        </ul>
+                    </div>
+
+                    <div class="modal_foot">
+                    </div>
+                </div>
+            </div>`
+ 
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (joinModal);
 
 /***/ }),
 
@@ -4051,6 +4107,7 @@ const Consul = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../router */ "./public/component/router.js");
 /* harmony import */ var _glc_eventbus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../glc/eventbus */ "./public/component/glc/eventbus.js");
+/* harmony import */ var _glc_join_modal__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../glc/join_modal */ "./public/component/glc/join_modal.js");
 
 
 
@@ -4058,6 +4115,7 @@ __webpack_require__.r(__webpack_exports__);
 const LoginPage = {
     template: `  <div class="con_wrap login_page">
     <div class="login_wrap">
+    <join-modal></join-modal>
         <!-- Login area -->
         <div class="login_box">
             <div class="login_bi">
@@ -4072,13 +4130,15 @@ const LoginPage = {
                     <input type="password" placeholder="비밀번호" id='login_pw'>
                 </div>
                 <div class="mt40">
-                    <button type="submit" id="" class="btn_admin" v-on:click="loginAcc">관리자
-                        로그인</button>
-                    <button type="submit" id="" class="btn_pw">비밀번호 찾기</button>
+                    <button type="submit" id="" class="btn_admin" v-on:click="loginAcc">관리자로그인</button>
+                    <button type="submit" id="" class="btn_pw" @click='OpenjoinModal'>사용자등록</button>
                 </div>
             </div>
         </div>
 </div>`,
+    components:{
+        'join-modal':_glc_join_modal__WEBPACK_IMPORTED_MODULE_2__["default"]
+    },
     created(){
         if(sessionStorage.length == 0){
             console.log(this.$store.state.id)
@@ -4090,6 +4150,14 @@ const LoginPage = {
         }
         },
     methods: {
+        OpenjoinModal() {
+                const Modal = document.getElementById('modal-join')
+                Modal.style.display = 'block';
+                setTimeout(() => {
+                    Modal.style.opacity = '1';
+                }, 100);
+                _glc_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('shareCflag', this.SelectDataArray)
+        },
         loginAcc(){
             const userId = document.getElementById('login_id')
             const userPw = document.getElementById('login_pw')
@@ -4981,7 +5049,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 const router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
-
   routes: [{
       path: '/',
       component: _loc_login_login_page__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -4992,6 +5059,7 @@ const router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
       component: _loc_user_user_main_js__WEBPACK_IMPORTED_MODULE_6__["default"],
       beforeEnter: (to, from, next) => {
         if (sessionStorage.length == 0) {
+          console.log(to)
           router.push({
             path: '/',
             component: _loc_login_login_page__WEBPACK_IMPORTED_MODULE_1__["default"],
@@ -5085,9 +5153,7 @@ const router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
             name: 'login'
           })
         } else {
-          if(sessionStorage.comcode == 1){
             next()
-          }
         }
       }
     },

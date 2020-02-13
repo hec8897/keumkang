@@ -94,4 +94,3 @@ const etcModal = {
 }
 
 export default etcModal;
-2

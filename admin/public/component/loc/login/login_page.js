@@ -1,10 +1,11 @@
 import router from "../../router"
 import eventBus from '../../glc/eventbus'
-
+import joinModal from '../../glc/join_modal'
 
 const LoginPage = {
     template: `  <div class="con_wrap login_page">
     <div class="login_wrap">
+    <join-modal></join-modal>
         <!-- Login area -->
         <div class="login_box">
             <div class="login_bi">
@@ -19,13 +20,15 @@ const LoginPage = {
                     <input type="password" placeholder="비밀번호" id='login_pw'>
                 </div>
                 <div class="mt40">
-                    <button type="submit" id="" class="btn_admin" v-on:click="loginAcc">관리자
-                        로그인</button>
-                    <button type="submit" id="" class="btn_pw">비밀번호 찾기</button>
+                    <button type="submit" id="" class="btn_admin" v-on:click="loginAcc">관리자로그인</button>
+                    <button type="submit" id="" class="btn_pw" @click='OpenjoinModal'>사용자등록</button>
                 </div>
             </div>
         </div>
 </div>`,
+    components:{
+        'join-modal':joinModal
+    },
     created(){
         if(sessionStorage.length == 0){
             console.log(this.$store.state.id)
@@ -37,6 +40,14 @@ const LoginPage = {
         }
         },
     methods: {
+        OpenjoinModal() {
+                const Modal = document.getElementById('modal-join')
+                Modal.style.display = 'block';
+                setTimeout(() => {
+                    Modal.style.opacity = '1';
+                }, 100);
+                eventBus.$emit('shareCflag', this.SelectDataArray)
+        },
         loginAcc(){
             const userId = document.getElementById('login_id')
             const userPw = document.getElementById('login_pw')
