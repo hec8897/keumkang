@@ -9,49 +9,118 @@ import shareConsulView from './loc/cosul/consil-table-share';
 
 const router = new VueRouter({
 
-    routes: [{
-        path: '/',
-        component: LoginPage
-      },
-      {
-        path: '/userview',
-        component: userMain
-      },
-      {
-        path: '/newsbord',
-        component: NewsBord,
-      },
-      {
-        path: '/newsbord/newbordview/:idx',
-        component: NewsView,
-        props: true
-  
-      },
-      {
-        path: '/consul',
-        component: Consul,
-      },
-      {
-        path: '/cflag',
-        component: shareConsulView
-      },
-      {
-        path: '/consul/consulview/:idx',
-        component: ConsulView,
-        props: true
-      },
-    ]
-  })
-  
-  // router.beforeEach(function (to, from, next) {
-  //   const i = 1;
-  //   if(i == 1){
-  //     console.log('login');
-  //     next()
-  //   }
-  //   else{
-  //     console.log('login_fail');
-  //   }
-  // });
+  routes: [{
+      path: '/',
+      component: LoginPage,
+      name: 'login'
+    },
+    {
+      path: '/userview',
+      component: userMain,
+      beforeEnter: (to, from, next) => {
+        if (sessionStorage.length == 0) {
+          router.push({
+            path: '/',
+            component: LoginPage,
+            name: 'login'
+          })
+        } else {
+          if(sessionStorage.comcode == 1){
+            next()
+          }
+        }
+      }
+    },
+    {
+      path: '/newsbord',
+      component: NewsBord,
+        beforeEnter: (to, from, next) => {
+        if (sessionStorage.length == 0) {
+          router.push({
+            path: '/',
+            component: LoginPage,
+            name: 'login'
+          })
+        } else {
+          if(sessionStorage.comcode == 1){
+            next()
+          }
+        }
+      }
+    },
+    {
+      path: '/newsbord/newbordview/:idx',
+      component: NewsView,
+      props: true,
+      beforeEnter: (to, from, next) => {
+        if (sessionStorage.length == 0) {
+          router.push({
+            path: '/',
+            component: LoginPage,
+            name: 'login'
+          })
+        } else {
+          if(sessionStorage.comcode == 1){
+            next()
+          }
+        }
+      }
+    },
+    {
+      name: 'consul',
+      path: '/consul',
+      component: Consul,
+      beforeEnter: (to, from, next) => {
+        if (sessionStorage.length == 0) {
+          router.push({
+            path: '/',
+            component: LoginPage,
+            name: 'login'
+          })
+        } else {
+          if(sessionStorage.comcode == 1){
+            next()
+          }
+        }
+      }
+    },
+    {
+      name: 'cflag',
+      path: '/cflag',
+      component: shareConsulView,
+      beforeEnter: (to, from, next) => {
+        if (sessionStorage.length == 0) {
+          router.push({
+            path: '/',
+            component: LoginPage,
+            name: 'login'
+          })
+        } else {
+          next()
+        }
+      }
+    },
+    {
+      path: '/consul/consulview/:idx',
+      component: ConsulView,
+      props: true,
+      beforeEnter: (to, from, next) => {
+        if (sessionStorage.length == 0) {
+          router.push({
+            path: '/',
+            component: LoginPage,
+            name: 'login'
+          })
+        } else {
+          if(sessionStorage.comcode == 1){
+            next()
+          }
+        }
+      }
+    },
+  ]
+})
 
-  export default router;
+
+
+export default router;

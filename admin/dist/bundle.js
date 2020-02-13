@@ -3045,10 +3045,17 @@ new Vue({
   template: `
   <div>
         <component-header></component-header>
-        <component-nav></component-nav>
+        <component-nav v-bind:comcode='this.$store.state.comcode'></component-nav>
         <router-view></router-view>
   </div>
   `,
+  created(){
+      this.$store.state.id = sessionStorage.ID
+      this.$store.state.Name = sessionStorage.name
+      this.$store.state.Class = sessionStorage.Class
+      this.$store.state.Activation = sessionStorage.Activation
+      this.$store.state.comcode = sessionStorage.comcode
+  }
  
 
 }).$mount('#app')
@@ -3267,13 +3274,28 @@ const EventBus = new Vue();
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../router */ "./public/component/router.js");
+
+
 const HeaderComponent = {
-    template: `<header>
-                <h1>금강 관리자 프로토타입</h1>
-                </header>`,
-    data(){
-        return{
-           
+    template: `<header class="head_wrap">
+    <div class="head_bi">
+        <h1>금강관리자 프로토타임</h1>
+        </div>
+            <div class="head_info">
+                <span class="btn_out" v-on:click="DestorySessionData">로그아웃</span>
+            </div>
+</header>`,
+    methods:{
+        DestorySessionData(){
+            var y = confirm("로그아웃 하시겠습니까?");
+            if (y == true) {
+                sessionStorage.clear();
+                _router__WEBPACK_IMPORTED_MODULE_0__["default"].push({
+                    path: '/',
+                    name: 'login'
+                  })
+            }
         }
     }
 
@@ -3421,52 +3443,56 @@ const listNumber = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./eventbus */ "./public/component/glc/eventbus.js");
+
 const NavComponent = {
+    props:['comcode'],
     template: `<nav>
                     <ul>
-                        
-                    <router-link tag='li' to='/consul'>
+                        <router-link tag='li' to='/consul' v-if="comcodeData==='1'">
                             <b class="caret fr"></b>
                             상담신청
                         </router-link>
                         
-                        <router-link tag='li' to='/cflag'>
+                        <router-link tag='li' to='/cflag' v-if="comcodeData==='100'">
                             <b class="caret fr"></b>
                             배정받은상담
                         </router-link>
-                        <router-link tag='li' to='/userview'>
+                        <router-link tag='li' to='/userview' v-if="comcodeData==='1'">
                             <b class="caret fr"></b>
                             사용자관리
                         </router-link>
-                        <router-link tag='li' to='/newsbord'>
+                        <router-link tag='li' to='/newsbord' v-if="comcodeData==='1'">
                             <b class="caret fr"></b>
                             보도자료
                         </router-link>
-                        <router-link tag='li' to='/1'>
+                        <router-link tag='li' to='/1' v-if="comcodeData==='1'">
                             <b class="caret fr"></b>
                             조감도관리
                         </router-link>
 
-                        <router-link tag='li' to='/2'>
+                        <router-link tag='li' to='/2' v-if="comcodeData==='1'">
                             <b class="caret fr"></b>
                             엑셀파일 관리/입주의향서
                         </router-link>
 
-                        <router-link tag='li' to='/4'>
+                        <router-link tag='li' to='/4' v-if="comcodeData==='1'">
                             <b class="caret fr"></b>
                             현장사진/드론영상
                         </router-link>
-
-                  
-
                     </ul>
                 </nav>`,
     data() {
         return {
-
+            comcodeData:sessionStorage.comcode
         }
+    },
+    created(){
+        _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('nav',(Data)=>{
+            this.comcodeData = Data
+        })
     }
-
+   
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (NavComponent);
@@ -4023,6 +4049,10 @@ const Consul = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../router */ "./public/component/router.js");
+/* harmony import */ var _glc_eventbus__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../glc/eventbus */ "./public/component/glc/eventbus.js");
+
+
 
 
 const LoginPage = {
@@ -4035,11 +4065,11 @@ const LoginPage = {
             <div class="login_input">
                 <div class="mb10">
                     <i class="material-icons">person</i>
-                    <input type="text" placeholder="아이디" id='reqid' id='login_id'>
+                    <input type="text" placeholder="아이디" id='login_id'>
                 </div>
                 <div>
                     <i class="material-icons">lock</i>
-                    <input type="password" placeholder="비밀번호" id='reqpw' id='login_pw'>
+                    <input type="password" placeholder="비밀번호" id='login_pw'>
                 </div>
                 <div class="mt40">
                     <button type="submit" id="" class="btn_admin" v-on:click="loginAcc">관리자
@@ -4052,14 +4082,54 @@ const LoginPage = {
     created(){
         if(sessionStorage.length == 0){
             console.log(this.$store.state.id)
+            _router__WEBPACK_IMPORTED_MODULE_0__["default"].push({path:'/'}).catch (err => {})
+        }
+        else{
+            console.log(sessionStorage)
+            _router__WEBPACK_IMPORTED_MODULE_0__["default"].push({path:'/consul'}).catch (err => {})
         }
         },
     methods: {
         loginAcc(){
-            const userId = document.getElementById
-            this.$store.state.id = '123'
+            const userId = document.getElementById('login_id')
+            const userPw = document.getElementById('login_pw')
+            // if(userId.value == ""){
+            //     alert('아이디를 입력세요')
+            //     userId.focus()
+            // }
+            // else if(userPw.value == ""){
+            //     alert('패스워드를 입력해주세요')
+            //     userPw.focus()
+            // }
+            this.$store.state.id = 'testAcc123'
+            this.$store.state.Name = '개발자'
+            this.$store.state.Class = '금강'
+            this.$store.state.Activation = '1'
+            this.$store.state.comcode = 100
+
+            sessionStorage.setItem("name", this.$store.state.Name);
+            sessionStorage.setItem("ID",  this.$store.state.id);
+            sessionStorage.setItem("Class",  this.$store.state.Class);
+            sessionStorage.setItem("Activation",  this.$store.state.Activation);
+            sessionStorage.setItem("comcode",  this.$store.state.comcode);
+
+
+            // sessionStorage.setItem("userPhone", result.data.userPhone);
+
             // console.log(this.$store.state.id)
             //로그인세션
+            if(sessionStorage.comcode == 100){
+                _router__WEBPACK_IMPORTED_MODULE_0__["default"].push({name:'cflag' ,path:'/cflag'})
+                .catch (err => {})
+
+            }
+            else{
+                _router__WEBPACK_IMPORTED_MODULE_0__["default"].push({name:'consul' ,path:'/consul'})
+                .catch (err => {})
+            }
+           _glc_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('nav',sessionStorage.comcode)
+        
+
 
         }
 
@@ -4912,52 +4982,121 @@ __webpack_require__.r(__webpack_exports__);
 
 const router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
 
-    routes: [{
-        path: '/',
-        component: _loc_login_login_page__WEBPACK_IMPORTED_MODULE_1__["default"]
-      },
-      {
-        path: '/userview',
-        component: _loc_user_user_main_js__WEBPACK_IMPORTED_MODULE_6__["default"]
-      },
-      {
-        path: '/newsbord',
-        component: _loc_newsbord_newsbord_js__WEBPACK_IMPORTED_MODULE_2__["default"],
-      },
-      {
-        path: '/newsbord/newbordview/:idx',
-        component: _loc_newsbord_newview_js__WEBPACK_IMPORTED_MODULE_3__["default"],
-        props: true
-  
-      },
-      {
-        path: '/consul',
-        component: _loc_cosul_consul_js__WEBPACK_IMPORTED_MODULE_4__["default"],
-      },
-      {
-        path: '/cflag',
-        component: _loc_cosul_consil_table_share__WEBPACK_IMPORTED_MODULE_7__["default"]
-      },
-      {
-        path: '/consul/consulview/:idx',
-        component: _loc_cosul_consul_view_js__WEBPACK_IMPORTED_MODULE_5__["default"],
-        props: true
-      },
-    ]
-  })
-  
-  // router.beforeEach(function (to, from, next) {
-  //   const i = 1;
-  //   if(i == 1){
-  //     console.log('login');
-  //     next()
-  //   }
-  //   else{
-  //     console.log('login_fail');
-  //   }
-  // });
+  routes: [{
+      path: '/',
+      component: _loc_login_login_page__WEBPACK_IMPORTED_MODULE_1__["default"],
+      name: 'login'
+    },
+    {
+      path: '/userview',
+      component: _loc_user_user_main_js__WEBPACK_IMPORTED_MODULE_6__["default"],
+      beforeEnter: (to, from, next) => {
+        if (sessionStorage.length == 0) {
+          router.push({
+            path: '/',
+            component: _loc_login_login_page__WEBPACK_IMPORTED_MODULE_1__["default"],
+            name: 'login'
+          })
+        } else {
+          if(sessionStorage.comcode == 1){
+            next()
+          }
+        }
+      }
+    },
+    {
+      path: '/newsbord',
+      component: _loc_newsbord_newsbord_js__WEBPACK_IMPORTED_MODULE_2__["default"],
+        beforeEnter: (to, from, next) => {
+        if (sessionStorage.length == 0) {
+          router.push({
+            path: '/',
+            component: _loc_login_login_page__WEBPACK_IMPORTED_MODULE_1__["default"],
+            name: 'login'
+          })
+        } else {
+          if(sessionStorage.comcode == 1){
+            next()
+          }
+        }
+      }
+    },
+    {
+      path: '/newsbord/newbordview/:idx',
+      component: _loc_newsbord_newview_js__WEBPACK_IMPORTED_MODULE_3__["default"],
+      props: true,
+      beforeEnter: (to, from, next) => {
+        if (sessionStorage.length == 0) {
+          router.push({
+            path: '/',
+            component: _loc_login_login_page__WEBPACK_IMPORTED_MODULE_1__["default"],
+            name: 'login'
+          })
+        } else {
+          if(sessionStorage.comcode == 1){
+            next()
+          }
+        }
+      }
+    },
+    {
+      name: 'consul',
+      path: '/consul',
+      component: _loc_cosul_consul_js__WEBPACK_IMPORTED_MODULE_4__["default"],
+      beforeEnter: (to, from, next) => {
+        if (sessionStorage.length == 0) {
+          router.push({
+            path: '/',
+            component: _loc_login_login_page__WEBPACK_IMPORTED_MODULE_1__["default"],
+            name: 'login'
+          })
+        } else {
+          if(sessionStorage.comcode == 1){
+            next()
+          }
+        }
+      }
+    },
+    {
+      name: 'cflag',
+      path: '/cflag',
+      component: _loc_cosul_consil_table_share__WEBPACK_IMPORTED_MODULE_7__["default"],
+      beforeEnter: (to, from, next) => {
+        if (sessionStorage.length == 0) {
+          router.push({
+            path: '/',
+            component: _loc_login_login_page__WEBPACK_IMPORTED_MODULE_1__["default"],
+            name: 'login'
+          })
+        } else {
+          next()
+        }
+      }
+    },
+    {
+      path: '/consul/consulview/:idx',
+      component: _loc_cosul_consul_view_js__WEBPACK_IMPORTED_MODULE_5__["default"],
+      props: true,
+      beforeEnter: (to, from, next) => {
+        if (sessionStorage.length == 0) {
+          router.push({
+            path: '/',
+            component: _loc_login_login_page__WEBPACK_IMPORTED_MODULE_1__["default"],
+            name: 'login'
+          })
+        } else {
+          if(sessionStorage.comcode == 1){
+            next()
+          }
+        }
+      }
+    },
+  ]
+})
 
-  /* harmony default export */ __webpack_exports__["default"] = (router);
+
+
+/* harmony default export */ __webpack_exports__["default"] = (router);
 
 /***/ }),
 
@@ -4980,8 +5119,8 @@ const store = new Vuex.Store({
         id: String,
         Name:String,
         Class:String,
-        Activation:String
-
+        Activation:String,
+        comcode:Number
       }
 })
 

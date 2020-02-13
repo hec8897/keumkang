@@ -7,7 +7,7 @@ export const store = new Vuex.Store({
         id: String,
         Name:String,
         Class:String,
-        Activation:String
-
+        Activation:String,
+        comcode:Number
       }
 })

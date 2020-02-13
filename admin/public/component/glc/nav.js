@@ -1,49 +1,52 @@
+import eventBus from './eventbus';
 const NavComponent = {
+    props:['comcode'],
     template: `<nav>
                     <ul>
-                        
-                    <router-link tag='li' to='/consul'>
+                        <router-link tag='li' to='/consul' v-if="comcodeData==='1'">
                             <b class="caret fr"></b>
                             상담신청
                         </router-link>
                         
-                        <router-link tag='li' to='/cflag'>
+                        <router-link tag='li' to='/cflag' v-if="comcodeData==='100'">
                             <b class="caret fr"></b>
                             배정받은상담
                         </router-link>
-                        <router-link tag='li' to='/userview'>
+                        <router-link tag='li' to='/userview' v-if="comcodeData==='1'">
                             <b class="caret fr"></b>
                             사용자관리
                         </router-link>
-                        <router-link tag='li' to='/newsbord'>
+                        <router-link tag='li' to='/newsbord' v-if="comcodeData==='1'">
                             <b class="caret fr"></b>
                             보도자료
                         </router-link>
-                        <router-link tag='li' to='/1'>
+                        <router-link tag='li' to='/1' v-if="comcodeData==='1'">
                             <b class="caret fr"></b>
                             조감도관리
                         </router-link>
 
-                        <router-link tag='li' to='/2'>
+                        <router-link tag='li' to='/2' v-if="comcodeData==='1'">
                             <b class="caret fr"></b>
                             엑셀파일 관리/입주의향서
                         </router-link>
 
-                        <router-link tag='li' to='/4'>
+                        <router-link tag='li' to='/4' v-if="comcodeData==='1'">
                             <b class="caret fr"></b>
                             현장사진/드론영상
                         </router-link>
-
-                  
-
                     </ul>
                 </nav>`,
     data() {
         return {
-
+            comcodeData:sessionStorage.comcode
         }
+    },
+    created(){
+        eventBus.$on('nav',(Data)=>{
+            this.comcodeData = Data
+        })
     }
-
+   
 }
 
 export default NavComponent;
