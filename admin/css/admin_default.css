@@ -15,6 +15,7 @@ h2{
 	font-weight: bold;
 }
 
+
 header{
     width: 100%;
     height: 60px;
@@ -59,6 +60,42 @@ div.con_wrap{
     left: 250px;
     width: 80%;
 }
+div.con_wrap.login_page{
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: gray;
+    left: 0;
+    z-index: 999;
+    /* top: 60px; */
+}
+.login_wrap{
+    position:relative; background:#000; padding:0; margin:0; width:100%; min-width:320px; min-height:100%;
+    background:url('../images/login_bg.jpg') no-repeat center; background-size:cover;
+}
+.login_box{
+    position:absolute; top:50%; left:50%; margin-top:-230px; margin-left:-150px;
+    width:300px; text-align:center
+}
+.login_box h1{color: white;}
+.login_box .login_bi{display:inline-block}
+.login_box .login_input{margin-top:50px}
+.login_box .login_input>div{position:relative}
+.login_box .login_input i{position:absolute; top:10px; left:10px; color:rgba(255,255,255,0.3)}
+.login_box .login_input input{
+    width:100%; height:50px; padding:0 20px 0 40px; color:#fff; font-size:16px;
+    background:transparent; border:0; border-bottom:1px solid rgba(255,255,255,0.3);
+}
+.login_box .login_input input::-webkit-input-placeholder{color:#f0f0f0; font-size:14px}
+.login_box .login_input input:-ms-input-placeholder{color:#f0f0f0; font-size:14px}
+
+.login_box .login_input button[type=submit]{
+    display:block; border:none; outline:none; border-radius:3px; 
+    width:100%; height:50px; line-height:50px; color:#fff; font-size:16px; cursor:pointer;
+    margin-bottom:10px
+}
+.login_box .login_input button[type=submit].btn_admin{background:#e1b724}
+.login_box .login_input button[type=submit].btn_pw{background:#222}
 div.con_wrap div.content{
     width: 100%;
     min-width: 950px;
