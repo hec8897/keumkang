@@ -31,7 +31,6 @@ const LoginPage = {
     },
     created(){
         if(sessionStorage.length == 0){
-            console.log(this.$store.state.id)
             router.push({path:'/'}).catch (err => {})
         }
         else{
@@ -51,31 +50,45 @@ const LoginPage = {
         loginAcc(){
             const userId = document.getElementById('login_id')
             const userPw = document.getElementById('login_pw')
-            // if(userId.value == ""){
-            //     alert('아이디를 입력세요')
-            //     userId.focus()
-            // }
-            // else if(userPw.value == ""){
-            //     alert('패스워드를 입력해주세요')
-            //     userPw.focus()
-            // }
-            this.$store.state.id = 'testAcc123'
-            this.$store.state.Name = '개발자'
-            this.$store.state.Class = '금강'
-            this.$store.state.Activation = '1'
-            this.$store.state.comcode = 1
+            if(userId.value == ""){
+                alert('아이디를 입력세요')
+                userId.focus()
+            }
+            else if(userPw.value == ""){
+                alert('패스워드를 입력해주세요')
+                userPw.focus()
+            }
+            const baseURI = 'api/login.php';
+                axios.post(`${baseURI}`, {
+                        userId:userId.value,
+                        userPw:userPw.value
+                    })
+                    .then((result) => {
+                        if(result.data.result){
+                            console.log(result.data.result.user_id)
+                            console.log(result.data.result.user_name)
+                            console.log(result.data.result.userId.user_phone)
+                            console.log(result.data.result.userId.class)
+                            console.log(result.data.result.userId.comcode)
+                            console.log(result.data.result.userId.activation)
 
-            sessionStorage.setItem("name", this.$store.state.Name);
-            sessionStorage.setItem("ID",  this.$store.state.id);
-            sessionStorage.setItem("Class",  this.$store.state.Class);
-            sessionStorage.setItem("Activation",  this.$store.state.Activation);
-            sessionStorage.setItem("comcode",  this.$store.state.comcode);
+                        }
+                           
+                    })
+                    .catch(err => console.log('Login: ', err));
+                    // this.$store.state.id = 'testAcc123'
+                    // this.$store.state.Name = '개발자'
+                    // this.$store.state.Class = '금강'
+                    // this.$store.state.Activation = '1'
+                    // this.$store.state.comcode = 1
 
+                    // sessionStorage.setItem("name", this.$store.state.Name);
+                    // sessionStorage.setItem("ID",  this.$store.state.id);
+                    // sessionStorage.setItem("Class",  this.$store.state.Class);
+                    // sessionStorage.setItem("Activation",  this.$store.state.Activation);
+                    // sessionStorage.setItem("comcode",  this.$store.state.comcode);
+                    // sessionStorage.setItem("userPhone", result.data.userPhone);
 
-            // sessionStorage.setItem("userPhone", result.data.userPhone);
-
-            // console.log(this.$store.state.id)
-            //로그인세션
             if(sessionStorage.comcode == 100){
                 router.push({name:'cflag' ,path:'/cflag'})
                 .catch (err => {})
@@ -86,9 +99,6 @@ const LoginPage = {
                 .catch (err => {})
             }
            eventBus.$emit('nav',sessionStorage.comcode)
-        
-
-
         }
 
     }

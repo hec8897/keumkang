@@ -18,7 +18,7 @@ const joinModal = {
                                 <input type='password' id='user_pw' placeholder='패스워드 확인'>
                             </li>
                             <li>
-                                <input type='text' id='user_class' placeholder='' readonly value='금강(비활성화)'>
+                                <input type='text' id='user_class' placeholder='' readonly value='금강' style='color:#444'>
                             </li>
                             <li>
                                 <input type='text' id='user_name' placeholder='성함'>
@@ -46,28 +46,64 @@ const joinModal = {
         },
         insertData(){
             const userId = document.getElementById('user_id')
+
             const userpwRe = document.getElementById('user_pw_re')
             const userpw = document.getElementById('user_pw')
+
             const userClass = document.getElementById('user_class')
             const userPhone = document.getElementById('user_phone')
             const userName =  document.getElementById('user_name')
             if(userId.value.length < 8){
                 alert('id는 8자 이상으로 작성해주세요')
+                userId.focus()
             }
             else if(userpw.value < 10){
                 alert('패스워드는 10자 이상 작성해주세요')
+                userpw.focus()
+
             }
             else if(userpwRe.value != userpw.value){
                 alert('패스워드가 다릅니다')
+                userpwRe.focus()
             }
             else if(userClass.value ==""){
                 alert('소속에러')
+                userClass.focus()
             }
             else if(userName.value < 2){
                 alert('성함을 입력해주세요')
             }
             else if(userPhone.value < 2){
                 alert('성함을 입력해주세요')
+            }
+            else{
+                const baseURI = 'api/join.user.php';
+                axios.post(`${baseURI}`, {
+                        userId:userId.value,
+                        userPw:userpw.value,
+                        userClass:userClass.value,
+                        userName:userName.value,
+                        userPhone:userPhone.value
+                    })
+                    .then((result) => {
+                        if(result.data.result == 'idno'){
+                            alert('존재하는 아이디입니다 다시입력세요')
+                            userId.focus()
+                        }
+                        else{
+                            if(result.data.phpResult == 'ok'){
+                                alert('사용자등록신청이 되었습니다 관리자 승인후 사용할수있습니다.')
+                                // this.ModalClose();
+                                location.reload();
+                            }
+                            else{
+                                alert('데이터 전송오류')
+                            }
+                        }
+
+                           
+                    })
+                    .catch(err => console.log('Login: ', err));
             }
            
         }

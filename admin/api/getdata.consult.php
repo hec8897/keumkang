@@ -18,6 +18,7 @@ $result = array();
 while($row = mysqli_fetch_array($query)){
     array_push($result,array(
         "idx"=>$row['idx'],
+        
         "reqPhone"=>$row['reqphone'],
         "reqName"=>$row['reqname'],
         "cate"=>$row['standard'],
