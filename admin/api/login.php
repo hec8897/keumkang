@@ -5,13 +5,11 @@
 
     $userId = $data['userId'];
     $userPw = $data['userPw'];
-    // $hash = password_verify($mempw, $userPw) 
    
     $userIdCheck = "SELECT * FROM `tb_user` WHERE `user_id` ='$userId'";
     $CheckId = mysqli_query($conn,$userIdCheck);
     $IdGet = mysqli_fetch_array($CheckId);
     $password = $IdGet['user_pw'];    
-
     if(count($IdGet) > 0){
         if (password_verify($userPw, $password)) {
             if($IdGet['activation'] == 0){

@@ -8,6 +8,7 @@ export const store = new Vuex.Store({
         Name:String,
         Class:String,
         Activation:String,
+        userPhone:String,
         comcode:Number
       }
 })

@@ -31,39 +31,44 @@ const userMain = {
 </div>`,
     components: {
         'user-info': userInfo,
-        'user-tool':userTool,
+        'user-tool': userTool,
         'list-number': ListNumber,
 
     },
-    mounted(){
-        this.results = this.lists;
+    created() {
+        const baseURI = 'api/getdata.user.php';
+        axios.post(`${baseURI}`, {})
+            .then((result) => {
+                if (result.data.phpResult == 'ok') {
+                    this.lists = result.data.result;
+                } 
+                else {
+                    this.lists = [{
+                        idx: 0,
+                        userId: 'hec8897',
+                        userName: '로딩중',
+                        userPhone: '01000000000',
+                        Class: '금강',
+                        DataCount: 2,
+                        Activation: 0
+                    }]
+                }
+
+            })
+            .catch(err => console.log('Login: ', err));
     },
-    data(){
-        return{
+    mounted() {
+
+        this.results = this.lists;
+        console.log(this.results)
+
+    },
+    data() {
+        return {
             start: 0,
             limit: 10,
-            results:Array,
-            lists:[
-                {
-                    idx:0,
-                    userId:'hec8897',
-                    userName:'김다운',
-                    userPhone:'01000000000',
-                    Class:'금강',
-                    DataCount:2,
-                    Activation:0
-                },
-                {
-                    idx:0,
-                    userId:'hec8897',
-                    userName:'김다운22',
-                    userPhone:'01000000000',
-                    Class:'금강',
-                    DataCount:2,
-                    Activation:1
-
-                }
-            ]
+            results: Array,
+            lists: Array
         }
     }
 }
