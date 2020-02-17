@@ -39,7 +39,10 @@ const ConsulView = {
                     </div>
                     <div class="btn_wrap">
                         <span class="b_red" v-on:click="OpenDelteModal(list.idx,'consul')">삭제</span>
-                        <router-link to="/consul" class="b_sgrey" tag='span'>목록</router-link>
+                        <router-link v-if = "comcode>1" to="/cflag" class="b_sgrey" tag='span'>목록</router-link>
+                        <router-link v-else to="/consul" class="b_sgrey" tag='span'>목록</router-link>
+
+
                     </div> 
                 </div>
             </div>`,
@@ -48,20 +51,12 @@ const ConsulView = {
     },
     data() {
         return {
-            list:Array
-            // list: {
-            //     idx: 0,
-            //     cate: '삼성',
-            //     InsertDate: '2020-02-11',
-            //     reqName: '개발자',
-            //     reqPhone: '01023866487',
-            //     reqMemo: '상담내용상담내영',
-            //     Class: "금강",
-            //     Cflag: '김다우'
-            // }
+            list:Array,
+            comcode:this.$store.state.comcode
         }
     },
     created() {
+        console.log(this.comcode)
         const baseURI = 'api/getdata.consult.php';
         axios.post(`${baseURI}`, {
             idx:this.idx

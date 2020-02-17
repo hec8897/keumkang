@@ -74,7 +74,6 @@ const shareConsulView = {
                 if (result.data.phpResult == 'ok') {
                     this.lists = result.data.result
                     this.results = this.lists;
-                    console.log(result)
                 } else {
                     this.lists = [{
                             idx: 0,
