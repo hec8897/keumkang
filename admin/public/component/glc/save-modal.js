@@ -8,7 +8,7 @@ const saveModal = {
                         <p>{{ment}}</p>
                     </div>
                     <div class="modal_foot">
-                        <span class="b_blue">확인</span>
+                        <span class="b_blue" @click='PostData(FnMode)'>확인</span>
                         <span v-on:click='ModalClose' class="b_sgrey">취소</span>
                     </div>
                 </div>
@@ -17,22 +17,23 @@ const saveModal = {
         return {
             idx: null,
             Data:null,
-            mode:null,
+            FnMode:null,
             ment:"보도자료를 등록 하시겠습니까?"
         }
     },
     mounted(){
         eventBus.$on('new',(Data)=>{
             this.ment = '보도자료를 등록 하시겠습니까?'
-            this.mode = 'new'
+            this.FnMode = 'new'
         })
         eventBus.$on('updateNews',(Data)=>{
             this.ment = '보도자료를 수정 하시겠습니까?'
-            this.mode = 'update'
+            this.FnMode = 'update'
         })
         eventBus.$on('account_use',(Data)=>{
             this.ment = '계정 사용을 승인합니다'
-            this.mode = 'acc'
+            this.Data = Data
+            this.FnMode = 'Active'
         })
        
 
@@ -47,35 +48,28 @@ const saveModal = {
                 Modal.style.display = 'none';
             }, 100);
         },
-        GetData(a) {
-            // if(this.mode == 'user'){
-            //     eventBus.$on('idx',(Data)=>{
-            //         this.Data = Data.Data
-            //     })
-            // }
-        },
-        // PostData(){
-        //     if(this.mode == 'user'){
-        //         let baseURI = 'api/user.proc.php'
-
-        //         axios.post(`${baseURI}`, {
-        //             mode:'user_update',
-        //             idx:this.Data.Idx,
-        //             chId:this.Data.ChId,
-        //             chPw:this.Data.ChPw,
-        //             chPhone:this.Data.ChPhone
-        //         })
-        //         .then((result) => {
-        //             if(result.data.phpResult == 'ok'){
-        //                 alert('변경이완료되었습니다')
-        //                 this.ModalClose();
-        //                 eventBus.$emit('userInfo',"change")
-        //             }
-        //         })
-        //         .catch(err => console.log('Login: ', err));
-        //     }
-        
-        // }
+        PostData(mode){
+            let baseURI;
+            let Data;
+            if(mode == 'Active'){
+                baseURI = 'api/user_fn.php';
+                Data = {
+                    mode:this.FnMode,
+                    idx:this.Data
+                }
+            }
+            else{
+                baseURI = '123';
+            }
+            axios.post(`${baseURI}`, {Data})
+            .then((result) => {
+                if (result.data.phpResult == 'ok') {
+                    this.ModalClose()
+                    location.reload()
+                } 
+            })
+            .catch(err => console.log('Login: ', err));
+        }
     }
 }
 

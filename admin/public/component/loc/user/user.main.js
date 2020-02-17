@@ -1,6 +1,7 @@
 import userInfo from './component/user_info'
 import userTool from './component/user_tool'
 import ListNumber from '../../glc/list-numbering';
+import eventBus from '../../glc/eventbus';
 
 const userMain = {
     template: `<div class="con_wrap">
@@ -33,35 +34,6 @@ const userMain = {
         'user-info': userInfo,
         'user-tool': userTool,
         'list-number': ListNumber,
-
-    },
-    created() {
-        const baseURI = 'api/getdata.user.php';
-        axios.post(`${baseURI}`, {})
-            .then((result) => {
-                if (result.data.phpResult == 'ok') {
-                    this.lists = result.data.result;
-                } 
-                else {
-                    this.lists = [{
-                        idx: 0,
-                        userId: 'hec8897',
-                        userName: '로딩중',
-                        userPhone: '01000000000',
-                        Class: '금강',
-                        DataCount: 2,
-                        Activation: 0
-                    }]
-                }
-
-            })
-            .catch(err => console.log('Login: ', err));
-    },
-    mounted() {
-
-        this.results = this.lists;
-        console.log(this.results)
-
     },
     data() {
         return {
@@ -70,7 +42,40 @@ const userMain = {
             results: Array,
             lists: Array
         }
-    }
+    },
+    created() {
+        this.DataGet()
+    
+    },
+    mounted() {
+    },
+    updated(){
+        this.results = this.lists;
+    },
+    methods:{
+        DataGet(){
+            const baseURI = 'api/getdata.user.php';
+            axios.post(`${baseURI}`, {})
+                .then((result) => {
+                    if (result.data.phpResult == 'ok') {
+                        this.lists = result.data.result;
+                    } 
+                    else {
+                        this.lists = [{
+                            idx: 0,
+                            userId: 'hec8897',
+                            userName: '로딩중',
+                            userPhone: '01000000000',
+                            Class: '금강',
+                            DataCount: 2,
+                            Activation: 0
+                        }]
+                    }
+                })
+                .catch(err => console.log('Login: ', err));
+        }   
+     }
+    
 }
 
 export default userMain;

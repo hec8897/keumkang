@@ -7,7 +7,7 @@ const shareConsulView = {
         <div class="con_wrap">
         <div class='content consul_bord'>
             <h2>배정된상담신청</h2>
-    <div class='table_wrap consul_wrap'>
+        <div class='table_wrap consul_wrap'>
                 <div class='filters'>
                     <span>배정자료</span><b>{{this.results.length}}건</b>
                     <select v-on:change="searchCate($event)">
@@ -16,8 +16,6 @@ const shareConsulView = {
                         <option value='천안'>천안</option>
                         <option value='부동산'>부동산</option>
                     </select>
-
-
                 </div>
                 <table class='consul_tb'>
                     <thead>
@@ -56,29 +54,49 @@ const shareConsulView = {
         return {
             lists: Array,
             results: Array,
+            idx: sessionStorage.idx,
             start: 0,
             limit: 10
         }
     },
 
     created() {
-        this.lists = [{
-                idx: 0,
-                cate: '삼성',
-                reqName: '개발자',
-                reqPhone: '01023866487',
-                Class: "금강",
-                Cflag: '김다우'
-            },
-            {
-                idx: 0,
-                cate: '삼성',
-                reqName: '개발자',
-                reqPhone: '01023866487',
-                Class: "금강",
-                Cflag: '김다우'
-            }
-        ]
+        const baseURI = 'api/getdata.consult.php';
+        let Data = {
+            idx: sessionStorage.idx,
+            Cflag: sessionStorage.name,
+            Class: sessionStorage.Class
+        }
+        axios.post(`${baseURI}`, {
+                Data
+            })
+            .then((result) => {
+                if (result.data.phpResult == 'ok') {
+                    this.lists = result.data.result
+                    this.results = this.lists;
+                    console.log(result)
+                } else {
+                    this.lists = [{
+                            idx: 0,
+                            cate: '삼성',
+                            reqName: '개발자',
+                            reqPhone: '01023866487',
+                            Class: "금강",
+                            Cflag: '김다우'
+                        },
+                        {
+                            idx: 0,
+                            cate: '삼성',
+                            reqName: '개발자',
+                            reqPhone: '01023866487',
+                            Class: "금강",
+                            Cflag: '김다우'
+                        }
+                    ]
+                }
+            })
+            .catch(err => console.log('Login: ', err));
+
 
         // db에서 가져온데이터를 this.lists에 담아야함
 

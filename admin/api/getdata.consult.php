@@ -2,14 +2,20 @@
 include("inc/conn.php");
 include("inc/variable_define.php");
 $data = json_decode(file_get_contents("php://input"),true);
+$Data = $data['Data'];
 
-$idx = $data['idx'];
-if(isset($idx)){
-    $sql = "SELECT * FROM `tb_consult` WHERE `idx` = '$idx'";
+$idx = $Data['idx'];
+$Class = $Data['Class'];
+$Cflag = $Data['Cflag'];
+
+
+if(isset($Class)){
+    $sql = "SELECT * FROM `tb_consult` WHERE `reqclass` = '$Class' AND `cflag`= '$Cflag'";
 }
 else{
     $sql = "SELECT * FROM `tb_consult`";
 }
+
 $query = mysqli_query($conn,$sql);
 
 
@@ -18,7 +24,6 @@ $result = array();
 while($row = mysqli_fetch_array($query)){
     array_push($result,array(
         "idx"=>$row['idx'],
-        
         "reqPhone"=>$row['reqphone'],
         "reqName"=>$row['reqname'],
         "cate"=>$row['standard'],

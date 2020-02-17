@@ -9,7 +9,7 @@ const userInfo = {
         <td>{{list.Class}}</td>
         <td>{{list.userPhone}}</td>
         <td>{{list.DataCount}}</td>
-        <td v-if="list.Activation === 1">정상</td>
+        <td v-if="list.Activation === '1'">정상</td>
         <td v-else>비승인</td>
     </tr>`,
     data(){

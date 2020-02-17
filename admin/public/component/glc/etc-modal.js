@@ -19,14 +19,18 @@ const etcModal = {
                         <ul class='inputs' v-else-if="this.mode === 'cflag'">
                             <form>
                             <li>
-                                <select disabled>
-                                    <option>배정팀(비활성화)</option>
+                                <select disabled id='selectclass'>
+                                    <option value='금강'>배정팀(비활성화)</option>
                                 </select>
                             </li>
                             <li>
                          
-                                <select>
-                                    <option>배정할 상담사</option>
+                                <select id='selectcflag'>
+                                    <option value=''>상담사선택</option>
+                                    <option value='none'>회수</option>
+                                    <option v-for = 'list in lists' v-bind:value="list.userName">
+                                    {{list.userName}}({{list.Class}})
+                                    </option>
                                 </select>
                             </li>
                          
@@ -45,24 +49,28 @@ const etcModal = {
         return {
             idx: null,
             Data: null,
-            mode: null
+            mode: null,
+            lists:Array,
+            SelectDatas: null
         }
     },
     created() {
+        this.getCflagData();
+        this.lists = this.SelectDatas;
+
         eventBus.$on('changePw', (Data) => {
-            console.log('패스워드 변경')
+            this.idx = Data;
             this.mode = 'chpw';
         })
 
         eventBus.$on('shareCflag', (Data) => {
-            console.log('상담사배정')
             this.mode = 'cflag';
-            console.log(Data)
+            this.Data = Data;
         })
 
-
     },
-  
+    mounted() {
+    },
     methods: {
         ModalClose() {
             const Modal = document.getElementById('modal-etc')
@@ -72,22 +80,77 @@ const etcModal = {
                 Modal.style.display = 'none';
             }, 100);
         },
-        shareData(){
+        shareData() {
+            const SelectClass = document.getElementById('selectclass');
+            const SelectCflag = document.getElementById('selectcflag');
+            if(SelectCflag.value == ""){
+                alert('배정할 상담사를 선택해주세요')
+            }
+            else{
+            let Data = {
+                mode:this.mode,
+                SelectIdx:this.Data,
+                Class:SelectClass.value,
+                cflag:SelectCflag.value
+            }
+            const baseURI = 'api/user_fn.php';
+            axios.post(`${baseURI}`, {
+                Data
+            })
+            .then((result) => {
+                if (result.data.phpResult == 'ok') {
+                    alert('변경되었습니다')
+                    this.ModalClose();
+                    location.reload();
+                } else {
+                    alert('변경에 실패하였습니다')
+                }
+            })
+            .catch(err => console.log('Login: ', err));
+        }
 
         },
-        PostData(a) {
+        getCflagData() {
+            const baseURI = 'api/getdata.user.php';
+            axios.post(`${baseURI}`, {})
+                .then((result) => {
+                    if (result.data.phpResult == 'ok') {
+                        this.lists = result.data.result;
+                    }
+                })
+                .catch(err => console.log('Login: ', err));
+
+        },
+        PostData() {
             const reqPassword = document.getElementById('reqpassword')
             const reqPasswordRe = document.getElementById('reqpassword_re')
-            if (reqPassword.value == reqPasswordRe.value) {
-                console.log('일치2')
+            if (reqPassword.value.length > 8) {
+                if (reqPassword.value == reqPasswordRe.value) {
+                    const baseURI = 'api/user_fn.php';
+                    let Data = {
+                        mode: this.mode,
+                        idx: this.idx,
+                        ChPw: reqPassword.value
+                    }
+                    axios.post(`${baseURI}`, {
+                            Data
+                        })
+                        .then((result) => {
+                            if (result.data.phpResult == 'ok') {
+                                alert('변경되었습니다')
+                                this.ModalClose()
+                            } else {
+                                alert('변경에 실패하였습니다')
+                            }
+                        })
+                        .catch(err => console.log('Login: ', err));
+                } else {
+                    alert('패스워드가 다릅니다')
+                    reqPassword.focus();
+                }
             } else {
-                console.log('불일치')
+                alert('패스워드는 9자이상 입니다')
             }
-            // if(this.mode == 'user'){
-            //     eventBus.$on('idx',(Data)=>{
-            //         this.Data = Data.Data
-            //     })
-            // }
         },
 
     }

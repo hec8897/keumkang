@@ -29,6 +29,7 @@ new Vue({
       this.$store.state.Activation = sessionStorage.Activation;
       this.$store.state.comcode = sessionStorage.comcode;
       this.$store.state.userPhone = sessionStorage.userPhone;
+      this.$store.state.idx = sessionStorage.idx
   }
  
 

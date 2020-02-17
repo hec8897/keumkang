@@ -13,7 +13,7 @@ const LoginPage = {
             <div class="login_input">
                 <div class="mb10">
                     <i class="material-icons">person</i>
-                    <input type="text" placeholder="아이디" id='login_id' value='ceomaker'>
+                    <input type="text" placeholder="아이디" id='login_id'>
                 </div>
                 <div>
                     <i class="material-icons">lock</i>
@@ -75,14 +75,16 @@ const LoginPage = {
                                 alert('승인되지 않은 계정입니다 관리자에게 문의 해주세요')
                             }
                             else{
-                                 this.$store.state.id = result.data.result.user_id
-                                 this.$store.state.Name = result.data.result.user_name
-                                 this.$store.state.Class = result.data.result.class
-                                 this.$store.state.Activation = result.data.result.activation
-                                 this.$store.state.comcode = result.data.result.comcode
-                                 this.$store.state.userPhone = result.data.result.user_phone
+                                 this.$store.state.id = result.data.result.user_id;
+                                 this.$store.state.idx = result.data.result.idx;
+                                 this.$store.state.Name = result.data.result.user_name;
+                                 this.$store.state.Class = result.data.result.class;
+                                 this.$store.state.Activation = result.data.result.activation;
+                                 this.$store.state.comcode = result.data.result.comcode;
+                                 this.$store.state.userPhone = result.data.result.user_phone;
                                             
                                 sessionStorage.setItem("ID",  this.$store.state.id);
+                                sessionStorage.setItem("idx",  this.$store.state.idx);
                                 sessionStorage.setItem("name", this.$store.state.Name);
                                 sessionStorage.setItem("Class",  this.$store.state.Class);
                                 sessionStorage.setItem("Activation",  this.$store.state.Activation);

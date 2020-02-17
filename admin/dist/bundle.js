@@ -14139,6 +14139,7 @@ new Vue({
       this.$store.state.Activation = sessionStorage.Activation;
       this.$store.state.comcode = sessionStorage.comcode;
       this.$store.state.userPhone = sessionStorage.userPhone;
+      this.$store.state.idx = sessionStorage.idx
   }
  
 
@@ -14169,7 +14170,7 @@ const DelteModal = {
                         <p>{{ment2}}</p>
                     </div>
                     <div class="modal_foot">
-                        <span  class="b_red">확인</span>
+                        <span  class="b_red" @click='PostData(FnMode)'>확인</span>
                         <span v-on:click='ModalClose' class="b_sgrey">취소</span>
                     </div>
                 </div>
@@ -14179,6 +14180,7 @@ const DelteModal = {
             idx: null,
             thisTarget: null,
             Data: null,
+            FnMode:String,
             ment: '정말로 삭제 하시겠습니까?',
             ment2:'(삭제후엔 복구가 불가능합니다)'
         }
@@ -14186,26 +14188,33 @@ const DelteModal = {
     created() {
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('News', (Data) => {
             this.ment = '보도자료를 삭제합니다'
+            this.FnMode = 'News';
             console.log(Data)
         })
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('consul', (Data) => {
             this.ment = '상담내역을 삭제합니다'
+            this.FnMode = 'ImgConsul';
+
             console.log('상담신청삭제' + Data)
         })
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('NewsImg', (Data) => {
             this.ment = '메인 이미지를 삭제합니다'
+            this.FnMode = 'ImgDelte';
+
             console.log('이미지삭제' + Data)
         })
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('account_del', (Data) => {
             this.ment = '사용자 계정을 삭제합니다'
+            this.FnMode = 'DeleteAcc';
 
             console.log('사용자계정 삭제' + Data)
         })
-        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('account_use', (Data) => {
-            this.ment = '사용자 계정 접근을 중단합니다'
-            this.ment2 = ''
+        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('account_beactive', (Data) => {
+            this.ment = '사용자 계정 접근을 중단합니다';
+            this.ment2 = '';
+            this.Data = Data
+            this.FnMode = 'baActive';
 
-            console.log('사용자 계정 비승인' + Data)
         })
     },
     methods: {
@@ -14216,8 +14225,29 @@ const DelteModal = {
             setTimeout(() => {
                 Modal.style.display = 'none';
             }, 100);
+        },
+        PostData(mode){
+            let baseURI;
+            let Data;
+            if(mode == 'baActive'){
+                baseURI = 'api/user_fn.php';
+                Data = {
+                    mode:this.FnMode,
+                    idx:this.Data
+                }
+            }
+            else{
+                baseURI = '123';
+            }
+            axios.post(`${baseURI}`, {Data})
+            .then((result) => {
+                if (result.data.phpResult == 'ok') {
+                    this.ModalClose()
+                    location.reload()
+                } 
+            })
+            .catch(err => console.log('Login: ', err));
         }
-
     }
 }
 
@@ -14256,14 +14286,18 @@ const etcModal = {
                         <ul class='inputs' v-else-if="this.mode === 'cflag'">
                             <form>
                             <li>
-                                <select disabled>
-                                    <option>배정팀(비활성화)</option>
+                                <select disabled id='selectclass'>
+                                    <option value='금강'>배정팀(비활성화)</option>
                                 </select>
                             </li>
                             <li>
                          
-                                <select>
-                                    <option>배정할 상담사</option>
+                                <select id='selectcflag'>
+                                    <option value=''>상담사선택</option>
+                                    <option value='none'>회수</option>
+                                    <option v-for = 'list in lists' v-bind:value="list.userName">
+                                    {{list.userName}}({{list.Class}})
+                                    </option>
                                 </select>
                             </li>
                          
@@ -14282,24 +14316,28 @@ const etcModal = {
         return {
             idx: null,
             Data: null,
-            mode: null
+            mode: null,
+            lists:Array,
+            SelectDatas: null
         }
     },
     created() {
+        this.getCflagData();
+        this.lists = this.SelectDatas;
+
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('changePw', (Data) => {
-            console.log('패스워드 변경')
+            this.idx = Data;
             this.mode = 'chpw';
         })
 
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('shareCflag', (Data) => {
-            console.log('상담사배정')
             this.mode = 'cflag';
-            console.log(Data)
+            this.Data = Data;
         })
 
-
     },
-  
+    mounted() {
+    },
     methods: {
         ModalClose() {
             const Modal = document.getElementById('modal-etc')
@@ -14309,22 +14347,77 @@ const etcModal = {
                 Modal.style.display = 'none';
             }, 100);
         },
-        shareData(){
+        shareData() {
+            const SelectClass = document.getElementById('selectclass');
+            const SelectCflag = document.getElementById('selectcflag');
+            if(SelectCflag.value == ""){
+                alert('배정할 상담사를 선택해주세요')
+            }
+            else{
+            let Data = {
+                mode:this.mode,
+                SelectIdx:this.Data,
+                Class:SelectClass.value,
+                cflag:SelectCflag.value
+            }
+            const baseURI = 'api/user_fn.php';
+            axios.post(`${baseURI}`, {
+                Data
+            })
+            .then((result) => {
+                if (result.data.phpResult == 'ok') {
+                    alert('변경되었습니다')
+                    this.ModalClose();
+                    location.reload();
+                } else {
+                    alert('변경에 실패하였습니다')
+                }
+            })
+            .catch(err => console.log('Login: ', err));
+        }
 
         },
-        PostData(a) {
+        getCflagData() {
+            const baseURI = 'api/getdata.user.php';
+            axios.post(`${baseURI}`, {})
+                .then((result) => {
+                    if (result.data.phpResult == 'ok') {
+                        this.lists = result.data.result;
+                    }
+                })
+                .catch(err => console.log('Login: ', err));
+
+        },
+        PostData() {
             const reqPassword = document.getElementById('reqpassword')
             const reqPasswordRe = document.getElementById('reqpassword_re')
-            if (reqPassword.value == reqPasswordRe.value) {
-                console.log('일치2')
+            if (reqPassword.value.length > 8) {
+                if (reqPassword.value == reqPasswordRe.value) {
+                    const baseURI = 'api/user_fn.php';
+                    let Data = {
+                        mode: this.mode,
+                        idx: this.idx,
+                        ChPw: reqPassword.value
+                    }
+                    axios.post(`${baseURI}`, {
+                            Data
+                        })
+                        .then((result) => {
+                            if (result.data.phpResult == 'ok') {
+                                alert('변경되었습니다')
+                                this.ModalClose()
+                            } else {
+                                alert('변경에 실패하였습니다')
+                            }
+                        })
+                        .catch(err => console.log('Login: ', err));
+                } else {
+                    alert('패스워드가 다릅니다')
+                    reqPassword.focus();
+                }
             } else {
-                console.log('불일치')
+                alert('패스워드는 9자이상 입니다')
             }
-            // if(this.mode == 'user'){
-            //     eventBus.$on('idx',(Data)=>{
-            //         this.Data = Data.Data
-            //     })
-            // }
         },
 
     }
@@ -14730,7 +14823,7 @@ const saveModal = {
                         <p>{{ment}}</p>
                     </div>
                     <div class="modal_foot">
-                        <span class="b_blue">확인</span>
+                        <span class="b_blue" @click='PostData(FnMode)'>확인</span>
                         <span v-on:click='ModalClose' class="b_sgrey">취소</span>
                     </div>
                 </div>
@@ -14739,22 +14832,23 @@ const saveModal = {
         return {
             idx: null,
             Data:null,
-            mode:null,
+            FnMode:null,
             ment:"보도자료를 등록 하시겠습니까?"
         }
     },
     mounted(){
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('new',(Data)=>{
             this.ment = '보도자료를 등록 하시겠습니까?'
-            this.mode = 'new'
+            this.FnMode = 'new'
         })
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('updateNews',(Data)=>{
             this.ment = '보도자료를 수정 하시겠습니까?'
-            this.mode = 'update'
+            this.FnMode = 'update'
         })
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('account_use',(Data)=>{
             this.ment = '계정 사용을 승인합니다'
-            this.mode = 'acc'
+            this.Data = Data
+            this.FnMode = 'Active'
         })
        
 
@@ -14769,35 +14863,28 @@ const saveModal = {
                 Modal.style.display = 'none';
             }, 100);
         },
-        GetData(a) {
-            // if(this.mode == 'user'){
-            //     eventBus.$on('idx',(Data)=>{
-            //         this.Data = Data.Data
-            //     })
-            // }
-        },
-        // PostData(){
-        //     if(this.mode == 'user'){
-        //         let baseURI = 'api/user.proc.php'
-
-        //         axios.post(`${baseURI}`, {
-        //             mode:'user_update',
-        //             idx:this.Data.Idx,
-        //             chId:this.Data.ChId,
-        //             chPw:this.Data.ChPw,
-        //             chPhone:this.Data.ChPhone
-        //         })
-        //         .then((result) => {
-        //             if(result.data.phpResult == 'ok'){
-        //                 alert('변경이완료되었습니다')
-        //                 this.ModalClose();
-        //                 eventBus.$emit('userInfo',"change")
-        //             }
-        //         })
-        //         .catch(err => console.log('Login: ', err));
-        //     }
-        
-        // }
+        PostData(mode){
+            let baseURI;
+            let Data;
+            if(mode == 'Active'){
+                baseURI = 'api/user_fn.php';
+                Data = {
+                    mode:this.FnMode,
+                    idx:this.Data
+                }
+            }
+            else{
+                baseURI = '123';
+            }
+            axios.post(`${baseURI}`, {Data})
+            .then((result) => {
+                if (result.data.phpResult == 'ok') {
+                    this.ModalClose()
+                    location.reload()
+                } 
+            })
+            .catch(err => console.log('Login: ', err));
+        }
     }
 }
 
@@ -14825,7 +14912,7 @@ const shareConsulView = {
         <div class="con_wrap">
         <div class='content consul_bord'>
             <h2>배정된상담신청</h2>
-    <div class='table_wrap consul_wrap'>
+        <div class='table_wrap consul_wrap'>
                 <div class='filters'>
                     <span>배정자료</span><b>{{this.results.length}}건</b>
                     <select v-on:change="searchCate($event)">
@@ -14834,8 +14921,6 @@ const shareConsulView = {
                         <option value='천안'>천안</option>
                         <option value='부동산'>부동산</option>
                     </select>
-
-
                 </div>
                 <table class='consul_tb'>
                     <thead>
@@ -14874,29 +14959,49 @@ const shareConsulView = {
         return {
             lists: Array,
             results: Array,
+            idx: sessionStorage.idx,
             start: 0,
             limit: 10
         }
     },
 
     created() {
-        this.lists = [{
-                idx: 0,
-                cate: '삼성',
-                reqName: '개발자',
-                reqPhone: '01023866487',
-                Class: "금강",
-                Cflag: '김다우'
-            },
-            {
-                idx: 0,
-                cate: '삼성',
-                reqName: '개발자',
-                reqPhone: '01023866487',
-                Class: "금강",
-                Cflag: '김다우'
-            }
-        ]
+        const baseURI = 'api/getdata.consult.php';
+        let Data = {
+            idx: sessionStorage.idx,
+            Cflag: sessionStorage.name,
+            Class: sessionStorage.Class
+        }
+        axios.post(`${baseURI}`, {
+                Data
+            })
+            .then((result) => {
+                if (result.data.phpResult == 'ok') {
+                    this.lists = result.data.result
+                    this.results = this.lists;
+                    console.log(result)
+                } else {
+                    this.lists = [{
+                            idx: 0,
+                            cate: '삼성',
+                            reqName: '개발자',
+                            reqPhone: '01023866487',
+                            Class: "금강",
+                            Cflag: '김다우'
+                        },
+                        {
+                            idx: 0,
+                            cate: '삼성',
+                            reqName: '개발자',
+                            reqPhone: '01023866487',
+                            Class: "금강",
+                            Cflag: '김다우'
+                        }
+                    ]
+                }
+            })
+            .catch(err => console.log('Login: ', err));
+
 
         // db에서 가져온데이터를 this.lists에 담아야함
 
@@ -15278,7 +15383,7 @@ const LoginPage = {
             <div class="login_input">
                 <div class="mb10">
                     <i class="material-icons">person</i>
-                    <input type="text" placeholder="아이디" id='login_id' value='ceomaker'>
+                    <input type="text" placeholder="아이디" id='login_id'>
                 </div>
                 <div>
                     <i class="material-icons">lock</i>
@@ -15340,14 +15445,16 @@ const LoginPage = {
                                 alert('승인되지 않은 계정입니다 관리자에게 문의 해주세요')
                             }
                             else{
-                                 this.$store.state.id = result.data.result.user_id
-                                 this.$store.state.Name = result.data.result.user_name
-                                 this.$store.state.Class = result.data.result.class
-                                 this.$store.state.Activation = result.data.result.activation
-                                 this.$store.state.comcode = result.data.result.comcode
-                                 this.$store.state.userPhone = result.data.result.user_phone
+                                 this.$store.state.id = result.data.result.user_id;
+                                 this.$store.state.idx = result.data.result.idx;
+                                 this.$store.state.Name = result.data.result.user_name;
+                                 this.$store.state.Class = result.data.result.class;
+                                 this.$store.state.Activation = result.data.result.activation;
+                                 this.$store.state.comcode = result.data.result.comcode;
+                                 this.$store.state.userPhone = result.data.result.user_phone;
                                             
                                 sessionStorage.setItem("ID",  this.$store.state.id);
+                                sessionStorage.setItem("idx",  this.$store.state.idx);
                                 sessionStorage.setItem("name", this.$store.state.Name);
                                 sessionStorage.setItem("Class",  this.$store.state.Class);
                                 sessionStorage.setItem("Activation",  this.$store.state.Activation);
@@ -15935,7 +16042,7 @@ const userInfo = {
         <td>{{list.Class}}</td>
         <td>{{list.userPhone}}</td>
         <td>{{list.DataCount}}</td>
-        <td v-if="list.Activation === 1">정상</td>
+        <td v-if="list.Activation === '1'">정상</td>
         <td v-else>비승인</td>
     </tr>`,
     data(){
@@ -15995,7 +16102,7 @@ const userTool = {
             <li>연락처 <span>{{list.userPhone}}</span></li>
             <li>소속: <span>{{list.Class}}</span></li>
             <li>아이디: <span>{{list.userId}}</span></li>
-            <li>상태: <span v-if="list.Activation === 1">정상</span><span v-else-if ="list.Activation===0">비승인</span></li>
+            <li>상태: <span v-if="list.Activation === '1'">정상</span><span v-else-if ="list.Activation==='0'">비승인</span></li>
 
         </ul>
         <div class='tb_box'>
@@ -16009,38 +16116,15 @@ const userTool = {
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
-                        <td>성함</td>
-                        <td>성함</td>
-                        <td>성함</td>
-                        <td>성함</td>
-                    </tr>
-                    <tr>
-                        <td>성함</td>
-                        <td>성함</td>
-                        <td>성함</td>
-                        <td>성함</td>
-                    </tr>
-                    <tr>
-                        <td>성함</td>
-                        <td>성함</td>
-                        <td>성함</td>
-                        <td>성함</td>
-                    </tr>
-                    <tr>
-                        <td>성함</td>
-                        <td>성함</td>
-                        <td>성함</td>
-                        <td>성함</td>
-                    </tr>
+         
                 </tbody>
             </table>
         </div>
         <div class='btns'>
             <span class='b_blue'@click="OpenEtcModal(this.idx,'account_del')">패스워드 변경</span>
 
-            <span class='b_red' v-if="list.Activation === 1" @click="OpenDelteModal(this.idx,'account_beactive')">계정 접속 제한</span>
-            <span class='b_blue' v-else-if ="list.Activation === 0" @click="OpenSaveModal(this.idx,'account_use')">계정 접속 승인</span>
+            <span class='b_red' v-if="list.Activation === '1'" @click="OpenDelteModal(list.idx,'account_beactive')">계정 접속 제한</span>
+            <span class='b_blue' v-else-if ="list.Activation === '0'" @click="OpenSaveModal(list.idx,'account_use')">계정 접속 승인</span>
 
             <span class='b_red' @click="OpenDelteModal(this.idx,'account_del')">계정 삭제</span>
 
@@ -16061,6 +16145,8 @@ const userTool = {
         _glc_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('GetUsertool', (Data)=>{
             this.list = Data
         })
+    },
+    mounted(){
     },
     methods:{
         OpenSaveModal(Data, mode) {
@@ -16122,6 +16208,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _component_user_info__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component/user_info */ "./public/component/loc/user/component/user_info.js");
 /* harmony import */ var _component_user_tool__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component/user_tool */ "./public/component/loc/user/component/user_tool.js");
 /* harmony import */ var _glc_list_numbering__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../glc/list-numbering */ "./public/component/glc/list-numbering.js");
+/* harmony import */ var _glc_eventbus__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../glc/eventbus */ "./public/component/glc/eventbus.js");
+
 
 
 
@@ -16157,35 +16245,6 @@ const userMain = {
         'user-info': _component_user_info__WEBPACK_IMPORTED_MODULE_0__["default"],
         'user-tool': _component_user_tool__WEBPACK_IMPORTED_MODULE_1__["default"],
         'list-number': _glc_list_numbering__WEBPACK_IMPORTED_MODULE_2__["default"],
-
-    },
-    created() {
-        const baseURI = 'api/getdata.user.php';
-        axios.post(`${baseURI}`, {})
-            .then((result) => {
-                if (result.data.phpResult == 'ok') {
-                    this.lists = result.data.result;
-                } 
-                else {
-                    this.lists = [{
-                        idx: 0,
-                        userId: 'hec8897',
-                        userName: '로딩중',
-                        userPhone: '01000000000',
-                        Class: '금강',
-                        DataCount: 2,
-                        Activation: 0
-                    }]
-                }
-
-            })
-            .catch(err => console.log('Login: ', err));
-    },
-    mounted() {
-
-        this.results = this.lists;
-        console.log(this.results)
-
     },
     data() {
         return {
@@ -16194,7 +16253,40 @@ const userMain = {
             results: Array,
             lists: Array
         }
-    }
+    },
+    created() {
+        this.DataGet()
+    
+    },
+    mounted() {
+    },
+    updated(){
+        this.results = this.lists;
+    },
+    methods:{
+        DataGet(){
+            const baseURI = 'api/getdata.user.php';
+            axios.post(`${baseURI}`, {})
+                .then((result) => {
+                    if (result.data.phpResult == 'ok') {
+                        this.lists = result.data.result;
+                    } 
+                    else {
+                        this.lists = [{
+                            idx: 0,
+                            userId: 'hec8897',
+                            userName: '로딩중',
+                            userPhone: '01000000000',
+                            Class: '금강',
+                            DataCount: 2,
+                            Activation: 0
+                        }]
+                    }
+                })
+                .catch(err => console.log('Login: ', err));
+        }   
+     }
+    
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (userMain);
@@ -16363,6 +16455,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         id: String,
+        idx:String,
         Name:String,
         Class:String,
         Activation:String,

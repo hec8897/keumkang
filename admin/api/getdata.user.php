@@ -4,6 +4,7 @@ include("inc/variable_define.php");
 $data = json_decode(file_get_contents("php://input"),true);
 
 $idx = $data['idx'];
+
 if(isset($idx)){
     $sql = "SELECT * FROM `tb_user` WHERE `idx` = '$idx'";
 }
@@ -11,7 +12,6 @@ else{
     $sql = "SELECT * FROM `tb_user`";
 }
 $query = mysqli_query($conn,$sql);
-
 
 $result = array();
 

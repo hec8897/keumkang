@@ -16,7 +16,7 @@ const userTool = {
             <li>연락처 <span>{{list.userPhone}}</span></li>
             <li>소속: <span>{{list.Class}}</span></li>
             <li>아이디: <span>{{list.userId}}</span></li>
-            <li>상태: <span v-if="list.Activation === 1">정상</span><span v-else-if ="list.Activation===0">비승인</span></li>
+            <li>상태: <span v-if="list.Activation === '1'">정상</span><span v-else-if ="list.Activation==='0'">비승인</span></li>
 
         </ul>
         <div class='tb_box'>
@@ -30,38 +30,15 @@ const userTool = {
                     </tr>
                 </thead>
                 <tbody>
-                <tr>
-                        <td>성함</td>
-                        <td>성함</td>
-                        <td>성함</td>
-                        <td>성함</td>
-                    </tr>
-                    <tr>
-                        <td>성함</td>
-                        <td>성함</td>
-                        <td>성함</td>
-                        <td>성함</td>
-                    </tr>
-                    <tr>
-                        <td>성함</td>
-                        <td>성함</td>
-                        <td>성함</td>
-                        <td>성함</td>
-                    </tr>
-                    <tr>
-                        <td>성함</td>
-                        <td>성함</td>
-                        <td>성함</td>
-                        <td>성함</td>
-                    </tr>
+         
                 </tbody>
             </table>
         </div>
         <div class='btns'>
             <span class='b_blue'@click="OpenEtcModal(this.idx,'account_del')">패스워드 변경</span>
 
-            <span class='b_red' v-if="list.Activation === 1" @click="OpenDelteModal(this.idx,'account_beactive')">계정 접속 제한</span>
-            <span class='b_blue' v-else-if ="list.Activation === 0" @click="OpenSaveModal(this.idx,'account_use')">계정 접속 승인</span>
+            <span class='b_red' v-if="list.Activation === '1'" @click="OpenDelteModal(list.idx,'account_beactive')">계정 접속 제한</span>
+            <span class='b_blue' v-else-if ="list.Activation === '0'" @click="OpenSaveModal(list.idx,'account_use')">계정 접속 승인</span>
 
             <span class='b_red' @click="OpenDelteModal(this.idx,'account_del')">계정 삭제</span>
 
@@ -82,6 +59,8 @@ const userTool = {
         eventBus.$on('GetUsertool', (Data)=>{
             this.list = Data
         })
+    },
+    mounted(){
     },
     methods:{
         OpenSaveModal(Data, mode) {
