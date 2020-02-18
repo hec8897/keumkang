@@ -1,5 +1,5 @@
 import DelteModal from '../../../glc/del-modal.js';
-import saveModal from '../../../glc/save-modal.js';
+import etcModal from '../../../glc/etc-modal.js';
 import eventBus from '../../../glc/eventbus.js';
 const spotImg = {
     template: `<div class='table_wrap'>
@@ -17,8 +17,8 @@ const spotImg = {
             </tr>
         </thead>
         <tbody>
-            <tr class='new_view_tr'v-for='(result,i) in results' v-if='i < limit && i >= start'>
-                <td><input type='checkbox'></td>
+            <tr class='new_view_tr'v-for='(result,i) in results' v-if='i < limit && i >= start' @click='prevImg(event)'>
+                <td><input type='checkbox' @click='checkboxEv(event)'></td>
                 <td>{{i+1}}</td>
                 <td>{{result.cate}}</td>
                 <td>
@@ -59,6 +59,15 @@ created(){
 },
 mounted(){
     this.results = this.lists
+},
+methods:{
+    prevImg(){
+        alert(1)
+    },
+    checkboxEv(event){
+        event.stopPropagation();
+        // console.log(123)
+    }
 }
 
 
