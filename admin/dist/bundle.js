@@ -14797,7 +14797,7 @@ const NavComponent = {
                             엑셀파일 관리/입주의향서
                         </router-link>
 
-                        <router-link tag='li' to='/4' v-if="comcodeData==='1'">
+                        <router-link tag='li' to='/spot' v-if="comcodeData==='1'">
                             <b class="caret fr"></b>
                             현장사진/드론영상
                         </router-link>
@@ -14857,6 +14857,10 @@ const saveModal = {
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('new',(Data)=>{
             this.ment = '보도자료를 등록 하시겠습니까?'
             this.FnMode = 'new'
+        })
+        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('mp4',(Data)=>{
+            this.ment = '드론영상을 등록하시겠습니까?'
+            this.FnMode = 'mp4'
         })
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('updateNews',(Data)=>{
             this.ment = '보도자료를 수정 하시겠습니까?'
@@ -15975,7 +15979,7 @@ const NewsView = {
             list: {
                 idx: 0,
                 writer:"개발자",
-                img: "images/dev_img.png",
+                img: "",
                 link:'http://123213',
                 title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
                 join: 340,
@@ -16043,6 +16047,231 @@ const NewsView = {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (NewsView);
+
+/***/ }),
+
+/***/ "./public/component/loc/spot/children_component/dron.js":
+/*!**************************************************************!*\
+  !*** ./public/component/loc/spot/children_component/dron.js ***!
+  \**************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _glc_del_modal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../glc/del-modal.js */ "./public/component/glc/del-modal.js");
+/* harmony import */ var _glc_save_modal_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../glc/save-modal.js */ "./public/component/glc/save-modal.js");
+/* harmony import */ var _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../glc/eventbus.js */ "./public/component/glc/eventbus.js");
+
+
+
+
+const Dron = {
+    template: `<div class='mp4_upload'>
+                <del-modal></del-modal>
+                <save-modal></save-modal>
+                <h3>드론영상 업로드</h3>
+                    <div class="input-file" v-if="mp4FileRoute == ''">
+                        <label for="upload01" class="file-label">파일 선택</label> 
+                            <input type="text" readonly="readonly" class="file-name" placeholder='홈페이지에 표시될 드론영상'/> 
+                            <input type="file" id="upload01" class="file-upload" ref="mainimg" />
+                    </div>
+                    
+                    <div class="input-file" v-else>
+                        <a href='' target='blank'>{{mp4FileRoute}}</a>
+                        <label for="upload01" class="file-label b_red" @click='OpenDelteModal()'>
+                            파일 삭제
+                        </label>
+                    </div>
+               </div>`,
+    created() {
+        this.fileUploderStyle()
+    },
+    components:{
+        'del-modal':_glc_del_modal_js__WEBPACK_IMPORTED_MODULE_0__["default"],
+        'save-modal':_glc_save_modal_js__WEBPACK_IMPORTED_MODULE_1__["default"]
+    },
+    data() {
+        return {
+            mp4FileRoute: ''
+        }
+    },
+    methods: {
+        fileUploderStyle() {
+            (function ($) {
+                var $fileBox = null;
+                $(function () {
+                    init();
+                })
+
+                function init() {
+                    $fileBox = $('.input-file');
+                    fileLoad();
+                }
+
+                function fileLoad() {
+                    $.each($fileBox,
+                        function (ids) {
+                            var $this = $fileBox.eq(ids),
+                                $btnUpload = $this.find('[type="file"]'),
+                                $label = $this.find('.file-label');
+                            $btnUpload.on('change', function () {
+                                var $target = $(this),
+                                    fileName = $target.val(),
+                                    $fileText = $target.siblings('.file-name');
+                                    $fileText.val(fileName);
+                                    Dron.methods.OpenSaveModal('','mp4up')
+                            })
+                            $btnUpload.on('focusin focusout',
+                                function (e) {
+                                    e.type == 'focusin' ? $label.addClass('file-focus') : $label.removeClass('file-focus');
+                                })
+                        })
+                }
+            })(jQuery);
+        },
+        OpenSaveModal(Data,mode) {
+            const Modal = document.getElementById('modal-alert')
+            Modal.style.display = 'block';
+            setTimeout(() => {
+                Modal.style.opacity = '1';
+            }, 100);
+            _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit('mp4',Data)
+        },
+        OpenDelteModal(Data,mode) {
+            const Modal = document.getElementById('modal-del')
+            Modal.style.display = 'block';
+            setTimeout(() => {
+                Modal.style.opacity = '1';
+            }, 100);
+
+            _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit(mode,Data)
+        }
+    }
+
+}
+/* harmony default export */ __webpack_exports__["default"] = (Dron);
+
+/***/ }),
+
+/***/ "./public/component/loc/spot/children_component/spot_img.js":
+/*!******************************************************************!*\
+  !*** ./public/component/loc/spot/children_component/spot_img.js ***!
+  \******************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _glc_del_modal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../glc/del-modal.js */ "./public/component/glc/del-modal.js");
+/* harmony import */ var _glc_save_modal_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../glc/save-modal.js */ "./public/component/glc/save-modal.js");
+/* harmony import */ var _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../glc/eventbus.js */ "./public/component/glc/eventbus.js");
+
+
+
+const spotImg = {
+    template: `<div class='table_wrap'>
+    <div class='filters'>
+        <span>총 게시물수</span><b>1건</b>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <td></td>
+                <td>번호</td>
+                <td>분류</td>
+                <td>미리보기</td>
+                <td>제목</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class='new_view_tr'v-for='(result,i) in results' v-if='i < limit && i >= start'>
+                <td><input type='checkbox'></td>
+                <td>{{i+1}}</td>
+                <td>{{result.cate}}</td>
+                <td>
+                    <img v-bind:src='result.img' v-if="result.img!=''" alt='미리보기'>
+                    <img src='images/dev_img2.png' v-else alt='미리보기'>
+                </td>
+                <td>{{result.title}}</td>
+        </tr>
+        </tbody>
+    </table>
+    <list-number v-bind:nowpage = 'this.limit-10' v-bind:DataLength='Math.ceil((this.results.length)/10)'></list-number>
+    <div class="foot_btn">
+        <a href='javascript:void()' class="b_add b_blue">등록</a>
+    </div>
+
+</div>`,
+data(){
+
+    return {
+        lists: Array,
+        results: Array,
+        start: 0,
+        limit: 10
+    }
+},
+created(){
+    this.lists = [
+        {
+            idx: 0,
+            img: "",
+            title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
+            join: 340,
+            cate: "삼성",
+            img: "images/dev_img.png"
+
+        }
+    ]
+},
+mounted(){
+    this.results = this.lists
+}
+
+
+}
+/* harmony default export */ __webpack_exports__["default"] = (spotImg);
+
+/***/ }),
+
+/***/ "./public/component/loc/spot/spot.js":
+/*!*******************************************!*\
+  !*** ./public/component/loc/spot/spot.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _children_component_dron_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./children_component/dron.js */ "./public/component/loc/spot/children_component/dron.js");
+/* harmony import */ var _children_component_spot_img_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./children_component/spot_img.js */ "./public/component/loc/spot/children_component/spot_img.js");
+
+
+const Spot = {
+    template:`
+    <div class="con_wrap">
+        <div class='content spot_bord'>
+            <h2>드론 영상</h2>
+            <dron-controller></dron-controller>
+            <h2 class='sec_tit'>현장 사진</h2>
+            <spot-controller></spot-controller>
+        </div>
+    </div>`,
+    components:{
+        'dron-controller':_children_component_dron_js__WEBPACK_IMPORTED_MODULE_0__["default"],
+        'spot-controller':_children_component_spot_img_js__WEBPACK_IMPORTED_MODULE_1__["default"]
+    }
+  
+    // components:{
+        // 'news-bord':newsTable
+    // }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (Spot);
+
+
+
 
 /***/ }),
 
@@ -16359,7 +16588,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _loc_cosul_consul_js__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./loc/cosul/consul.js */ "./public/component/loc/cosul/consul.js");
 /* harmony import */ var _loc_cosul_consul_view_js__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./loc/cosul/consul-view.js */ "./public/component/loc/cosul/consul-view.js");
 /* harmony import */ var _loc_user_user_main_js__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./loc/user/user.main.js */ "./public/component/loc/user/user.main.js");
-/* harmony import */ var _loc_cosul_consil_table_share__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./loc/cosul/consil-table-share */ "./public/component/loc/cosul/consil-table-share.js");
+/* harmony import */ var _loc_spot_spot_js__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./loc/spot/spot.js */ "./public/component/loc/spot/spot.js");
+/* harmony import */ var _loc_cosul_consil_table_share__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./loc/cosul/consil-table-share */ "./public/component/loc/cosul/consil-table-share.js");
+
 
 
 
@@ -16447,9 +16678,27 @@ const router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
       }
     },
     {
+      name: 'spot',
+      path: '/spot',
+      component: _loc_spot_spot_js__WEBPACK_IMPORTED_MODULE_7__["default"],
+      beforeEnter: (to, from, next) => {
+        if (sessionStorage.length == 0) {
+          router.push({
+            path: '/',
+            component: _loc_login_login_page__WEBPACK_IMPORTED_MODULE_1__["default"],
+            name: 'login'
+          })
+        } else {
+          if(sessionStorage.comcode == 1){
+            next()
+          }
+        }
+      }
+    },
+    {
       name: 'cflag',
       path: '/cflag',
-      component: _loc_cosul_consil_table_share__WEBPACK_IMPORTED_MODULE_7__["default"],
+      component: _loc_cosul_consil_table_share__WEBPACK_IMPORTED_MODULE_8__["default"],
       beforeEnter: (to, from, next) => {
         if (sessionStorage.length == 0) {
           router.push({

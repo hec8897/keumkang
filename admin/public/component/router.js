@@ -5,6 +5,7 @@ import NewsView from './loc/newsbord/newview.js';
 import Consul from './loc/cosul/consul.js';
 import ConsulView from './loc/cosul/consul-view.js';
 import userMain from './loc/user/user.main.js'
+import spot from './loc/spot/spot.js'
 import shareConsulView from './loc/cosul/consil-table-share';
 
 const router = new VueRouter({
@@ -70,6 +71,24 @@ const router = new VueRouter({
       name: 'consul',
       path: '/consul',
       component: Consul,
+      beforeEnter: (to, from, next) => {
+        if (sessionStorage.length == 0) {
+          router.push({
+            path: '/',
+            component: LoginPage,
+            name: 'login'
+          })
+        } else {
+          if(sessionStorage.comcode == 1){
+            next()
+          }
+        }
+      }
+    },
+    {
+      name: 'spot',
+      path: '/spot',
+      component: spot,
       beforeEnter: (to, from, next) => {
         if (sessionStorage.length == 0) {
           router.push({

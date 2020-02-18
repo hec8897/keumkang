@@ -95,7 +95,7 @@ const NewsView = {
             list: {
                 idx: 0,
                 writer:"개발자",
-                img: "images/dev_img.png",
+                img: "",
                 link:'http://123213',
                 title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
                 join: 340,

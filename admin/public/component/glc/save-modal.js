@@ -26,6 +26,10 @@ const saveModal = {
             this.ment = '보도자료를 등록 하시겠습니까?'
             this.FnMode = 'new'
         })
+        eventBus.$on('mp4',(Data)=>{
+            this.ment = '드론영상을 등록하시겠습니까?'
+            this.FnMode = 'mp4'
+        })
         eventBus.$on('updateNews',(Data)=>{
             this.ment = '보도자료를 수정 하시겠습니까?'
             this.FnMode = 'update'

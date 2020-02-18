@@ -30,7 +30,7 @@ const NavComponent = {
                             엑셀파일 관리/입주의향서
                         </router-link>
 
-                        <router-link tag='li' to='/4' v-if="comcodeData==='1'">
+                        <router-link tag='li' to='/spot' v-if="comcodeData==='1'">
                             <b class="caret fr"></b>
                             현장사진/드론영상
                         </router-link>
