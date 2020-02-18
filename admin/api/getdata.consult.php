@@ -12,20 +12,20 @@ $mode = $data['Mode'];
 
 if(isset($Class)){
     if($mode == 'normal'){
-        $sql = "SELECT * FROM `tb_consult` WHERE `reqclass` = '$Class' AND `cflag`= '$Cflag' AND `idx` = '$idx'";
+        $sql = "SELECT * FROM `tb_consult` WHERE `reqclass` = '$Class' AND `cflag`= '$Cflag' AND `idx` = '$idx' ORDER BY `idx` DESC";
     }
     else if($mode == 'administor'){
-        $sql = "SELECT * FROM `tb_consult` WHERE idx='$idx'";
+        $sql = "SELECT * FROM `tb_consult` WHERE idx='$idx' ORDER BY `idx` DESC";
     }
     else{
-        $sql = "SELECT * FROM `tb_consult` WHERE `reqclass` = '$Class' AND `cflag`= '$Cflag'";
+        $sql = "SELECT * FROM `tb_consult` WHERE `reqclass` = '$Class' AND `cflag`= '$Cflag' ORDER BY `idx` DESC";
     }
 }
 else if(isset($idx)){
-    $sql = "SELECT * FROM `tb_consult` WHERE idx='$idx'";
+    $sql = "SELECT * FROM `tb_consult` WHERE idx='$idx' ORDER BY `idx` DESC";
 }
 else{
-    $sql = "SELECT * FROM `tb_consult`";
+    $sql = "SELECT * FROM `tb_consult` ORDER BY `idx` DESC";
 }
 
 $query = mysqli_query($conn,$sql);

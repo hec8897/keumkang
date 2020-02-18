@@ -5,7 +5,6 @@ import HeaderComponent from './glc/header.js';
 import NavComponent from './glc/nav.js';
 import newsTable from './loc/newsbord/news-table.js';
 
-
 // import 'es6-promise/auto'
 new Vue({
   store,
@@ -31,6 +30,4 @@ new Vue({
       this.$store.state.userPhone = sessionStorage.userPhone;
       this.$store.state.idx = sessionStorage.idx
   }
- 
-
 }).$mount('#app')

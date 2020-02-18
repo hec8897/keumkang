@@ -14115,7 +14115,6 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-
 // import 'es6-promise/auto'
 new Vue({
   store: _store__WEBPACK_IMPORTED_MODULE_2__["store"],
@@ -14141,8 +14140,6 @@ new Vue({
       this.$store.state.userPhone = sessionStorage.userPhone;
       this.$store.state.idx = sessionStorage.idx
   }
- 
-
 }).$mount('#app')
 
 
@@ -14665,6 +14662,7 @@ const listNumber = {
         }
     },
     created(){
+        console.log(this.DataLength)
 
         this.thisNumber = this.DataLength
         if(this.DataLength <= 10){
@@ -15110,7 +15108,7 @@ const ConsulView = {
                     </thead>
                     <tbody>
                         <tr v-for='(result,i) in results' v-if='i < limit && i >= start'>
-                            <td><input type="checkbox" id="checkbox_1" v-on:click='SelectData($event,result.idx)' value="" /></td>
+                            <td><input type="checkbox" class='checkbox_1' id="checkbox_1" v-on:click='SelectData($event,result.idx)' value="" /></td>
                             <router-link tag='td' class='tb_cursor' v-bind:to = "'consul/consulview/'+result.idx" >{{i+1}}</router-link>
                             <router-link tag='td' class='tb_cursor' v-bind:to = "'consul/consulview/'+result.idx" >{{result.cate}}</router-link>
                             <router-link tag='td' class='tb_cursor' v-bind:to = "'consul/consulview/'+result.idx" >{{result.reqName}}</router-link>
@@ -15145,37 +15143,34 @@ const ConsulView = {
                     if (result.data.phpResult == 'ok') {
                         this.lists = result.data.result
                         this.results = this.lists;
+
+                        _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit('UpdateList', {
+                            DataLength: Math.ceil((this.results.length) / 10),
+                            nowpage: this.limit - 10
+                        })
                     }
             })
             .catch(err => console.log('Login: ', err));
-        // this.lists = [
-        //     {
-        //         idx:0,
-        //         cate:'삼성',
-        //         reqName:'개발자',
-        //         reqPhone:'01023866487',
-        //         Class:"금강",
-        //         Cflag:'김다우'
-        //     },
-        //     {
-        //         idx:1,
-        //         cate:'삼성',
-        //         reqName:'개발자',
-        //         reqPhone:'01023866487',
-        //         Class:"금강",
-        //         Cflag:'김다우'
-        //     }
-        // ]
+   
     },
     mounted() {
         // this.results = this.lists;
-        _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit('UpdateList', {
-            DataLength: Math.ceil((this.results.length) / 10),
-            nowpage: this.limit - 10
-        })
+        // eventBus.$emit('UpdateList', {
+        //     DataLength: Math.ceil((this.results.length) / 10),
+        //     nowpage: this.limit - 10
+        // })
         _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$on('NextPage', (Data) => {
             this.start = Data * 10;
             this.limit = (Data * 10) + 10
+
+            this.SelectDataArray = [];
+
+            const CheckBox =document.querySelectorAll('.checkbox_1');
+            // 체크박스 초기화
+            for(let i = 0; i< CheckBox.length; i++){
+                CheckBox[i].checked = false
+            }
+
         })
     },
     methods: {
@@ -16481,9 +16476,6 @@ const router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "store", function() { return store; });
-// import Vue from "vue";
-// import Vuex from "vuex";
-
 Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {

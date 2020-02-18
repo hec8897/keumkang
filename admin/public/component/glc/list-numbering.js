@@ -23,6 +23,7 @@ const listNumber = {
         }
     },
     created(){
+        console.log(this.DataLength)
 
         this.thisNumber = this.DataLength
         if(this.DataLength <= 10){
