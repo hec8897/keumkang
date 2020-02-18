@@ -265,7 +265,7 @@ div.user_tool ul li{
 div.user_tool ul li span{
     margin-left: 10px;
 }
-div.user_tool div.btns{width: 30%;float: left; margin-top: 30px;}
+div.user_tool div.btns{width: 30%;float: left; margin-top: 15px;}
 div.user_tool div.btns span{width: 100px; height: 25px; line-height: 25px; color: white; display: inline-block; text-align: center; margin-right: 5px; margin-left: 5px; vertical-align: middle;} 
 div.user_tool div.tb_box{
     width: 50%;

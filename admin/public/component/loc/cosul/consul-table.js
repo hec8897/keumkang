@@ -59,7 +59,6 @@ const ConsulView = {
     created() {
         const baseURI = 'api/getdata.consult.php';
         axios.post(`${baseURI}`, {
-            
             })
             .then((result) => {
                     if (result.data.phpResult == 'ok') {

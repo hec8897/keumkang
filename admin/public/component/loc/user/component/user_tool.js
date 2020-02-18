@@ -16,6 +16,7 @@ const userTool = {
             <li>연락처 <span>{{list.userPhone}}</span></li>
             <li>소속: <span>{{list.Class}}</span></li>
             <li>아이디: <span>{{list.userId}}</span></li>
+            <li>배분건: <span>{{ConsultLists.length}}</span></li>
             <li>상태: <span v-if="list.Activation === '1'">정상</span><span v-else-if ="list.Activation==='0'">비승인</span></li>
 
         </ul>
@@ -30,6 +31,12 @@ const userTool = {
                     </tr>
                 </thead>
                 <tbody>
+                    <tr v-for='(ConsultList,i) in ConsultLists'>
+                        <td>{{i+1}}</td>
+                        <td>{{ConsultList.reqName}}</td>
+                        <td>{{ConsultList.reqPhone}}</td>
+                        <td>{{ConsultList.cate}}</td>
+                    </tr>
          
                 </tbody>
             </table>
@@ -52,7 +59,9 @@ const userTool = {
     },
     data(){
         return{
-            list:Array
+            list:Array,
+            ConsultLists:[
+            ]
         }
     },
     created(){
@@ -60,7 +69,8 @@ const userTool = {
             this.list = Data
         })
     },
-    mounted(){
+    updated(){
+        this.GetConsultData()
     },
     methods:{
         OpenSaveModal(Data, mode) {
@@ -90,7 +100,7 @@ const userTool = {
                 eventBus.$emit(mode, Data)
             }
         },
-        OpenEtcModal(Data) {
+        OpenEtcModal() {
             if(this.list.length == 1){
                 alert('계정을 선택해주세요')
             }
@@ -102,6 +112,24 @@ const userTool = {
                 }, 100);
                 eventBus.$emit('changePw', this.list.idx)
             }
+        },
+        GetConsultData(){
+            let Data = {
+                Class:this.list.Class,
+                Cflag:this.list.userName
+            }
+            const baseURI = 'api/getdata.consult.php';
+            axios.post(`${baseURI}`, {
+                idx:this.list.idx,
+                Mode:'normal_list',
+                Data
+                })
+                .then((result) => {
+                        if (result.data.phpResult == 'ok') {
+                            this.ConsultLists = result.data.result
+                        }
+                })
+                .catch(err => console.log('Login: ', err));
         }
     }
 }

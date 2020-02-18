@@ -14662,8 +14662,6 @@ const listNumber = {
         }
     },
     created(){
-        console.log(this.DataLength)
-
         this.thisNumber = this.DataLength
         if(this.DataLength <= 10){
             this.limit = this.DataLength
@@ -15137,7 +15135,6 @@ const ConsulView = {
     created() {
         const baseURI = 'api/getdata.consult.php';
         axios.post(`${baseURI}`, {
-            
             })
             .then((result) => {
                     if (result.data.phpResult == 'ok') {
@@ -16069,7 +16066,6 @@ const userInfo = {
         <td>{{list.userId}}</td>
         <td>{{list.Class}}</td>
         <td>{{list.userPhone}}</td>
-        <td>{{list.DataCount}}</td>
         <td v-if="list.Activation === '1'">정상</td>
         <td v-else>비승인</td>
     </tr>`,
@@ -16130,6 +16126,7 @@ const userTool = {
             <li>연락처 <span>{{list.userPhone}}</span></li>
             <li>소속: <span>{{list.Class}}</span></li>
             <li>아이디: <span>{{list.userId}}</span></li>
+            <li>배분건: <span>{{ConsultLists.length}}</span></li>
             <li>상태: <span v-if="list.Activation === '1'">정상</span><span v-else-if ="list.Activation==='0'">비승인</span></li>
 
         </ul>
@@ -16144,6 +16141,12 @@ const userTool = {
                     </tr>
                 </thead>
                 <tbody>
+                    <tr v-for='(ConsultList,i) in ConsultLists'>
+                        <td>{{i+1}}</td>
+                        <td>{{ConsultList.reqName}}</td>
+                        <td>{{ConsultList.reqPhone}}</td>
+                        <td>{{ConsultList.cate}}</td>
+                    </tr>
          
                 </tbody>
             </table>
@@ -16166,7 +16169,9 @@ const userTool = {
     },
     data(){
         return{
-            list:Array
+            list:Array,
+            ConsultLists:[
+            ]
         }
     },
     created(){
@@ -16174,7 +16179,8 @@ const userTool = {
             this.list = Data
         })
     },
-    mounted(){
+    updated(){
+        this.GetConsultData()
     },
     methods:{
         OpenSaveModal(Data, mode) {
@@ -16204,7 +16210,7 @@ const userTool = {
                 _glc_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit(mode, Data)
             }
         },
-        OpenEtcModal(Data) {
+        OpenEtcModal() {
             if(this.list.length == 1){
                 alert('계정을 선택해주세요')
             }
@@ -16216,6 +16222,24 @@ const userTool = {
                 }, 100);
                 _glc_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('changePw', this.list.idx)
             }
+        },
+        GetConsultData(){
+            let Data = {
+                Class:this.list.Class,
+                Cflag:this.list.userName
+            }
+            const baseURI = 'api/getdata.consult.php';
+            axios.post(`${baseURI}`, {
+                idx:this.list.idx,
+                Mode:'normal_list',
+                Data
+                })
+                .then((result) => {
+                        if (result.data.phpResult == 'ok') {
+                            this.ConsultLists = result.data.result
+                        }
+                })
+                .catch(err => console.log('Login: ', err));
         }
     }
 }
@@ -16248,20 +16272,19 @@ const userMain = {
         <h2>사용자관리</h2>
         <user-tool></user-tool>
         <table class='user_tb'>
-        <thead>
-            <tr>
-                <td></td>
-                <td>이름</td>
-                <td>아이디</td>
-                <td>소속</td>
-                <td>연락처</td>
-                <td>배분건수</td>
-                <td>상태</td>
-            </tr>
-        </thead>
-        <tbody>
-        <user-info v-for = 'list in lists' v-bind:userData='list'></user-info>
-        </tbody>
+            <thead>
+                <tr>
+                    <td></td>
+                    <td>이름</td>
+                    <td>아이디</td>
+                    <td>소속</td>
+                    <td>연락처</td>
+                    <td>상태</td>
+                </tr>
+            </thead>
+            <tbody>
+            <user-info v-for = 'list in lists' v-bind:userData='list'></user-info>
+            </tbody>
         </table>
         <list-number v-bind:nowpage = 'this.limit-10' v-bind:DataLength='Math.ceil((this.results.length)/10)'></list-number>
 
@@ -16284,22 +16307,20 @@ const userMain = {
     },
     created() {
         this.DataGet()
-    
+
     },
-    mounted() {
-    },
-    updated(){
+    mounted() {},
+    updated() {
         this.results = this.lists;
     },
-    methods:{
-        DataGet(){
+    methods: {
+        DataGet() {
             const baseURI = 'api/getdata.user.php';
             axios.post(`${baseURI}`, {})
                 .then((result) => {
                     if (result.data.phpResult == 'ok') {
                         this.lists = result.data.result;
-                    } 
-                    else {
+                    } else {
                         this.lists = [{
                             idx: 0,
                             userId: 'hec8897',
@@ -16312,9 +16333,9 @@ const userMain = {
                     }
                 })
                 .catch(err => console.log('Login: ', err));
-        }   
-     }
-    
+        }
+    }
+
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (userMain);

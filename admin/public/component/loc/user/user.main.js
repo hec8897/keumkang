@@ -9,20 +9,19 @@ const userMain = {
         <h2>사용자관리</h2>
         <user-tool></user-tool>
         <table class='user_tb'>
-        <thead>
-            <tr>
-                <td></td>
-                <td>이름</td>
-                <td>아이디</td>
-                <td>소속</td>
-                <td>연락처</td>
-                <td>배분건수</td>
-                <td>상태</td>
-            </tr>
-        </thead>
-        <tbody>
-        <user-info v-for = 'list in lists' v-bind:userData='list'></user-info>
-        </tbody>
+            <thead>
+                <tr>
+                    <td></td>
+                    <td>이름</td>
+                    <td>아이디</td>
+                    <td>소속</td>
+                    <td>연락처</td>
+                    <td>상태</td>
+                </tr>
+            </thead>
+            <tbody>
+            <user-info v-for = 'list in lists' v-bind:userData='list'></user-info>
+            </tbody>
         </table>
         <list-number v-bind:nowpage = 'this.limit-10' v-bind:DataLength='Math.ceil((this.results.length)/10)'></list-number>
 
@@ -45,22 +44,20 @@ const userMain = {
     },
     created() {
         this.DataGet()
-    
+
     },
-    mounted() {
-    },
-    updated(){
+    mounted() {},
+    updated() {
         this.results = this.lists;
     },
-    methods:{
-        DataGet(){
+    methods: {
+        DataGet() {
             const baseURI = 'api/getdata.user.php';
             axios.post(`${baseURI}`, {})
                 .then((result) => {
                     if (result.data.phpResult == 'ok') {
                         this.lists = result.data.result;
-                    } 
-                    else {
+                    } else {
                         this.lists = [{
                             idx: 0,
                             userId: 'hec8897',
@@ -73,9 +70,9 @@ const userMain = {
                     }
                 })
                 .catch(err => console.log('Login: ', err));
-        }   
-     }
-    
+        }
+    }
+
 }
 
 export default userMain;
