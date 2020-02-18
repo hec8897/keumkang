@@ -105,6 +105,36 @@ const LoginPage = {
                                eventBus.$emit('nav',sessionStorage.comcode)
                             }
                         }
+                                      
+                                 
+                            //      this.$store.state.id = 'ceomaker';
+                            //      this.$store.state.idx = 6;
+                            //      this.$store.state.Name = '김다운';
+                            //      this.$store.state.Class = '금강';
+                            //      this.$store.state.Activation = 1;
+                            //      this.$store.state.comcode = 1;
+                            //      this.$store.state.userPhone = '01023866487';
+                                            
+                            //     sessionStorage.setItem("ID",  this.$store.state.id);
+                            //     sessionStorage.setItem("idx",  this.$store.state.idx);
+                            //     sessionStorage.setItem("name", this.$store.state.Name);
+                            //     sessionStorage.setItem("Class",  this.$store.state.Class);
+                            //     sessionStorage.setItem("Activation",  this.$store.state.Activation);
+                            //     sessionStorage.setItem("comcode",  this.$store.state.comcode);
+                            //     sessionStorage.setItem("userPhone", this.$store.state.userPhone);
+
+                            //     if(sessionStorage.comcode == 100){
+                            //         alert('어서오세요'+this.$store.state.Name+'님')
+                            //         router.push({name:'cflag' ,path:'/cflag'})
+                            //         .catch (err => {})
+                    
+                            //     }
+                            //     else{
+                            //         alert('어서오세요'+this.$store.state.Name+'님')
+                            //         router.push({name:'consul' ,path:'/consul'})
+                            //         .catch (err => {})
+                            //     }
+                            //    eventBus.$emit('nav',sessionStorage.comcode)
                            
                     })
             

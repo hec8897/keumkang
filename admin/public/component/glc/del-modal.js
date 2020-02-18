@@ -1,4 +1,5 @@
 import eventBus from './eventbus.js'
+import router from '../router.js'
 
 const DelteModal = {
     props: ['tb'],
@@ -20,9 +21,9 @@ const DelteModal = {
             idx: null,
             thisTarget: null,
             Data: null,
-            FnMode:String,
+            FnMode: String,
             ment: '정말로 삭제 하시겠습니까?',
-            ment2:'(삭제후엔 복구가 불가능합니다)'
+            ment2: '(삭제후엔 복구가 불가능합니다)'
         }
     },
     created() {
@@ -33,9 +34,8 @@ const DelteModal = {
         })
         eventBus.$on('consul', (Data) => {
             this.ment = '상담내역을 삭제합니다'
-            this.FnMode = 'ImgConsul';
-
-            console.log('상담신청삭제' + Data)
+            this.Data = Data;
+            this.FnMode = 'ConsulDel';
         })
         eventBus.$on('NewsImg', (Data) => {
             this.ment = '메인 이미지를 삭제합니다'
@@ -66,27 +66,47 @@ const DelteModal = {
                 Modal.style.display = 'none';
             }, 100);
         },
-        PostData(mode){
+        PostData(mode) {
             let baseURI;
             let Data;
-            if(mode == 'baActive'){
+            if (mode == 'baActive') {
                 baseURI = 'api/user_fn.php';
                 Data = {
-                    mode:this.FnMode,
-                    idx:this.Data
+                    mode: this.FnMode,
+                    idx: this.Data
                 }
-            }
-            else{
+            } else if (mode == 'ConsulDel') {
+                baseURI = 'api/consul_fn.php';
+                Data = {
+                    mode: this.FnMode,
+                    idx: this.Data
+                }
+            } else {
                 baseURI = '123';
             }
-            axios.post(`${baseURI}`, {Data})
-            .then((result) => {
-                if (result.data.phpResult == 'ok') {
-                    this.ModalClose()
-                    location.reload()
-                } 
-            })
-            .catch(err => console.log('Login: ', err));
+
+
+            axios.post(`${baseURI}`, {
+                    Data
+                })
+                .then((result) => {
+                    if (result.data.phpResult == 'ok') {
+                        this.ModalClose()
+
+                        if (this.FnMode == 'ConsulDel') {
+                            router.push({
+                                name: 'consul',
+                                path: '/consul',
+                            })
+                        }
+                        else{
+                            location.reload()
+
+                        }
+                       
+                    }
+                })
+                .catch(err => console.log('Login: ', err));
         }
     }
 }

@@ -63,11 +63,11 @@ const shareConsulView = {
     created() {
         const baseURI = 'api/getdata.consult.php';
         let Data = {
-            idx: sessionStorage.idx,
             Cflag: sessionStorage.name,
             Class: sessionStorage.Class
         }
         axios.post(`${baseURI}`, {
+                Mode:'normalList',
                 Data
             })
             .then((result) => {

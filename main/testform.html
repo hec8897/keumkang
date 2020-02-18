@@ -4,15 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="modules/axios.min.js"></script>
     <title>Document</title>
+    <style>
+        li{list-style-type:none;margin-bottom: 5px;}
+        input,select{width: 180px; height: 30px;}
+        div.btn{width: 100px; height: 30px; background-color: rebeccapurple; color: white; cursor: pointer; text-align: center;}
+    </style>
 </head>
 
 <body>
     <div id="app">
         <form action="">
             <ul>
-                <li><input type="text" placeholder="이름"></li>
-                <li><select>
+                <li><input type="text" placeholder="이름" id='reqname' value='test'></li>
+                <li>
+                    <select id='reqstandard'>
                         <option value="삼성">삼성</option>
                         <option value="천안">천안</option>
                         <option value="부동산">부동산</option>
@@ -20,15 +27,45 @@
                     </select>
                 </li>
                 <li>
-                    <input type="text" placeholder="전화번호">
+                    <input type="text" placeholder="전화번호" id='reqphone'>
                 </li>
                 <li>
-                    <textarea name="" id="" cols="30" rows="10"></textarea>
+                    <textarea name="" cols="30" rows="10" id='reqmemo'></textarea>
+                </li>
+                <li>
+                    <div class="btn" onclick="InsertData()">전송</div>
                 </li>
             </ul>
         </form>
 
     </div>
+    <script>
+        function InsertData(){
+            const reqName = document.getElementById('reqname');
+            const reqStandard = document.getElementById('reqstandard');
+            const reqPhone = document.getElementById('reqphone');
+            const reqMemo = document.getElementById('reqmemo')
+
+            let Data = {
+                reqName:reqName.value,
+                reqStandard:reqStandard.value,
+                reqPhone:reqPhone.value,
+                reqMemo:reqMemo.value
+            }
+            const baseURI = 'api/insert_consul.php'
+
+            axios.post(`${baseURI}`, {Data})
+            .then((result) => {
+                console.log(result)
+                if (result.data.phpResult == 'ok') {
+                    alert('상담신청완료')
+                } 
+            })
+            .catch(err => console.log('Login: ', err));
+
+        }
+
+    </script>
 </body>
 
 </html>

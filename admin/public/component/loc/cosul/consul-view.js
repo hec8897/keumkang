@@ -38,11 +38,9 @@ const ConsulView = {
                         </div>
                     </div>
                     <div class="btn_wrap">
-                        <span class="b_red" v-on:click="OpenDelteModal(list.idx,'consul')">삭제</span>
+                        <span class="b_red" v-if = "comcode === 1" v-on:click="OpenDelteModal(list.idx,'consul')">삭제</span>
                         <router-link v-if = "comcode>1" to="/cflag" class="b_sgrey" tag='span'>목록</router-link>
                         <router-link v-else to="/consul" class="b_sgrey" tag='span'>목록</router-link>
-
-
                     </div> 
                 </div>
             </div>`,
@@ -52,14 +50,20 @@ const ConsulView = {
     data() {
         return {
             list:Array,
-            comcode:this.$store.state.comcode
+            comcode:Number(this.$store.state.comcode)
         }
     },
     created() {
-        console.log(this.comcode)
+        let Mode = sessionStorage.comcode=='100'?'normal':'administor';
+        let Data = {
+            Cflag: sessionStorage.name,
+            Class: sessionStorage.Class
+        }
         const baseURI = 'api/getdata.consult.php';
         axios.post(`${baseURI}`, {
-            idx:this.idx
+            idx:this.idx,
+            Mode,
+            Data
             })
             .then((result) => {
                     if (result.data.phpResult == 'ok') {
@@ -77,23 +81,6 @@ const ConsulView = {
             }, 100);
             eventBus.$emit(mode, Data)
         }
-        // GetData() {
-        //     const baseURI = 'api/consul.data.php';
-        //     axios.post(`${baseURI}`, {
-        //             mode: 'list',
-        //             idx: this.idx
-        //         })
-        //         .then((result) => {
-
-        //             const ResultData = result.data.result[0]
-        //             if (result.data.phpResult == 'ok') {
-        //                 this.list = ResultData;
-        //             }
-
-        //         })
-        //         .catch(err => console.log('Login: ', err));
-
-        // }
     }
 }
 

@@ -4,13 +4,25 @@ include("inc/variable_define.php");
 $data = json_decode(file_get_contents("php://input"),true);
 $Data = $data['Data'];
 
-$idx = $Data['idx'];
+$idx = $data['idx'];
 $Class = $Data['Class'];
 $Cflag = $Data['Cflag'];
+$mode = $data['Mode'];
 
 
 if(isset($Class)){
-    $sql = "SELECT * FROM `tb_consult` WHERE `reqclass` = '$Class' AND `cflag`= '$Cflag'";
+    if($mode == 'normal'){
+        $sql = "SELECT * FROM `tb_consult` WHERE `reqclass` = '$Class' AND `cflag`= '$Cflag' AND `idx` = '$idx'";
+    }
+    else if($mode == 'administor'){
+        $sql = "SELECT * FROM `tb_consult` WHERE idx='$idx'";
+    }
+    else{
+        $sql = "SELECT * FROM `tb_consult` WHERE `reqclass` = '$Class' AND `cflag`= '$Cflag'";
+    }
+}
+else if(isset($idx)){
+    $sql = "SELECT * FROM `tb_consult` WHERE idx='$idx'";
 }
 else{
     $sql = "SELECT * FROM `tb_consult`";
@@ -40,7 +52,9 @@ $phpResult = isset($query)?"ok":"no";
 $json =  json_encode(
     array(
         "result"=>$result,
-        "phpResult"=>$phpResult
+        "phpResult"=>$phpResult,
+        "sql"=>$sql,
+        "test"=>$idx
   )); 
   
   echo urldecode($json);
