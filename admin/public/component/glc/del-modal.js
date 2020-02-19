@@ -56,6 +56,10 @@ const DelteModal = {
             this.FnMode = 'baActive';
 
         })
+        eventBus.$on('spotImgDel',(Data)=>{
+            this.ment = '현장사진을 삭제합니다'
+            console.log(Data)
+        })
     },
     methods: {
         ModalClose() {

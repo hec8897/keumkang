@@ -20,16 +20,6 @@ const NavComponent = {
                             <b class="caret fr"></b>
                             보도자료
                         </router-link>
-                        <router-link tag='li' to='/1' v-if="comcodeData==='1'">
-                            <b class="caret fr"></b>
-                            조감도관리
-                        </router-link>
-
-                        <router-link tag='li' to='/2' v-if="comcodeData==='1'">
-                            <b class="caret fr"></b>
-                            엑셀파일 관리/입주의향서
-                        </router-link>
-
                         <router-link tag='li' to='/spot' v-if="comcodeData==='1'">
                             <b class="caret fr"></b>
                             현장사진/드론영상

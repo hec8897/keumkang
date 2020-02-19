@@ -14214,6 +14214,10 @@ const DelteModal = {
             this.FnMode = 'baActive';
 
         })
+        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('spotImgDel',(Data)=>{
+            this.ment = '현장사진을 삭제합니다'
+            console.log(Data)
+        })
     },
     methods: {
         ModalClose() {
@@ -14290,7 +14294,7 @@ const etcModal = {
                 <div class="alert">
                     <div class="alert_con">
                         <i class="material-icons blue">error_outline</i>
-                        <p>패스워드 변경</p>
+                        <p>{{ment}}</p>
                         <ul class='inputs' v-if="this.mode === 'chpw'">
                             <form>
                             <li>
@@ -14309,7 +14313,6 @@ const etcModal = {
                                 </select>
                             </li>
                             <li>
-                         
                                 <select id='selectcflag'>
                                     <option value=''>상담사선택</option>
                                     <option value='none'>회수</option>
@@ -14317,6 +14320,23 @@ const etcModal = {
                                     {{list.userName}}({{list.Class}})
                                     </option>
                                 </select>
+                            </li>
+                            </form>
+                        </ul>
+                        <ul class='inputs' v-else-if="this.mode === 'spotImg'">
+                            <form>
+                            <li>
+                                <input type='text' placeholder='현장사진 제목'>
+                            </li>
+                            <li>
+                                <input type='text' placeholder='시공일자 (ex 2020.01.01)'>
+                            </li>
+                            <li>
+                            <div class="input-file">
+                            <label for="upload1" class="file-label">파일 선택</label> 
+                            <input type="text" id='files_popup' readonly="readonly" class="file-name" placeholder='현장사진(1MB이내)'/> 
+                            <input type="file" id="upload1" class="file-upload" ref="mainimg" @change='fileChange($event.target.value)'/>
+                             </div>
                             </li>
                          
                             </form>
@@ -14326,6 +14346,7 @@ const etcModal = {
                     <div class="modal_foot">
                         <span class="b_blue" @click='PostData' v-if="mode === 'chpw'">확인</span>
                         <span class="b_blue" @click=' shareData' v-else-if="mode === 'cflag'">확인</span>
+                        <span class="b_blue" v-else-if="mode === 'spotImg'">확인</span>
                         <span v-on:click='ModalClose' class="b_sgrey">취소</span>
                     </div>
                 </div>
@@ -14335,27 +14356,34 @@ const etcModal = {
             idx: null,
             Data: null,
             mode: null,
-            lists:Array,
-            SelectDatas: null
+            lists: Array,
+            SelectDatas: null,
+            ment: String
         }
     },
     created() {
         this.getCflagData();
         this.lists = this.SelectDatas;
-
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('changePw', (Data) => {
             this.idx = Data;
             this.mode = 'chpw';
+            this.ment = '패스워드 변경'
         })
 
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('shareCflag', (Data) => {
             this.mode = 'cflag';
             this.Data = Data;
+            this.ment = '상담사 배정'
+        })
+
+        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('spotImg', (Data) => {
+            this.mode = 'spotImg';
+            this.Data = Data;
+            this.ment = '현장사진 등록'
         })
 
     },
-    mounted() {
-    },
+    mounted() {},
     methods: {
         ModalClose() {
             const Modal = document.getElementById('modal-etc')
@@ -14368,31 +14396,30 @@ const etcModal = {
         shareData() {
             const SelectClass = document.getElementById('selectclass');
             const SelectCflag = document.getElementById('selectcflag');
-            if(SelectCflag.value == ""){
+            if (SelectCflag.value == "") {
                 alert('배정할 상담사를 선택해주세요')
-            }
-            else{
-            let Data = {
-                mode:this.mode,
-                SelectIdx:this.Data,
-                Class:SelectClass.value,
-                cflag:SelectCflag.value
-            }
-            const baseURI = 'api/user_fn.php';
-            axios.post(`${baseURI}`, {
-                Data
-            })
-            .then((result) => {
-                if (result.data.phpResult == 'ok') {
-                    alert('변경되었습니다')
-                    this.ModalClose();
-                    location.reload();
-                } else {
-                    alert('변경에 실패하였습니다')
+            } else {
+                let Data = {
+                    mode: this.mode,
+                    SelectIdx: this.Data,
+                    Class: SelectClass.value,
+                    cflag: SelectCflag.value
                 }
-            })
-            .catch(err => console.log('Login: ', err));
-        }
+                const baseURI = 'api/user_fn.php';
+                axios.post(`${baseURI}`, {
+                        Data
+                    })
+                    .then((result) => {
+                        if (result.data.phpResult == 'ok') {
+                            alert('변경되었습니다')
+                            this.ModalClose();
+                            location.reload();
+                        } else {
+                            alert('변경에 실패하였습니다')
+                        }
+                    })
+                    .catch(err => console.log('Login: ', err));
+            }
 
         },
         getCflagData() {
@@ -14405,6 +14432,10 @@ const etcModal = {
                 })
                 .catch(err => console.log('Login: ', err));
 
+        },
+        fileChange(thisValue){
+            const filesPopup = document.getElementById('files_popup')
+            filesPopup.value = thisValue;
         },
         PostData() {
             const reqPassword = document.getElementById('reqpassword')
@@ -14787,16 +14818,6 @@ const NavComponent = {
                             <b class="caret fr"></b>
                             보도자료
                         </router-link>
-                        <router-link tag='li' to='/1' v-if="comcodeData==='1'">
-                            <b class="caret fr"></b>
-                            조감도관리
-                        </router-link>
-
-                        <router-link tag='li' to='/2' v-if="comcodeData==='1'">
-                            <b class="caret fr"></b>
-                            엑셀파일 관리/입주의향서
-                        </router-link>
-
                         <router-link tag='li' to='/spot' v-if="comcodeData==='1'">
                             <b class="caret fr"></b>
                             현장사진/드론영상
@@ -16166,11 +16187,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _glc_del_modal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../glc/del-modal.js */ "./public/component/glc/del-modal.js");
 /* harmony import */ var _glc_etc_modal_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../glc/etc-modal.js */ "./public/component/glc/etc-modal.js");
 /* harmony import */ var _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../glc/eventbus.js */ "./public/component/glc/eventbus.js");
+/* harmony import */ var _glc_list_numbering__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../glc/list-numbering */ "./public/component/glc/list-numbering.js");
+
+
 
 
 
 const spotImg = {
     template: `<div class='table_wrap'>
+        <save-modal></save-modal>
+        <del-modal></del-modal>
     <div class='filters'>
         <span>총 게시물수</span><b>1건</b>
     </div>
@@ -16186,7 +16212,7 @@ const spotImg = {
         </thead>
         <tbody>
             <tr class='new_view_tr'v-for='(result,i) in results' v-if='i < limit && i >= start' @click='prevImg(event)'>
-                <td><input type='checkbox' @click='checkboxEv(event)'></td>
+                <td><input type='checkbox' @click='checkboxEv(event,result.idx)'></td>
                 <td>{{i+1}}</td>
                 <td>{{result.cate}}</td>
                 <td>
@@ -16199,23 +16225,39 @@ const spotImg = {
     </table>
     <list-number v-bind:nowpage = 'this.limit-10' v-bind:DataLength='Math.ceil((this.results.length)/10)'></list-number>
     <div class="foot_btn">
-        <a href='javascript:void()' class="b_add b_blue">등록</a>
+        <span @click='OpenEtcModal' class="b_add b_blue">등록</span>
+        <span @click='OpenDelModal' class="b_add b_red">삭제</span>
     </div>
 
-</div>`,
-data(){
 
+</div>`,
+components:{
+    'list-number':_glc_list_numbering__WEBPACK_IMPORTED_MODULE_3__["default"],
+    'save-modal':_glc_etc_modal_js__WEBPACK_IMPORTED_MODULE_1__["default"],
+    'del-modal':_glc_del_modal_js__WEBPACK_IMPORTED_MODULE_0__["default"]
+},
+data(){
     return {
         lists: Array,
         results: Array,
         start: 0,
-        limit: 10
+        limit: 10,
+        SelectData:[]
     }
 },
 created(){
     this.lists = [
         {
             idx: 0,
+            img: "",
+            title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
+            join: 340,
+            cate: "삼성",
+            img: "images/dev_img.png"
+
+        },
+        {
+            idx: 1,
             img: "",
             title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
             join: 340,
@@ -16232,10 +16274,38 @@ methods:{
     prevImg(){
         alert(1)
     },
-    checkboxEv(event){
+    checkboxEv(event,idx){
         event.stopPropagation();
-        // console.log(123)
-    }
+        if(event.target.checked == true){
+            this.SelectData.push(idx)
+        }
+        else{
+            this.SelectData.splice(this.SelectData.indexOf(idx),1);
+        }
+    },
+    OpenEtcModal() {
+            const Modal = document.getElementById('modal-etc')
+            Modal.style.display = 'block';
+            setTimeout(() => {
+                Modal.style.opacity = '1';
+            }, 100);
+            _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit('spotImg', 0)
+    },
+    OpenDelModal() {
+        if(this.SelectData.length>0){
+            const Modal = document.getElementById('modal-del')
+            Modal.style.display = 'block';
+            setTimeout(() => {
+                Modal.style.opacity = '1';
+            }, 100);
+            _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit('spotImgDel', this.SelectData)
+        }
+        else{
+            alert('삭제를원하는 목록을 선택해주세요')
+
+        }
+     
+}
 }
 
 

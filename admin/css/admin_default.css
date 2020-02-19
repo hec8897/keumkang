@@ -172,6 +172,7 @@ div.spot_bord table tr td:nth-child(3){width: 10%;}
 div.spot_bord table tr td:nth-child(4){width: 10%;}
 div.spot_bord table tr td:nth-child(5){width: 60%;}
 div.spot_bord table tr td img{max-width:100px; vertical-align: middle;}
+div.spot_bord div.foot_btn .b_blue{margin-right: 10px;}
 
 
 .page{clear:both; margin:30px auto 10px auto; text-align:center}
@@ -234,11 +235,14 @@ div.spot_bord table tr td img{max-width:100px; vertical-align: middle;}
 .pop-window i.red{color:#f4514a}
 .pop-window i.blue{color:#1a93d9}
 
-#modal-etc .alert{height: 300px;}
+#modal-etc .alert{height: 330px;}
 #modal-join .alert{height: 500px;}
-
+#modal-etc input{width: 100%;}
 #modal-etc .alert_con{padding-bottom: 0px;}
 
+#modal-etc .input-file{text-align: left; float: left; width: 100%; margin-bottom: 20px;}
+#modal-etc .file-label{width: 25%;}
+#modal-etc .file-name{width: 65%; float: right;}
 /* modify */
 .pop-window .mban_input {
     position:relative; margin:200px auto; overflow:hidden;
@@ -309,6 +313,7 @@ div.user_tool table tr td:nth-child(4){width: 20%;}
 div.mp4_upload{width: 100%; height: 60px; border: 1px solid #d0d0d0; background-color: #f0f0f0; padding-top: 15px; box-sizing: border-box;}
 div.mp4_upload h3{display: inline-block; width: 10%; font-size: 1.0rem; padding-left: 15px;}
 div.mp4_upload .input-file .file-name{width: 85%; line-height: 30px; margin-left: 10px;}
+div.mp4_upload .input-file-spot .file-name-spot{width: 85%; line-height: 30px; margin-left: 10px;}
 div.mp4_upload .input-file{width: 85%;}
 
 /* btns */
