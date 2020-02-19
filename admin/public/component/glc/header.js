@@ -3,7 +3,7 @@ import router from '../router'
 const HeaderComponent = {
     template: `<header class="head_wrap">
     <div class="head_bi">
-        <h1>금강관리자 프로토타임</h1>
+        <h1>금강 관리자페이지</h1>
         </div>
             <div class="head_info">
                 <span class="btn_out" v-on:click="DestorySessionData">로그아웃</span>
