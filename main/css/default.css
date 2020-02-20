@@ -1,22 +1,56 @@
-header{height: 100px;line-height: 100px;}
+header{height: 100px;line-height: 100px; position: fixed; top:0; z-index: 99; background-color: white; border-bottom: 1px solid #d9d9d9; box-sizing: border-box;}
 header h1{max-width: 185px;display: inline-block;}
-header ul{max-width: 820px;display: inline-block; text-align: center;}
-header ul li{display: inline; margin-right: 20px;margin-left: 20px;}
-header ul li a{font-size: 1.125rem;}
-header div.line{width: 2px; height: 30px; display: inline-block; background-color: #d9d9d9; margin-right: 20px; margin-left: 20px; vertical-align: middle;}
-header div.head_caption{max-width: 110px; display: inline-block}
+header ul.head_ul{max-width: 820px;display: inline-block; text-align: center;}
+header ul.head_ul li{max-width: 100px; display: inline-block; margin-right: 10px;margin-left: 10px;}
+header ul.head_ul li a{font-size: 1.125rem;}
+header div.line{width: 2px; height: 30px; display: inline-block; background-color: #d9d9d9; margin-right: 15px; margin-left: 15px; vertical-align: middle;}
+header div.head_caption{max-width: 120px; display: inline-block}
 header div.head_blog{max-width: 30px; display: inline-block}
 
-section.con1 div.slide{height: 750px; padding-top: 100px;}
-section.con1 div.slider-1{background-image: url(../images/slider1.jpg); display: none;}
-section.con1 div.slider-2{background-image: url(../images/slider2.jpg);  display: none;}
-section.con1 div.slider-3{background-image: url(../images/slider3.jpg);}
+nav{width: 100%; height: 160px; background-color: white; position: fixed; z-index: 99; top: 100px; display: none;}
+nav div.blank{max-width: 185px; display: inline-block}
+nav ul.head_ul{max-width: 820px; display: inline-block; text-align: center;}
+nav ul.head_ul div.line{width: 00%; background-color: #d0ab2f; height: 3px; position: relative; top:-15px; transition: .4s; margin: 0 auto;}
+nav ul.head_ul li{display: inline-block;  max-width: 100px;margin-right: 10px; margin-left: 10px;  position: relative;}
+nav ul.head_ul li ul{position: absolute; top: 0;}
+nav ul.head_ul li ul li{margin: 10px 0px;}
+nav ul.head_ul li ul li a{color: #666; font-size: 1rem;}
+nav ul.head_ul li ul li a:hover{color: #d0ab2f;}
+
+
+.swiper-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+section.con1 div.slide{height: 750px; padding-top: 100px; position: relative; top: 100px;}
+section.con1 div.slide div.wrap>img{width: 100%; height: 100%; position: absolute; left: 0; top: 0; z-index: -1;}
+section.con1 div.slide div.wrap>video{min-width: 100%;  position: absolute; left: 0; top: -50px; z-index: -1; background-size: center;}
+
 section.con1 h3,section.con1 h2{color: white; font-weight: 100;}
 section.con1 h2{font-weight: bold; margin-top: 15px;}
-section.con1 div.slide_btn{width: 250px; margin: 40px auto; font-size: 1.125rem; padding: 20px; box-sizing: border-box; border: 1px solid white; text-align: center; color: white; font-weight: 100; cursor: pointer; transition: 0.1s;}
+section.con1 div.slide_btn{width: 250px; margin: 40px auto; font-size: 1.125rem; padding: 20px; box-sizing: border-box; border: 1px solid white; text-align: center; color: white; font-weight: 100; cursor: pointer; transition: 0.3s ease-out; }
 section.con1 div.slide_btn:hover{background-color: white; color: #222;}
 
-section.con2{ background-color: #e8f1f3;}
+.swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{bottom: 100px;}
+.swiper-pagination-bullet {
+    opacity: 1;
+    border: white solid 1px;
+    background-color: transparent;
+}
+.swiper-pagination-bullet-active {
+    border-color: #d6b545;
+    background-color: #d6b545;
+    
+}
+.swiper-button-prev,.swiper-button-next{color: white;}
+.swiper-button-prev:hover{color: #d6b545;}
+.swiper-button-next:hover{color: #d6b545;}
+.swiper-button-prev{left: 10%;}
+.swiper-button-next{right: 10%;}
+
+section.con2{ background-color: #e8f1f3; position: relative; z-index: 1;}
 section.con2 div.wrap{padding:0px;height: 450px; position: relative;}
 section.con2 div.panel{max-width: 450px; height: 100%;position: absolute;}
 section.con2 div.panel1{left: 0; top: 100px;}
@@ -32,7 +66,7 @@ section.con3 h4{margin-top: 20px;}
 
 section.con4{height: 420px; background-color: #e8f1f3; text-align: center;}
 section.con4 div.wrap{height: 100%; padding: 0px;}
-section.con4 div.panel{width: 33%; height: 100%; max-width: 380px; display: inline-block; background-image: url(../images/con4-panel1.png); position: relative; top: -100px; vertical-align: middle;}
+section.con4 div.panel{width: 33%; height: 380px; max-width: 380px; display: inline-block; background-image: url(../images/con4-panel1.png); position: relative; top: -100px; vertical-align: middle; transition: 0.1s;}
 section.con4 div.panel2{margin:0px 25px; background-image: url(../images/con4-panel2.png);}
 section.con4 div.panel3{background-image: url(../images/con4-panel3.png);}
 section.con4 div.panel div.panel_btn{max-width: 320px; background-color: white; font-size: 20px; height: 80px; line-height: 80px; padding:0px 30px; position: absolute; bottom: -40px; 
@@ -47,7 +81,7 @@ section.con4 div.panel div.panel_btn.active>div{color: white; border-color: whit
 section.con5 h4{margin-top: 20px;}
 section.con5 div.wrap{padding-bottom: 100px;}
 section.con5 ul.news_section{margin-top: 50px;}
-section.con5 ul.news_section li{height: 140px;  padding: 30px; box-sizing: border-box; transition: 0.1s; vertical-align: middle; cursor: pointer;}
+section.con5 ul.news_section li{height: 140px;  padding: 30px; box-sizing: border-box; transition: 0.1s; vertical-align: middle; cursor: pointer; background-color: #f6f6f6; margin-bottom: 10px;}
 section.con5 ul.news_section li:hover{border: 2px solid #d6b545;}
 section.con5 ul.news_section li div.header_new{width: 80px ; height: 80px;  float: left; padding: 20px 0px; box-sizing: border-box; text-align: center; font-size: 20px;color: white; line-height: 22px;}
 section.con5 ul.news_section li div.header_new.sam{background-color: #389cfa;}
@@ -56,6 +90,24 @@ section.con5 ul.news_section li div.header_new.bus{background-color: #d0ab2f;}
 
 section.con5 ul.news_section li div.tits_new{width: 90%; float: right; height: 100%;}
 section.con5 ul.news_section li div.tits_new p{margin-top: 10px; line-height: 24px; color: #666;}
+
+section.con6{width: 100%; height: 470px; background-image: url(../images/con6-bg.png); cursor: pointer;}
+section.con6 ul{text-align: center;}
+section.con6 ul li{width: 24%; max-width: 270px; height: 270px; display: inline-block; margin: 0px 18px; border: 1px solid white; box-sizing: border-box;  vertical-align: middle; padding-top: 50px;}
+section.con6 ul li:nth-child(1){margin-left: 0px;}
+section.con6 ul li:nth-last-child(1){margin-right: 0px;}
+section.con6 ul li img{width: 55px;}
+section.con6 h4,section.con6 p{color: white; letter-spacing: -1px;}
+section.con6 h4 {margin-top: 40px; margin-bottom: 15px;}
+section.con6 p{font-weight: 100; line-height: 20px;}
+
+footer{width: 100%; height: 310px; background-color: #292929;}
+footer div.wrap{padding-top: 50px; box-sizing: border-box;}
+footer h2{width: 185px; margin: 0 auto; font-size: 1rem;}
+footer ul{text-align: center; margin-top: 40px; margin-bottom: 40px;}
+footer ul li{display: inline; margin: 0px 20px;}
+footer ul li a{color: white;}
+footer p{text-align: center; color: #d0d0d0; font-weight: 100; font-size: 0.875rem; line-height: 1.2rem; letter-spacing: 0.5px;}
 
 
 
