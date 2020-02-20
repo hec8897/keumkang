@@ -6,6 +6,7 @@ header ul.head_ul li a{font-size: 1.125rem;}
 header div.line{width: 2px; height: 30px; display: inline-block; background-color: #d9d9d9; margin-right: 15px; margin-left: 15px; vertical-align: middle;}
 header div.head_caption{max-width: 120px; display: inline-block}
 header div.head_blog{max-width: 30px; display: inline-block}
+header div.mo{width: 30px; height: 40px;display: none;float: right; margin-top: 30px; box-sizing: border-box;}
 
 nav{width: 100%; height: 160px; background-color: white; position: fixed; z-index: 99; top: 100px; display: none;}
 nav div.blank{max-width: 185px; display: inline-block}
@@ -17,19 +18,13 @@ nav ul.head_ul li ul li{margin: 10px 0px;}
 nav ul.head_ul li ul li a{color: #666; font-size: 1rem;}
 nav ul.head_ul li ul li a:hover{color: #d0ab2f;}
 
-
-.swiper-container {
-    width: 100%;
-    height: 100%;
-    position: relative;
-  }
-
 section.con1 div.slide{height: 750px; padding-top: 100px; position: relative; top: 100px;}
 section.con1 div.slide div.wrap>img{width: 100%; height: 100%; position: absolute; left: 0; top: 0; z-index: -1;}
 section.con1 div.slide div.wrap>video{min-width: 100%;  position: absolute; left: 0; top: -50px; z-index: -1; background-size: center;}
 
 section.con1 h3,section.con1 h2{color: white; font-weight: 100;}
 section.con1 h2{font-weight: bold; margin-top: 15px;}
+section.con1 div.slider-2{background-image: url(../images/slider2.jpg);}
 section.con1 div.slide_btn{width: 250px; margin: 40px auto; font-size: 1.125rem; padding: 20px; box-sizing: border-box; border: 1px solid white; text-align: center; color: white; font-weight: 100; cursor: pointer; transition: 0.3s ease-out; }
 section.con1 div.slide_btn:hover{background-color: white; color: #222;}
 
