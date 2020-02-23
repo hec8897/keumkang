@@ -80,9 +80,7 @@
     section.con4{height: 500px;}
     section.con4 div.panel{width: 46%; max-width: 48%;margin: 5px; height: 250px; top:-80px}
     section.con4 div.panel div.panel_btn{bottom: 10px; max-width: 95%;}
-    section.con5 ul.news_section li div.tits_new p{ text-overflow:ellipsis;overflow: hidden;
-        white-space:nowrap;   -webkit-line-clamp: 2; 
-   }
+    section.con5 ul.news_section li div.tits_new p{text-overflow:ellipsis; overflow: hidden; white-space:nowrap; -webkit-line-clamp: 2;}
    section.con6{height: 750px;}
    section.con6 ul li{width: 45%; max-width: 50%; margin: 0; margin: 5px;}
    section.con6 ul li:nth-child(1n){margin-left: 0px;}
@@ -119,8 +117,8 @@
     section.con2 div.panel2{ top: -250px;}
     section.con2 div.panel2 h3{}
     section.con3{padding-top: 50px; position: relative;top: -50px}
+    
     section.con4{height: 400px;}
-
     section.con4 div.panel{height: 200px;}
     section.con4 div.panel div.panel_btn{height: 50px; line-height: 50px; bottom: 5px; padding: 0px 15px;}
     section.con4 div.panel div.panel_btn div{margin-top: 10px;}
