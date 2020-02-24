@@ -115,12 +115,16 @@ section.sub.con1 div.title h3.mid{font-weight: 100;}
 section.complex.con1{background-image: url(../images/complex-con1-bg.jpg);}
 section.saleguide.con1{background-image: url(../images/saleguide-con1-bg.jpg);}
 section.filed.con1{background-image: url(../images/filed-con1-bg.jpg);}
+section.about.con1{background-image: url(../images/about-con1-bg.jpg);}
+section.consult.con1{background-image: url(../images/consult-con1-bg.jpg);}
+section.news.con1{background-image: url(../images/news-con1-bg.jpg);}
 
 
 section.complex.con2{height:100%; background-color: white;}
 section.complex.con2 div.wrap{padding-top:100px;box-sizing: border-box; height: 100%;}
 section.saleguide.con2{height: 700px; padding-top: 100px; background-color: white;}
 section.saleguide.con2 h3{margin-bottom: 50px;}
+
 section.filed.con2{padding-top: 100px; height: 800px; position: relative; background-color: white;}
 section.filed.con2 div.obj{position: absolute; width: 39.3%; height: 60%; background-color: #e8f1f3; right: 0; bottom: 13%;}
 section.filed.con2 div.galluery{width: 100%;  margin-top: 50px;}
@@ -133,11 +137,49 @@ section.filed.con2 div.galluery div.main_img div.navi ul li:nth-child(1):hover{b
 section.filed.con2 div.galluery div.main_img div.navi ul li:nth-child(2){background-image: url(../images/right-gallery.png); ;}
 section.filed.con2 div.galluery div.main_img div.navi ul li:nth-child(2):hover{background-image: url(../images/right-active-gallery.png);}
 
+section.about.con2{height: 600px; background-color: white; position: relative;}
+section.about.con2 div.obj{width: 50%; height: 80%; background-color: #e8f1f3; position: absolute; bottom: 0;}
+section.about.con2 div.wrap{position: relative; height: 100%;}
+section.about.con2 div.panel{max-width: 450px; height: 450px;}
+section.about.con2 div.text_panel{max-width: 850px; height: 500px; background-color: white; position: absolute; bottom: 0; right: 0; padding: 80px; box-sizing: border-box;}
+section.about.con2 div.text_panel p.tit{color: #999; margin-bottom: 40px;}
+section.about.con2 div.text_panel h3{text-align: left; font-weight: 100; line-height: 3.5rem;}
+section.about.con2 div.text_panel h3 span{font-weight: bold; font-size: 3.125rem; display: block;}
+section.about.con2 div.text_panel p.desc{color: #666; line-height: 25px; margin-top: 30px;}
+section.about.con2 div.text_panel p.desc span{color: #d0ab2f; display: block;}
 
 section.filed.con2 div.galluery div.sub_img{max-width: 230px; height: 130px; margin-bottom: 6.5px; float: right; background-image: url(../images/filed-con2-gall1.jpg);}
 section.filed.con2 div.galluery div.sub_img>div.active{background-color: rgba(0,0,0,0.0);}
 section.filed.con2 div.galluery div.sub_img>div{width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); cursor: pointer;}
 section.filed.con2 div.galluery div.sub_img>div:hover{background-color: rgba(0,0,0,0.0);}
+
+section.consult.con2{background-color: white;}
+section.consult.con2 div.wrap{ padding-top: 100px; height: 900px;}
+section.consult.con2 div.btn{width: 200px; height: 50px; line-height: 50px; color: white; background-color: #d6b545; margin: 0px auto; position: relative; top: 50px;     -webkit-box-shadow: 5px 5px 6px 0px rgba(0,0,0,0.27);
+    -moz-box-shadow: 5px 5px 6px 0px rgba(0,0,0,0.27);
+    box-shadow: 5px 5px 6px 0px rgba(0,0,0,0.27); text-align: center; cursor: pointer;}
+
+section.news.con2{padding-top: 100px; padding-bottom: 150px; background-color: white;}
+section.news.con2 div.search_ui{height: 130px; background-color: #d0d0d0; margin: 40px auto; text-align: center; line-height: 130px;}
+section.news.con2 div.search_ui select,
+section.news.con2 div.search_ui input{width: 200px; display: inline-block;margin-right: 5px; height: 40px;}
+section.news.con2 div.search_ui input{width: 250px;}
+section.news.con2 div.btn{width: 140px; height: 40px; line-height:40px; color: white; background-color: #d6b545; margin: 0px auto; text-align: center; cursor: pointer; display: inline-block}
+
+section.news.con2 div.news_list{max-width: 1200px; margin: 0 auto;}
+section.news.con2 div.news_list div.nav ul{width: 100%; height: 60px; margin-bottom: 40px;}
+section.news.con2 div.news_list div.nav ul li{width: 25%; border-bottom: 1px solid #222; height: 100%; line-height: 60px; float: left; text-align: center; cursor: pointer;  background-color: #f6f6f6; box-sizing: border-box;}
+section.news.con2 div.news_list div.nav ul li.active{border:1px solid #222; border-bottom: 0; background-color: white;}
+section.news.con2 div.news_list div.news_lists ul li{height: 140px; border-bottom: 1px solid #d0d0d0; padding-top: 20px; box-sizing: border-box;}
+section.news.con2 div.news_list div.head{width:100px; height: 100px; padding-top: 25px; line-height: 1.5rem; color: white; box-sizing: border-box; text-align: center; display: inline-block; vertical-align: middle}  
+section.news.con2 div.news_list div.head.blue{background-color: #328bfa; }
+section.news.con2 div.news_list div.head.green{background-color: #5fb535;}
+section.news.con2 div.news_list div.head.ameral{background-color: #2cbab2;}
+section.news.con2 div.news_list div.prev_img{width: 160px; height: 100px ;display: inline-block; vertical-align: middle; margin-left: 20px;}  
+section.news.con2 div.news_list div.prev_desc{max-width: 740px; height: 100px; display: inline-block; vertical-align: middle; margin-left: 10px;}
+section.news.con2 div.news_list div.prev_desc h4{text-align: left;margin: 15px auto;}
+section.news.con2 div.news_list div.prev_desc p{font-size: 0.875rem; color: #666;}
+section.news.con2 div.news_list div.join{max-width: 100px; display: inline-block; text-align: center;margin-left: 50px; color: #666;}
 
 section.complex.con3 {padding-top: 0px;box-sizing: border-box;  height: 650px; position: relative;} 
 section.complex.con3 div.obj_l{height: 400px; width: 35%; position: absolute; background-color: #e8f1f3; bottom: 0; z-index: -1;} 
@@ -153,8 +195,25 @@ section.complex.con3 table tbody tr{border-bottom: 1px solid #d0d0d0; height: 45
 section.complex.con3 table tr{height: 50px;}
 section.complex.con3 table tr th{width: 40%; border-right: 1px solid #d0d0d0; text-align: center; vertical-align: middle; }
 section.complex.con3 table tr td{padding-left: 10px; box-sizing: border-box; font-size: 14px; color: #666;  vertical-align: middle;}
-td.col1{ text-align: center; }
-th.row2{line-height: 100px; box-sizing: border-box;}
+section.about.con3{padding: 0px; height: 750px; text-align: center;}
+section.about.con3 p{color: #666; margin-top: 15px;}
+section.about.con3 img{max-width: 950px; margin-top: 40px;}
+section.consult.con3{width: 100%; height: 450px; background-image: url(../images/consult-con3-bg.jpg);padding-top: 0px;}
+section.consult.con3 div.wrap{padding-top: 80px;}
+section.consult.con3 div.wrap{color: white;}
+section.consult.con3 div.wrap div.panel{width: 100%; height: 180px; background-color: white; margin-top: 30px;  padding-left: 50px; padding-top: 30px; box-sizing: border-box;}
+section.consult.con3 img{max-width: 120px;}
+section.consult.con3 div.wrap div.panel div.tit{ vertical-align:middle; max-width: 500px;display: inline-block; margin-left: 20px; position: relative; top: -15px;}
+section.consult.con3 div.wrap div.panel div.tit h4{text-align: left; font-size: 40px; font-weight: 100; margin-bottom: 10px;}
+section.consult.con3 div.wrap div.panel div.tit h3{text-align: left; font-size: 1.125rem; color: #666;}
+section.consult.con3 div.wrap div.panel div.btn{display: inline-block; width: 200px; height: 50px; line-height: 50px; color: white; background-color: #d6b545; margin: 0px auto;    
+    -webkit-box-shadow: 5px 5px 6px 0px rgba(0,0,0,0.27);
+    -moz-box-shadow: 5px 5px 6px 0px rgba(0,0,0,0.27);
+    box-shadow: 5px 5px 6px 0px rgba(0,0,0,0.27); cursor: pointer; 
+    margin-left: 25%;
+    text-align: center;}
+
+
 
 
 section.saleguide.con3{padding-top: 0; height: auto;}
@@ -184,7 +243,7 @@ section.filed.con3 div.wrap ul li:nth-child(5),
 section.filed.con3 div.wrap ul li:nth-child(8){margin-left: 20px; margin-right: 20px;}
 section.filed.con3 div.wrap ul li div.photo{width: 100%; height: 380px;}
 section.filed.con3 div.wrap ul li div.photo>div{width: 100%; height: 100%; cursor: pointer; position: relative; opacity: 0.0; background-color: rgba(0,0,0,0.5); transition: 0.1s ease-in-out;}
-section.filed.con3 div.wrap ul li div.photo>div img{width: 60px; position: absolute; top: 50%; transform: translate(-50%,-50%);}
+section.filed.con3 div.wrap ul li div.photo>div img{width: 60px; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);}
 section.filed.con3 div.wrap ul li div.photo>div:hover{opacity: 1.0;}
 section.filed.con3 div.wrap ul li div.tit{position: relative;; height: 70px;}
 section.filed.con3 div.wrap ul li div.tit p{text-align: left; position: absolute; top: 50%; transform: translateY(-50%); padding-left: 30px;}
@@ -222,6 +281,26 @@ section.filed.con4 div.video video{width: 100%; height: 670px;}
 section.filed.con4 div.video div.tit{position: relative;; height: 70px;}
 section.filed.con4 div.video div.tit p{text-align: left; position: absolute; top: 50%; transform: translateY(-50%); padding-left: 30px;}
 section.filed.con4 div.video div.tit p span{display: block; margin-top: 10px; font-size: 0.875rem; color: #666;}
+
+section.about.con4{background-color: white; height: 920px;}
+section.about.con4 div#map{width: 100%;height: 500px; background-color: #999;}
+section.about.con4 div.address{max-width: 1200px; height: 430px; background-color: white; margin: 0 auto; position: relative; top: -100px; padding: 50px; box-sizing: border-box;}
+section.about.con4 div.address li{text-align: left; font-size: 1rem; color: #666; height: 60px; line-height: 60px; border-bottom: 1px solid #d9d9d9;}
+section.about.con4 div.address li:nth-last-child(1){border: 0px;}
+section.about.con4 div.address li:nth-last-child(1) div{vertical-align: top;}
+section.about.con4 div.address li img{max-width: 21px; margin-right: 20px; vertical-align: text-bottom;}
+section.about.con4 div.address li div{display: inline-block; max-width: 200px; font-size: 1.125rem; color: #222;}
+section.about.con4 div.address li div.desc{max-width: 70%;; display: inline-block; color: #666; font-size: 0.875rem;}
+section.about.con4 div.address li span{display: inline-block; width: 40px; height: 40px; vertical-align: middle;line-height: 40px; color: white; font-size: 0.75rem; border-radius: 100%; text-align: center;}
+section.about.con4 div.address li div.desc span{margin-left: 35px; margin-right: 5px;}
+section.about.con4 div.address li div.desc span.bedge_1{margin-left: 0px;  background-color: #444;}
+section.about.con4 div.address li div.desc span.bedge_2{background-color: #5fb624;}
+section.about.con4 div.address li div.desc span.bedge_3{background-color: #7267dc;}
+section.about.con4 div.address li div.desc span.bedge_4{margin-left: 0px; background-color: #0db3b5;}
+section.about.con4 div.address li div.desc span.bedge_5{background-color: #e69f16;}
+section.about.con4 div.btn{width: 200px; height: 50px; line-height: 50px; color: white; background-color: #d6b545; margin: 0px auto; position: relative; top: 100px;     -webkit-box-shadow: 5px 5px 6px 0px rgba(0,0,0,0.27);
+    -moz-box-shadow: 5px 5px 6px 0px rgba(0,0,0,0.27);
+    box-shadow: 5px 5px 6px 0px rgba(0,0,0,0.27); cursor: pointer; }
 
 
 

@@ -3,6 +3,9 @@ const PageAddress = {
     complexGuide:{main:'complex.html'},
     salesGuide:{main:'salesguide.html'},
     filedGuide:{main:'filed.html'},
+    News:{main:'news.html'},
+    About:{main:'about.html'},
+    Consult:{main:'consult.html'},
     etc:{blog:'https://blog.naver.com/jeongan333'}
 }
 
@@ -21,9 +24,9 @@ let HeaderFooterNavRender = () => {
                                 <li><a href='${PageAddress.complexGuide.main}'>단지안내</a></li>
                                 <li><a href='${PageAddress.salesGuide.main}'>분양안내</a></li>
                                 <li><a href='${PageAddress.filedGuide.main}'>현장 이모저모</a></li>
-                                <li><a href=''>보도자료</a></li>
-                                <li><a href=''>회사소개</a></li>
-                                <li><a href=''>상담문의</a></li>
+                                <li><a href='${PageAddress.News.main}'>보도자료</a></li>
+                                <li><a href='${PageAddress.About.main}'>회사소개</a></li>
+                                <li><a href='${PageAddress.Consult.main}'>상담문의</a></li>
                             </ul>
                             <div class="head_caption">
                                     <img src="images/head_call.png" alt="head">
@@ -100,9 +103,9 @@ let HeaderFooterNavRender = () => {
                                     <li><a href='${PageAddress.complexGuide.main}'>단지안내</a></li>
                                     <li><a href='${PageAddress.salesGuide.main}'>분양안내</a></li>
                                     <li><a href='${PageAddress.filedGuide.main}'>현장 이모저모</a></li>
-                                    <li><a href=''>보도자료</a></li>
-                                    <li><a href=''>회사소개</a></li>
-                                    <li><a href=''>상담문의</a></li>
+                                    <li><a href='${PageAddress.News.main}'>보도자료</a></li>
+                                    <li><a href='${PageAddress.About.main}'>회사소개</a></li>
+                                    <li><a href='${PageAddress.Consult.main}'>상담문의</a></li>
                                 </ul>
                                 <p>대표:남재호 주소: 충남 아산시 음봉면 동암리349-9(탕정로 489-32)</p>
                                 <p>전화번호:041-544-2488 팩스번호:0505-300-9606 이메일:jeongan333@naver.com</p>
