@@ -25,6 +25,8 @@
     section.con6 ul li{max-width: 23%; margin: 0px 10px;}
 }
 @media (max-width:1024px){
+    html,body{font-size: 12px;}
+
     header ul.head_ul{display: none;}
     div.wrap{max-width: 98%; width: 98%;}
 
@@ -35,11 +37,14 @@
     section.con6 ul li{max-width: 100%; width: 23%; margin: 0px 5px;}
 
 
+
+
 }
 @media (max-width:859px){
     html,body{font-size: 14px;}
     h2{font-size: 4rem;}
     h3{font-size: 2.875rem;}
+    section.complex.con2 div.wrap{padding: 0px;}
 
     section.con2 div.panel{max-width: 60%;}
     section.con2 div.panel2{max-width: 90%;}
@@ -51,9 +56,22 @@
     section.con5 ul.news_section li div.tits_new{width: 80%;}
     section.con6 ul li p {font-size: 0.875rem;}
 
+    section.sub.con1 div.title h3{font-size: 42px; margin-bottom: 20px;}
+    section.sub.con1 div.title h3.mid{font-size: 24px; line-height: 30px;}
+    section div.wrap{padding-top: 50px;}
+    section.complex.con2 div.wrap{padding-top: 50px;}
+    section.complex.con3 div.panel{width: 100%; height: 100%;  }
+    section.complex.con3{height: 1000px; margin-bottom: 50px;}
+    section.complex.con3 div.left_panel{max-width: 420px; margin: 0 auto; float: inherit;}
+    section.complex.con3 div.right_panel{max-width: 95%; float: inherit; margin: 0 auto; background-color: white;}
+    section.complex.con3 div.obj_l{top: 20%;}
+
 }
 /* 모바일 */
 @media (max-width: 767px) {
+    .pc{display: none;}
+    .mo{display: block;}
+
     html,body{font-size: 14px;}
 
     h3{font-size: 2.5rem; font-weight: bold;}
@@ -89,6 +107,16 @@
    footer{height: 200px;}
    footer ul{display: none;}
    footer h2{margin-bottom: 30px;}
+   section.complex.con4 table td:nth-child(2){display: none;}
+   section.complex.con4 table td:nth-child(3){display: none;}
+   section.complex.con4 table td:nth-child(4){display: none;}
+   section.complex.con4 table td:nth-child(6){display: none;}
+   section.complex.con4 table td:nth-child(7){display: none;}
+   section.complex.con4 table td:nth-child(8){display: none;}
+
+
+   section.sub.con1 div.title{max-width: 70%; margin: 0 auto;}
+
 }
 
 @media (max-width: 564px) {
@@ -128,6 +156,9 @@
     section.con6{height:550px;} 
     section.con6 h4{margin-top: 25px;}
     section.con6 ul li{height: 210px;}
+
+    section.complex.con3{height: 850px; margin-bottom: 50px;}
+
 
 
 
