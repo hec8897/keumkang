@@ -71,3 +71,11 @@ section div.wrap{padding-top: 100px;}
 /*table element*/
 .t_center{text-align: center; padding: 0px;}
 .col_l{ border-right: 1px solid #d0d0d0;}
+
+/* page */
+.page{clear:both; margin:30px auto 10px auto; text-align:center}
+.page span{cursor: pointer; display:inline-block; border:1px solid #dfdfdf; width:30px; height:30px; line-height:30px; background:#fff; margin: 2px; font-size: 14px;}
+.page span.on{border:1px solid #d6b545; color:white; background-color: #d6b545;}
+.page span:hover{border:1px solid #d6b545; color:#d6b545;}
+.page span.none{pointer-events:none; opacity:0.3}
+.page span img{width: 5px; vertical-align: middle; margin-top: -5px;}
