@@ -1,17 +1,32 @@
 const PageAddress = {
-    Home:'index.html',
-    complexGuide:{main:'complex.html'},
-    salesGuide:{main:'salesguide.html'},
-    filedGuide:{main:'filed.html'},
-    News:{main:'news.html'},
-    About:{main:'about.html'},
-    Consult:{main:'consult.html'},
-    etc:{blog:'https://blog.naver.com/jeongan333'}
+    Home: 'index.html',
+    complexGuide: {
+        main: 'complex.html'
+    },
+    salesGuide: {
+        main: 'salesguide.html'
+    },
+    filedGuide: {
+        main: 'filed.html'
+    },
+    News: {
+        main: 'news.html'
+    },
+    About: {
+        main: 'about.html'
+    },
+    Consult: {
+        main: 'consult.html'
+    },
+    etc: {
+        blog: 'https://blog.naver.com/jeongan333'
+    }
 }
 
 let HeaderFooterNavRender = () => {
     const Header = document.querySelector('header')
     const Nav = document.querySelector('nav')
+    const MoNav = document.getElementById('mo_nav')
     const Footer = document.querySelector('footer')
 
     Header.innerHTML = `<div class="wrap">
@@ -43,7 +58,47 @@ let HeaderFooterNavRender = () => {
                                 <div></div>
                             </div>
                         </div>`
+    MoNav.innerHTML = `<h4>단지안내</h4>
+                        <ul>    
+                            <li><a href='${PageAddress.complexGuide.main}' class="active"><span>-</span> 사업개요</a></li>
+                            <li><a href='${PageAddress.complexGuide.main}'>분양위치도</a></li>
+                        </ul>
+                        <h4>분양안내</h4>
+                        <ul class="none">    
+                            <li><a href='${PageAddress.salesGuide.main}'>배치도</a></li>
+                            <li><a href='${PageAddress.salesGuide.main}'>분양면적도</a></li>
+                            <li><a href='${PageAddress.salesGuide.main}'>입주혜택</a></li>
+                        </ul>
+                        <h4>현장 이모조모</h4>
+                        <ul class="none">    
+                            <li><a href='${PageAddress.filedGuide.main}'>조감도</a></li>
+                            <li><a href='${PageAddress.filedGuide.main}'>현장사진</a></li>
+                            <li><a href='${PageAddress.filedGuide.main}'>드론영상</a></li>
+                        </ul>
+                        <h4>보도자료</h4>
+                        <ul class="none">    
+                             <li><a href='${PageAddress.News.main}'>삼성관련</a></li>
+                             <li><a href='${PageAddress.News.main}'>천안&middot;아산관련</a></li>
+                             <li><a href='${PageAddress.News.main}'>부동산이슈</a></li>
+                        </ul>
+                        <h4>회사소개</h4>
+                        <ul class="none">    
+                            <li><a href='${PageAddress.About.main}'>인사말</a></li>
+                            <li><a href='${PageAddress.About.main}'>미션&middot;비전</a></li>
+                            <li><a href='${PageAddress.About.main}'>오시는길</a></li>
+                        </ul>
+                        <h4>상담안내</h4>
+                        <ul class="none">    
+                            <li><a href='${PageAddress.Consult.main}'>상담 예약</a></li>
+                            <li><a href='${PageAddress.Consult.main}'>입주의향서</a></li>
+                        </ul>
 
+                        <div class="icons">
+                            <img src="images/head_call.png"class='call' alt="head">
+                            <span>|</span>
+                            <img src="images/head_blog.png"class='blog' alt="blog">
+
+                        </div>`
     Nav.innerHTML = `<div class="wrap">
                             <div class="blank">
                             </div>
@@ -97,7 +152,7 @@ let HeaderFooterNavRender = () => {
                             </ul>
                         </div>`
 
-        Footer.innerHTML = `<div class="wrap">
+    Footer.innerHTML = `<div class="wrap">
                                 <h2><a href='${PageAddress.Home}'><img src="images/logo.png" alt="foot_logo"></a></h2>
                                 <ul>
                                     <li><a href='${PageAddress.complexGuide.main}'>단지안내</a></li>
@@ -173,6 +228,6 @@ let HeaderFooterNavRender = () => {
 }
 
 
-const SettingLink = () =>{
-    
+const SettingLink = () => {
+
 }

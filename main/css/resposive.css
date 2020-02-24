@@ -59,6 +59,7 @@
     h3{font-size: 2.5rem; font-weight: bold;}
     header{height: 60px; line-height: 60px;}
     header div.mo{margin-top: 10px;}
+    div.mo_nav{top: 60px;}
     section.con1{position: relative; z-index: 50; top: -40px;}
     section.con1 div.slide{height: 550px;}
     section.con1 div.wrap{padding-top: 50px;}
