@@ -104,7 +104,11 @@ let HeaderFooterNavRender = () => {
                             <img src="images/head_blog.png"class='blog' alt="blog">
 
                         </div>`
-
+        $('#mo_nav').on('scroll touchmove mousewheel', function(event) {
+            event.preventDefault();
+            event.stopPropagation();
+            return false;
+        });
         $('#tit_nav1').click(function(){
             $(".nav_mo").slideUp(200)
             $("#mo_nav1").slideToggle(200)
@@ -255,16 +259,14 @@ let HeaderFooterNavRender = () => {
         })
     })
 
-
-
 }
 function MoNavFade() {
     $('#mo_nav').fadeToggle(100);
+    if($('#nav-icon3').attr('class') == 'mo'){
+      $('html, body').css({'overflow-y': 'hidden', 'height': '100%'});
+    }
+    else{
+      $('html, body').css({'overflow-y': 'scroll', 'height': 'auto'});
+    }
     $('#nav-icon3').toggleClass('open');
   }
- 
-  
-
-const SettingLink = () => {
-
-}
