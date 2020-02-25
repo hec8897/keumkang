@@ -8,4 +8,7 @@ $(document).ready(function () {
     $('.panel_btn').hover(function(){
         $(this).toggleClass('active')
     })
+
+
 })
+

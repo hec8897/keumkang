@@ -1,12 +1,28 @@
 @media (max-width:1440px){
+    /* common */
     header,nav{padding: 0px 10px; box-sizing: border-box;}
-
+    /* main */
     section.con1 div.slider-1{background-image: url(../images/slider1.jpg);}
     section.con1 div.slide div.wrap>video{display: none;}
     section.con1 div.slide div.wrap>video{max-width: 120%;}
+    /* sub */
+
+    section.saleguide.con4 ul {
+        width: 45%;
+    }
+    section.filed.con3{height: auto; padding-bottom: 50px; padding-top: 50px; margin-top: 200px;}
+    section.filed.con3 div.wrap ul li{max-width: 32%; height: 320px;}
+    section.filed.con3 div.wrap ul li div.photo{height: 250px;}
+    section.filed.con3 div.wrap ul li:nth-child(2),
+    section.filed.con3 div.wrap ul li:nth-child(5),
+    section.filed.con3 div.wrap ul li:nth-child(8){margin-left: 10px; margin-right: 10px;}
+    section.about.con4 div.address{max-width: 98%;}
+    section.news.con2 div.news_list{max-width: 98%;}
+
 }
 
 @media (max-width:1200px){
+    /* common */
     html,body{font-size: 14px;}
     div.wrap{max-width: 1024px; margin: 0 auto;}
     header h1,nav div.blank{max-width: 150px;}
@@ -15,37 +31,61 @@
     header div.line{margin:0px 10px}
     header div.head_caption{max-width: 100px; }
     header div.head_blog{max-width: 25px; }
-
-    nav ul.head_ul li{margin: 0px 2px;}
+    nav ul.head_ul li{margin: 0px 2p    x;}
+    /* main */
     .swiper-button-prev{left: 2%;}
     .swiper-button-next{right: 2%;}
     section.con4 div.panel{max-width: 31%; height: 360px; top: -80px;}
     section.con4 div.panel2{margin: 0px 10px;}
     section.con4 div.panel div.panel_btn{max-width: 85%;}
     section.con6 ul li{max-width: 23%; margin: 0px 10px;}
+    section.consult.con3 div.wrap div.panel div.tit{max-width: 50%;}
+    section.consult.con3 div.wrap div.panel div.btn{margin-left: 0;}
+    /* sub */
 }
 @media (max-width:1024px){
+    /* common */
     html,body{font-size: 12px;}
-
     header ul.head_ul{display: none;}
     div.wrap{max-width: 98%; width: 98%;}
-
     header div.line,header div.head_caption, header div.head_blog{display: none;}
+    #nav-icon3{display: block;}
     header div.mo{display: block; cursor: pointer; padding-top: 4px;}
     header div.mo div{width: 100%; height: 3px; background-color: #222;margin: 7px 0px;}
     header div.mo div:nth-last-child(1){background-color: #d6b545;}
+    /* main */
     section.con6 ul li{max-width: 100%; width: 23%; margin: 0px 5px;}
+    /*sub*/
+    section.saleguide.con2{height: 550px;}
+    section.filed.con2 div.galluery div.main_img{max-width: 100%; width: 100%;float: initial;}
+    section.filed.con2 div.galluery div.sub_img{max-width: 25%; width: 25%; float: right;}
+
+    section.filed.con2 div.galluery div.main_img div.navi{width: 100px; height: 50px;}
+    section.about.con3{height: auto; padding-bottom: 100px;}
+    section.about.con3 img{max-width: 859px;}
+    section.about.con2 div.panel{max-width: 45%;}
+    section.about.con2 div.text_panel{max-width: 70%;}
+    section.about.con2 div.text_panel{padding: 40px;}
+    section.about.con2 div.text_panel p.tit{margin-bottom: 20px;}
+    section.about.con4 div.address{padding: 20px;}
+    section.about.con4 div.address li div.desc span{margin-left: 20px;}
+    section.consult.con2{max-width: 95%; margin: 0 auto;}
+    section.news.con2 div.news_list div.prev_desc{max-width: 62%; overflow: hidden;}
+    section.news.con2 div.news_list div.join{display: none;}
+
+
 
 
 
 
 }
 @media (max-width:859px){
+    /* common */
     html,body{font-size: 14px;}
     h2{font-size: 4rem;}
     h3{font-size: 2.875rem;}
-    section.complex.con2 div.wrap{padding: 0px;}
-
+    section div.wrap{padding-top: 50px;}
+    /* main */
     section.con2 div.panel{max-width: 60%;}
     section.con2 div.panel2{max-width: 90%;}
     section.con4 div.panel{height: 300px; top: -50px;}
@@ -55,36 +95,43 @@
     section.con5 ul.news_section li{padding: 20px; height: 120px;}
     section.con5 ul.news_section li div.tits_new{width: 80%;}
     section.con6 ul li p {font-size: 0.875rem;}
-
+    /* sub */
     section.sub.con1 div.title h3{font-size: 42px; margin-bottom: 20px;}
     section.sub.con1 div.title h3.mid{font-size: 24px; line-height: 30px;}
-    section div.wrap{padding-top: 50px;}
+    section.complex.con2 div.wrap{padding: 0px;}
     section.complex.con2 div.wrap{padding-top: 50px;}
     section.complex.con3 div.panel{width: 100%; height: 100%;  }
     section.complex.con3{height: 1000px; margin-bottom: 50px;}
     section.complex.con3 div.left_panel{max-width: 420px; margin: 0 auto; float: inherit;}
     section.complex.con3 div.right_panel{max-width: 95%; float: inherit; margin: 0 auto; background-color: white;}
     section.complex.con3 div.obj_l{top: 20%;}
+    section.saleguide.con4 ul:nth-child(2){float: right;}
+    section.saleguide.con4 ul li span{width: 20px; height: 20px; line-height: 20px;}
+    section.saleguide.con4 ul li{font-size: 1.15rem;}
+    section.saleguide.con4 ul li p{font-size: 1rem;}
 
 }
 /* 모바일 */
 @media (max-width: 767px) {
+    /* common */
     .pc{display: none;}
     .mo{display: block;}
-
     html,body{font-size: 14px;}
-
     h3{font-size: 2.5rem; font-weight: bold;}
     header{height: 60px; line-height: 60px;}
     header div.mo{margin-top: 10px;}
     div.mo_nav{top: 60px;}
+    footer{height: 200px;}
+    footer ul{display: none;}
+    footer h2{margin-bottom: 30px;}
+    /* main */
     section.con1{position: relative; z-index: 50; top: -40px;}
     section.con1 div.slide{height: 550px;}
     section.con1 div.wrap{padding-top: 50px;}
     .swiper-button-prev,.swiper-button-next{display: none;}
     .swiper-container-horizontal>.swiper-pagination-bullets, .swiper-pagination-custom, .swiper-pagination-fraction{bottom: 40px;}
     .swiper-pagination-bullet{width: 12px; height: 12px;}
-    section.con2 {height: 800px;}
+    section.con2 {height: auto;}
     section.con2 div.panel{position: relative; z-index: 5;}
     section.con2 div.wrap{max-width: 100%; width: 100%;}
     section.con2 div.panel1 {top: -90px; max-width: 100%;}
@@ -93,38 +140,123 @@
     section.con2 div.panel2 h3{text-align: center;}
     section.con2 div.panel2 h2{text-align: center;}
     section.con2 div.panel2 p{font-size: 1.2rem;}
-
     section.con3{padding-top: 50px; height: 250px;}
-
     section.con4{height: 500px;}
     section.con4 div.panel{width: 46%; max-width: 48%;margin: 5px; height: 250px; top:-80px}
     section.con4 div.panel div.panel_btn{bottom: 10px; max-width: 95%;}
     section.con5 ul.news_section li div.tits_new p{text-overflow:ellipsis; overflow: hidden; white-space:nowrap; -webkit-line-clamp: 2;}
-   section.con6{height: 750px;}
-   section.con6 ul li{width: 45%; max-width: 50%; margin: 0; margin: 5px;}
-   section.con6 ul li:nth-child(1n){margin-left: 0px;}
-   section.con6 ul li:nth-child(2n){margin-right: 0px;}
-   footer{height: 200px;}
-   footer ul{display: none;}
-   footer h2{margin-bottom: 30px;}
-   section.complex.con4 table td:nth-child(2){display: none;}
-   section.complex.con4 table td:nth-child(3){display: none;}
-   section.complex.con4 table td:nth-child(4){display: none;}
-   section.complex.con4 table td:nth-child(6){display: none;}
-   section.complex.con4 table td:nth-child(7){display: none;}
-   section.complex.con4 table td:nth-child(8){display: none;}
+    section.con6{height: 750px;}
+    section.con6 ul li{width: 45%; max-width: 50%; margin: 0; margin: 5px;}
+    section.con6 ul li:nth-child(1n){margin-left: 0px;}
+    section.con6 ul li:nth-child(2n){margin-right: 0px;}
+    /*sub*/
+    section.sub.con1 div.title{max-width: 70%; margin: 0 auto;}
+    section.complex.con4 table td{display: none;}
+    section.complex.con4 table th{width: 40%;}
+    section.complex.con3 table tr th{font-size: 12px;}
 
+    section.complex.con4 table th{font-size: 12px;}
+    section.complex.con4 table td{font-size: 12px;}
+    section.complex.con4 table tr:nth-child(1) td.mo span{line-height: 20px; vertical-align: text-bottom;}
+    section.complex.con4 table td.mo{display: table; height: 50px; width: 100%; line-height: 50px;}
+    section.complex.con4 h2 img{width: 80%;}
+    section.saleguide.con1{background-position-x: 45%; }
+    section.saleguide.con2{padding-top: 50px; height: auto; padding-bottom: 50px;}
+    section.con2 div.wrap{height: auto;}
+    section.saleguide.con2 img{max-width: 90%; margin: 0 auto;}
+    section.saleguide.con3{padding-top: 50px;}
+    section.saleguide.con3 h3{margin-bottom: 50px; font-weight:100; font-size: 2.14rem;}
+    section.saleguide.con3 div.wrap h3 span{font-size: 2.14rem;}
+    
+    section.saleguide.con3 table tbody tr td{font-size: 12px;}
+    section.saleguide.con3 table tfoot tr td{font-size: 12px;}
 
-   section.sub.con1 div.title{max-width: 70%; margin: 0 auto;}
+    
+    section.saleguide.con3 thead tr.row2 td:nth-last-child(1){display: none;}
+    section.saleguide.con3 thead tr.row2 td:nth-last-child(2){display: none;}
+    section.saleguide.con3 thead tr.row2 td:nth-last-child(3){display: none;}
+    section.saleguide.con3 thead tr.row2 td:nth-last-child(4){display: none;}
+
+    section.saleguide.con3 thead tr.row1 td:nth-last-child(1){display: none;}
+    section.saleguide.con3 thead tr.row1 td:nth-last-child(2){display: none;}
+    section.saleguide.con3 table tbody td:nth-last-child(1){display: none;}
+    section.saleguide.con3 table tbody td:nth-last-child(2){display: none;}
+    section.saleguide.con3 table tbody td:nth-last-child(3){display: none;}
+    section.saleguide.con3 table tbody td:nth-last-child(4){display: none;}
+
+    section.saleguide.con3 table tfoot td:nth-last-child(1){display: none;}
+    section.saleguide.con3 table tfoot td:nth-last-child(2){display: none;}
+    section.saleguide.con3 table tfoot td:nth-last-child(3){display: none;}
+    section.saleguide.con3 table tfoot td:nth-last-child(4){display: none;}
+    
+
+    section.saleguide.con4 div.wrap{padding-top: 50px;}
+    section.saleguide.con4 h3 b{display: block; margin-top: 10px;}
+    section.saleguide.con4 img.sales-obj{display: none;}
+    section.saleguide.con4 ul{width: 98%;padding-left: 20px; margin: 50px auto; margin-bottom: 0px;}
+    section.saleguide.con4 ul li p{padding-left: 30px;}
+    section.saleguide.con4 ul:nth-child(2){float: none; margin: 0px;}
+
+    section.filed.con1 div.title{max-width: 100%;}
+    section.filed.con2{padding-top: 50px;}
+    section.filed.con2 div.galluery div.main_img{display: none;}
+    section.filed.con2 div.galluery div.sub_img{max-width: 98%; width: 98%; height: 250px; float: initial; margin: 10px auto;}
+    section.filed.con3{margin-top: 50px;}
+    section.filed.con3 div.wrap ul{text-align: left; padding-top: 100px;}
+    section.filed.con3 div.wrap ul li{width: 48%; max-width: 48%; margin-left: 0px; margin-right: 0px; margin-bottom: 10px;}
+    section.filed.con3 div.wrap ul li:nth-child(2),
+    section.filed.con3 div.wrap ul li:nth-child(5),
+    section.filed.con3 div.wrap ul li:nth-child(8){margin-left: 0px; margin-right: 0px;}
+    section.filed.con3 div.wrap ul li:nth-child(1n){margin-right: 5px;}
+    section.filed.con3 div.wrap ul li:nth-child(2n){margin-left: 5px;}
+    section.filed.con4 div.video div.tit p{padding-left: 10px;}
+    section.about.con2 div.text_panel h3{font-size: 2.125rem; line-height: 2.5rem;}
+    section.about.con2 div.text_panel h3 span{font-size: 2.125rem;}
+    section.about.con2{height: 650px;}
+    section.about.con2 div.panel{max-width: 100%; top: -50px;}
+    section.about.con2 div.text_panel{position: absolute;z-index: 10; max-width: 95%; right: 0; top: 40%; height: 520px; padding: 20px; padding-top: 40px;} 
+    section.about.con3{margin-top: 250px;}
+    section.about.con2 div.obj{top: 55%; width: 80%;}
+    section.about.con3 p{width: 65%; margin: 0 auto; line-height: 1.5rem; margin-top: 30px;}
+    section.about.con3 img{max-width: 90%; margin: 20px auto;}
+    section.about.con4{height: auto; padding-bottom: 100px;}
+    section.about.con4 div.address{ padding: 10px 20px;}
+    section.about.con4 div.address li{line-height: 30px; height: 90px; padding-top:15px; box-sizing: border-box;}
+    section.about.con4 div.address li div{max-width: 100%;}
+    section.about.con4 div.address li b{padding-left: 40px;}
+    section.about.con4 div.address li div.desc{max-width: 100%; line-height: 50px;}
+    section.about.con4 div.address li span{width: 30px; height: 30px; line-height: 30px;}
+    section.about.con4 div.address li div.desc span{margin-left: 30px;}
+    section.about.con4 div.address li div.desc span.bedge_3{margin-left: 0px;}
+    section.about.con4 div.btn{max-width: 98%; width: 98%;}
+    section.consult.con2 div.wrap{ padding-top: 50px;}
+    section.consult.con2 div.btn{width: 100%; top: 30px;}
+    section.consult.con3 div.wrap div.panel{padding: 20px;}
+    section.consult.con3 div.wrap div.panel div.tit{max-width: 70%;}
+    section.consult.con3 {
+        height: auto;
+        padding-bottom: 100px;
+    }
+    section.consult.con3 div.wrap div.panel{
+        height: 260px;
+    }
+    section.consult.con3 div.wrap div.panel div.btn{width: 100%; margin-top: 30px;}
+    section.news.con2 div.news_list div.head{display: none;}
+    section.news.con2{padding-top: 50px;}
+    section.news.con2 div.search_ui select, section.news.con2 div.search_ui input{max-width: 20%;}
+    section.news.con2 div.news_list div.prev_img{width: 100px; height: 70px;}
 
 }
 
 @media (max-width: 564px) {
+    /* common */
     h2{font-size: 3rem;}
     h5{font-size: 1.125rem;}
     section div.wrap{padding-top: 50px;}
+    /* main */
     section.con1 h3{font-size: 1.875rem;}
     section.con2{height: 700px;}
+    section.consult.con2{ padding-top: 0px; height: auto;}
     section.con2 div.panel2 h3{font-size: 24px;}
     section.con2 div.panel2 h3 span{font-size: 30px;}
     section.con2 div.panel2 p{font-size: 1rem;}
@@ -137,32 +269,47 @@
     section.con5 ul.news_section li div.header_new{padding: 10px; height: 60px; width: 60px; font-size: 1rem;}
     section.con6{height:670px;} 
     section.con6 ul li{height: 250px; padding-top: 30px;}
-
+    /* sub */
+    section.complex.con3 div.left_panel{margin: 30px auto;}
+    section.complex.con4{height: 1100px; margin-top: 100px;}
+    section.complex.con4 h2 img{width: 90%;}
+    section.about.con3{padding-bottom: 50px;}
+    section.filed.con3 div.wrap ul li{width: 48%; max-width: 48%; height: 220px; margin-left: 0px; margin-right: 0px; margin-bottom: 4px;}
+    section.filed.con3 div.wrap ul li div.photo{height: 165px;}
+    section.filed.con3 div.wrap ul li div.tit p{padding-left: 10px; top: 40%;}
+    section.filed.con3 div.wrap ul li:nth-child(1n){margin-right: 2px;}
+    section.filed.con3 div.wrap ul li:nth-child(2n){margin-left: 2px;}
+    section.consult.con3{margin-top: 100px;}
+    .form_area input[type=text]{width: 70%;}
 
 }
-
 @media (max-width: 414px) {
+    /*main*/
     section.con2{height: 600px;}
     section.con2 div.panel2{ top: -250px;}
-    section.con2 div.panel2 h3{}
-    section.con3{padding-top: 50px; position: relative;top: -50px}
-    
+    section.con3{padding-top: 50px; position: relative;}
     section.con4{height: 400px;}
     section.con4 div.panel{height: 200px;}
     section.con4 div.panel div.panel_btn{height: 50px; line-height: 50px; bottom: 5px; padding: 0px 15px;}
     section.con4 div.panel div.panel_btn div{margin-top: 10px;}
     section.con3 h3{float: left;;}
+    section.sub.about.con3 h3{float: initial; margin-top: 50px;}
+    section.sub.consult.con3 h3{float: initial;}
+
     section.con3 h4{float: left;;}
     section.con6{height:550px;} 
     section.con6 h4{margin-top: 25px;}
     section.con6 ul li{height: 210px;}
-
+    /* sub */
     section.complex.con3{height: 850px; margin-bottom: 50px;}
-
-
-
-
+    section.complex.con2{margin-bottom: 50px;}
+    section.consult.con3 img{max-width: 80px;}
+    section.consult.con3 div.wrap div.panel div.tit{max-width: 60%;}
+    section.consult.con3 div.wrap div.panel div.tit h4{font-size: 30px;}
+    section.consult.con3 div.wrap div.panel div.tit h3{font-size: 1rem;}
+    section.consult.con3 div.wrap div.panel{height: 230px;}
 }
 @media (max-width: 360px) {
+    /*main*/
     section.con3{padding-top: 60px;}
 }

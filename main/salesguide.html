@@ -43,23 +43,30 @@
             <section class="sub saleguide con2">
                 <div class="wrap">
                     <h3>배치도</h3>
-                    <img src="images/saleguide-con2.png" alt="">
+                    <img src="images/saleguide-con2.png" class="pc" alt="saleguide">
+                    <img src="images/saleguide-con2-mo.png" class="mo" alt="saleguide">
                 </div>
             </section>
 
             <section class="sub saleguide con3">
                 <div class="wrap">
                     <h3>필지별 <span>분양 면적도</span></h3>
+
+                    <ul class="tb_nav mo">
+                        <li class="tb_li active">필지면적</li>
+                        <li class='tb_li'>도로면적</li>
+                        <li class='tb_li'>필지분양면적</li>
+                    </ul>
                     <table>
                         <thead>
-                            <tr>
+                            <tr class="row1">
                                 <td rowspan="2">no</td>
                                 <td rowspan="2">필지</td>
                                 <td colspan="2">필지면적</td>
                                 <td colspan="2">도로면적</td>
                                 <td colspan="2">필지분양면적</td>
                             </tr>
-                            <tr>
+                            <tr class="row2">
                                 <td rowspan="1">㎡</td>
                                 <td class='b_color' rowspan="1">평</td>
                                 <td rowspan="1">㎡</td>
@@ -406,7 +413,7 @@
 
             <section class="sub saleguide con4">
                 <div class="wrap">
-                    <h3>음봉탕정산업단지의 특별한 혜택!</h3>
+                    <h3>음봉탕정산업단지의 <b>특별한 혜택!</b></h3>
                     <div>
                         <ul>
                             <li><span>01</span>취등록세 감면(75%)
@@ -443,6 +450,71 @@
     <script src="js/src/index.min.js"></script>
     <script>
         HeaderFooterNavRender()
+
+        $('.tb_li').click(function(){
+        $('.tb_li').removeClass('active')
+        $(this).addClass('active')
+        let listInedx = $('.tb_li').index(this);
+        if(listInedx == 0){
+            $('table tbody td:nth-last-child(1)').hide()
+            $('table tbody td:nth-last-child(2)').hide()
+            $('table tbody td:nth-last-child(3)').hide()
+            $('table tbody td:nth-last-child(4)').hide()
+            $('table tbody td:nth-last-child(5)').show()
+            $('table tbody td:nth-last-child(6)').show()
+
+            $('table tfoot td:nth-last-child(1)').hide()
+            $('table tfoot td:nth-last-child(2)').hide()
+            $('table tfoot td:nth-last-child(3)').hide()
+            $('table tfoot td:nth-last-child(4)').hide()
+            $('table tfoot td:nth-last-child(5)').show()
+            $('table tfoot td:nth-last-child(6)').show()
+
+            $('thead tr.row1 td:nth-last-child(1)').hide()
+            $('thead tr.row1 td:nth-last-child(2)').hide()
+            $('thead tr.row1 td:nth-last-child(3)').show()
+            
+        }
+        else if(listInedx == 1){
+            $('table tbody td:nth-last-child(1)').hide()
+            $('table tbody td:nth-last-child(2)').hide()
+            $('table tbody td:nth-last-child(3)').show()
+            $('table tbody td:nth-last-child(4)').show()
+            $('table tbody td:nth-last-child(5)').hide()
+            $('table tbody td:nth-last-child(6)').hide()
+
+            $('table tfoot td:nth-last-child(1)').hide()
+            $('table tfoot td:nth-last-child(2)').hide()
+            $('table tfoot td:nth-last-child(3)').show()
+            $('table tfoot td:nth-last-child(4)').show()
+            $('table tfoot td:nth-last-child(5)').hide()
+            $('table tfoot td:nth-last-child(6)').hide()
+
+            $('thead tr.row1 td:nth-last-child(1)').hide()
+            $('thead tr.row1 td:nth-last-child(2)').show()
+            $('thead tr.row1 td:nth-last-child(3)').hide()
+        }
+        else if(listInedx == 2){
+            $('table tbody td:nth-last-child(1)').show()
+            $('table tbody td:nth-last-child(2)').show()
+            $('table tbody td:nth-last-child(3)').hide()
+            $('table tbody td:nth-last-child(4)').hide()
+            $('table tbody td:nth-last-child(5)').hide()
+            $('table tbody td:nth-last-child(6)').hide()
+
+            $('table tfoot td:nth-last-child(1)').show()
+            $('table tfoot td:nth-last-child(2)').show()
+            $('table tfoot td:nth-last-child(3)').hide()
+            $('table tfoot td:nth-last-child(4)').hide()
+            $('table tfoot td:nth-last-child(5)').hide()
+            $('table tfoot td:nth-last-child(6)').hide()
+
+            $('thead tr.row1 td:nth-last-child(1)').show()
+            $('thead tr.row1 td:nth-last-child(2)').hide()
+            $('thead tr.row1 td:nth-last-child(3)').hide()
+
+        }
+    })
     </script>
 </body>
 
