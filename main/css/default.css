@@ -110,7 +110,7 @@ section.con5 ul.news_section li div.header_new.bus{background-color: #d0ab2f;}
 section.con5 ul.news_section li div.tits_new{width: 90%; float: right; height: 100%;}
 section.con5 ul.news_section li div.tits_new p{margin-top: 10px; line-height: 24px; color: #666;}
 
-section.con6{width: 100%; height: 470px; background-image: url(../images/con6-bg.png); cursor: pointer;}
+section.con6{width: 100%; height: 470px; background-image: url(../images/con6-bg.png); }
 section.con6 ul{text-align: center;}
 section.con6 ul li{width: 24%; max-width: 270px; height: 270px; display: inline-block; margin: 0px 18px; border: 1px solid white; box-sizing: border-box;  vertical-align: middle; padding-top: 50px;}
 section.con6 ul li:nth-child(1){margin-left: 0px;}
@@ -140,7 +140,7 @@ section.saleguide.con2{height: 700px; padding-top: 100px; background-color: whit
 section.saleguide.con2 h3{margin-bottom: 50px;}
 
 section.filed.con2{padding-top: 100px; height: 100%; position: relative; background-color: white;}
-section.filed.con2 div.wrap{height: 750px;}
+/* section.filed.con2 div.wrap{height: 750px;} */
 section.filed.con2 div.obj{position: absolute; width: 39.3%; height: 550px; bottom: 0px; background-color: #e8f1f3; right: 0; bottom: 13%;}
 section.filed.con2 div.galluery{width: 100%;  margin-top: 50px;}
 section.filed.con2 div.galluery div.main_img{max-width: 950px; width: 75%; height:540px; float: left; position: relative; background-image: url(../images/filed-con2-gall1.jpg);}
