@@ -65,37 +65,37 @@ let HeaderFooterNavRender = () => {
 
     MoNav.innerHTML = `<h4 id='tit_nav1'>단지안내</h4>
                         <ul id='mo_nav1' class="nav_mo none">    
-                            <li><a href='${PageAddress.complexGuide.main}' class="active"><span>-</span> 사업개요</a></li>
-                            <li><a href='${PageAddress.complexGuide.main}'><span>-</span>분양위치도</a></li>
+                            <li><a href='${PageAddress.complexGuide.main}?section=1' class="active"><span>-</span> 사업개요</a></li>
+                            <li><a href='${PageAddress.complexGuide.main}?section=2'><span>-</span>분양위치도</a></li>
                         </ul>
                         <h4 id='tit_nav2'>분양안내</h4>
                         <ul id='mo_nav2' class="nav_mo none">    
-                            <li><a href='${PageAddress.salesGuide.main}'><span>-</span>배치도</a></li>
-                            <li><a href='${PageAddress.salesGuide.main}'><span>-</span>분양면적도</a></li>
-                            <li><a href='${PageAddress.salesGuide.main}'><span>-</span>입주혜택</a></li>
+                            <li><a href='${PageAddress.salesGuide.main}?section=1'><span>-</span>배치도</a></li>
+                            <li><a href='${PageAddress.salesGuide.main}?section=2'><span>-</span>분양면적도</a></li>
+                            <li><a href='${PageAddress.salesGuide.main}?section=3'><span>-</span>입주혜택</a></li>
                         </ul>
                         <h4 id='tit_nav3'>현장 이모조모</h4>
                         <ul id='mo_nav3' class="nav_mo none">    
-                            <li><a href='${PageAddress.filedGuide.main}'><span>-</span>조감도</a></li>
-                            <li><a href='${PageAddress.filedGuide.main}'><span>-</span>현장사진</a></li>
-                            <li><a href='${PageAddress.filedGuide.main}'><span>-</span>드론영상</a></li>
+                            <li><a href='${PageAddress.filedGuide.main}?section=1'><span>-</span>조감도</a></li>
+                            <li><a href='${PageAddress.filedGuide.main}?section=2'><span>-</span>현장사진</a></li>
+                            <li><a href='${PageAddress.filedGuide.main}?section=3'><span>-</span>드론영상</a></li>
                         </ul>
                         <h4 id='tit_nav4'>보도자료</h4>
                         <ul id='mo_nav4' class="nav_mo none">    
-                             <li><a href='${PageAddress.News.main}'><span>-</span>삼성관련</a></li>
-                             <li><a href='${PageAddress.News.main}'><span>-</span>천안&middot;아산관련</a></li>
-                             <li><a href='${PageAddress.News.main}'><span>-</span>부동산이슈</a></li>
+                             <li><a href='${PageAddress.News.main}?section=1'><span>-</span>삼성관련</a></li>
+                             <li><a href='${PageAddress.News.main}?section=2'><span>-</span>천안&middot;아산관련</a></li>
+                             <li><a href='${PageAddress.News.main}?section=3'><span>-</span>부동산이슈</a></li>
                         </ul>
                         <h4 id='tit_nav5'>회사소개</h4>
                         <ul id='mo_nav5' class="nav_mo none">    
-                            <li><a href='${PageAddress.About.main}'><span>-</span>인사말</a></li>
-                            <li><a href='${PageAddress.About.main}'><span>-</span>미션&middot;비전</a></li>
-                            <li><a href='${PageAddress.About.main}'><span>-</span>오시는길</a></li>
+                            <li><a href='${PageAddress.About.main}?section=1'><span>-</span>인사말</a></li>
+                            <li><a href='${PageAddress.About.main}?section=2'><span>-</span>미션&middot;비전</a></li>
+                            <li><a href='${PageAddress.About.main}?section=3'><span>-</span>오시는길</a></li>
                         </ul>
                         <h4 id='tit_nav6'>상담안내</h4>
                         <ul id='mo_nav6' class="nav_mo none">    
-                            <li><a href='${PageAddress.Consult.main}'><span>-</span>상담 예약</a></li>
-                            <li><a href='${PageAddress.Consult.main}'><span>-</span>입주의향서</a></li>
+                            <li><a href='${PageAddress.Consult.main}?section=1'><span>-</span>상담 예약</a></li>
+                            <li><a href='${PageAddress.Consult.main}?section=2'><span>-</span>입주의향서</a></li>
                         </ul>
 
                         <div class="icons">
@@ -142,47 +142,47 @@ let HeaderFooterNavRender = () => {
                                 <li>
                                     <div class="line" id='nav_line1'></div>
                                     <ul>
-                                        <li><a href=''>사업개요</a></li>
-                                        <li><a href=''>분양위치도</a></li>
+                                        <li><a href='${PageAddress.complexGuide.main}?section=1'>사업개요</a></li>
+                                        <li><a href='${PageAddress.complexGuide.main}?section=2'>분양위치도</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <div class="line" id='nav_line2'></div>
                                     <ul>
-                                        <li><a href=''>배치도</a></li>
-                                        <li><a href=''>분양면적도</a></li>
-                                        <li><a href=''>입주혜택</a></li>
+                                        <li><a href='${PageAddress.salesGuide.main}?section=1'>배치도</a></li>
+                                        <li><a href='${PageAddress.salesGuide.main}?section=2'>분양면적도</a></li>
+                                        <li><a href='${PageAddress.salesGuide.main}?section=3'>입주혜택</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <div class="line" id='nav_line3'></div>
                                     <ul>
-                                        <li><a href=''>조감도</a></li>
-                                        <li><a href=''>현장사진</a></li>
-                                        <li><a href=''>드론영상</a></li>
+                                        <li><a href='${PageAddress.filedGuide.main}?section=1'>조감도</a></li>
+                                        <li><a href='${PageAddress.filedGuide.main}?section=2'>현장사진</a></li>
+                                        <li><a href='${PageAddress.filedGuide.main}?section=3'>드론영상</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <div class="line" id='nav_line4'></div>
                                     <ul>
-                                        <li><a href=''>삼성관련</a></li>
-                                        <li><a href=''>천안&middot;아산관련</a></li>
-                                        <li><a href=''>부동산이슈</a></li>
+                                        <li><a href='${PageAddress.News.main}?section=1'>삼성관련</a></li>
+                                        <li><a href='${PageAddress.News.main}?section=2'>천안&middot;아산관련</a></li>
+                                        <li><a href='${PageAddress.News.main}?section=3'>부동산이슈</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <div class="line" id='nav_line5'></div>
                                     <ul>
-                                        <li><a href=''>인사말</a></li>
-                                        <li><a href=''>미션&middot;비전</a></li>
-                                        <li><a href=''>오시는길</a></li>
+                                        <li><a href='${PageAddress.About.main}?section=1'>인사말</a></li>
+                                        <li><a href='${PageAddress.About.main}?section=2'>미션&middot;비전</a></li>
+                                        <li><a href='${PageAddress.About.main}?section=3'>오시는길</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <div class="line" id='nav_line6'></div>
                                     <ul>
-                                        <li><a href=''>상담 예약</a></li>
-                                        <li><a href=''>입주의향서</a></li>
+                                        <li><a href='${PageAddress.Consult.main}?section=1'>상담 예약</a></li>
+                                        <li><a href='${PageAddress.Consult.main}?section=2'>입주의향서</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -270,3 +270,27 @@ function MoNavFade() {
     }
     $('#nav-icon3').toggleClass('open');
   }
+
+  function InsertData(){
+    const reqName = document.getElementById('reqname');
+    const reqStandard = document.getElementById('reqstandard');
+    const reqPhone = document.getElementById('reqphone');
+    const reqMemo = document.getElementById('reqmemo')
+
+    let Data = {
+        reqName:reqName.value,
+        reqStandard:reqStandard.value,
+        reqPhone:reqPhone.value,
+        reqMemo:reqMemo.value
+    }
+    const baseURI = 'api/insert_consul.php'
+
+    axios.post(`${baseURI}`, {Data})
+    .then((result) => {
+        console.log(result)
+        if (result.data.phpResult == 'ok') {
+            alert('상담신청완료')
+        } 
+    })
+    .catch(err => console.log('Login: ', err));
+}

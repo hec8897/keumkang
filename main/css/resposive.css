@@ -188,6 +188,8 @@
     section.saleguide.con3 table tfoot td:nth-last-child(2){display: none;}
     section.saleguide.con3 table tfoot td:nth-last-child(3){display: none;}
     section.saleguide.con3 table tfoot td:nth-last-child(4){display: none;}
+
+    section.saleguide.con3 table tr td:nth-child(2){width: 20%;}
     
 
     section.saleguide.con4 div.wrap{padding-top: 50px;}
@@ -249,6 +251,10 @@
     section.news.con2 div.search_ui select, section.news.con2 div.search_ui input{width: 47%; max-width: 270px; margin: 2px;}
     section.news.con2 div.btn{width: 95%; margin-top: 10px; max-width: 550px;}
     section.news.con2 div.news_list div.prev_img{width: 100px; height: 70px;}
+    section.news.con2 div.news_list div.prev_desc h4{ text-overflow:ellipsis; overflow: hidden; white-space:nowrap; -webkit-line-clamp: 2;}
+    section.news.con2 div.news_list div.prev_desc p{ text-overflow:ellipsis; overflow: hidden; white-space:nowrap; -webkit-line-clamp: 2;}
+    section.news.con2 div.news_list div.prev_desc span{display: inline; padding:0px 5px;vertical-align: middle; border-radius: 5px; color: white; font-size: 0.875rem;}
+
 
 }
 
@@ -266,7 +272,7 @@
     section.con2 div.panel2 h3 span{font-size: 30px;}
     section.con2 div.panel2 p{font-size: 1rem;}
     section.con5 div.wrap{padding-bottom: 50px;}
-    section.con5 ul.news_section li{padding: 5px;}
+    section.con5 ul.news_section li{padding: 5px; padding-top: 10px;}
     section.con5 ul.news_section li div.tits_new {width: 80%; padding-top: 5px;}
     section.con2 div.panel2{height: 330px;  padding: 40px 10px;}
     section.con2 div.panel2 div.con2_btn{padding: 20px 20px;}
@@ -276,7 +282,7 @@
     section.con6 ul li{height: 250px; padding-top: 30px;}
     /* sub */
     section.complex.con3 div.left_panel{margin: 30px auto;}
-    section.complex.con4{height: auto; margin-top: 100px; padding-bottom: 100px;}
+    section.complex.con4{height: auto; margin-top: 120px; padding-bottom: 50px;}
     section.complex.con4 h2 img{width: 90%;}
     section.about.con3{padding-bottom: 50px;}
     section.filed.con3 div.wrap ul li{width: 48%; max-width: 48%; height: 220px; margin-left: 0px; margin-right: 0px; margin-bottom: 4px;}
@@ -285,6 +291,11 @@
     section.filed.con3 div.wrap ul li:nth-child(1n){margin-right: 2px;}
     section.filed.con3 div.wrap ul li:nth-child(2n){margin-left: 2px;}
     .form_area input[type=text]{width: 70%;}
+
+    section.consult.con3 div.wrap div.panel div.tit{max-width: 60%;}
+    section.consult.con3 div.wrap div.panel div.tit h4{font-size: 30px;}
+    section.consult.con3 div.wrap div.panel div.tit h3{font-size: 1rem;}
+    section.consult.con3 div.wrap div.panel{height: 250px;}
 
 }
 @media (max-width: 414px) {
@@ -306,10 +317,9 @@
     section.complex.con3{height: 850px; margin-bottom: 50px;}
     section.complex.con2{margin-bottom: 50px;}
     section.consult.con3 img{max-width: 80px;}
-    section.consult.con3 div.wrap div.panel div.tit{max-width: 60%;}
-    section.consult.con3 div.wrap div.panel div.tit h4{font-size: 30px;}
-    section.consult.con3 div.wrap div.panel div.tit h3{font-size: 1rem;}
+
     section.consult.con3 div.wrap div.panel{height: 230px;}
+
 }
 @media (max-width: 360px) {
     /*main*/

@@ -168,7 +168,7 @@ th.row2{line-height: 100px; box-sizing: border-box;}
 .privacy .checkbox{margin-top:10px}
 
 .form_area{max-width:1200px; margin:0 auto; margin-top:50px; border-top:2px solid #444; border-bottom:1px solid #444}
-.form_area input[type=text]{display:inline-block; width:40%}
+.form_area input[type=text],select{display:inline-block; width:40%}
 .form_area .form_select>div{display:inline-block; width:70%; text-align:center}
 .form_area .form_select>div div{width:30%; display:inline-block; text-align:left; box-sizing:border-box}
 .form_area .form_select>div div:nth-child(1){float:left}
