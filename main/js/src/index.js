@@ -36,12 +36,12 @@ let HeaderFooterNavRender = () => {
                                 </a>
                             </h1>
                             <ul class='head_ul'>
-                                <li><a href='${PageAddress.complexGuide.main}'>단지안내</a></li>
-                                <li><a href='${PageAddress.salesGuide.main}'>분양안내</a></li>
-                                <li><a href='${PageAddress.filedGuide.main}'>현장 이모저모</a></li>
-                                <li><a href='${PageAddress.News.main}'>보도자료</a></li>
-                                <li><a href='${PageAddress.About.main}'>회사소개</a></li>
-                                <li><a href='${PageAddress.Consult.main}'>상담문의</a></li>
+                                <li class='head_ul_tag'><a href='${PageAddress.complexGuide.main}'>단지안내</a></li>
+                                <li class='head_ul_tag'><a href='${PageAddress.salesGuide.main}'>분양안내</a></li>
+                                <li class='head_ul_tag'><a href='${PageAddress.filedGuide.main}'>현장 이모저모</a></li>
+                                <li class='head_ul_tag'><a href='${PageAddress.News.main}'>보도자료</a></li>
+                                <li class='head_ul_tag'><a href='${PageAddress.About.main}'>회사소개</a></li>
+                                <li class='head_ul_tag'><a href='${PageAddress.Consult.main}'>상담문의</a></li>
                             </ul>
                             <div class="head_caption">
                                     <img src="images/head_call.png" alt="head">
@@ -63,39 +63,40 @@ let HeaderFooterNavRender = () => {
     MoNavOn = false;
       
 
+    
     MoNav.innerHTML = `<h4 id='tit_nav1'>단지안내</h4>
                         <ul id='mo_nav1' class="nav_mo none">    
-                            <li><a href='${PageAddress.complexGuide.main}?section=1' class="active"><span>-</span> 사업개요</a></li>
-                            <li><a href='${PageAddress.complexGuide.main}?section=2'><span>-</span>분양위치도</a></li>
+                            <li><a href='${PageAddress.complexGuide.main}?section=3'><span>-</span> 사업개요</a></li>
+                            <li><a href='${PageAddress.complexGuide.main}?section=4'><span>-</span>분양위치도</a></li>
                         </ul>
                         <h4 id='tit_nav2'>분양안내</h4>
                         <ul id='mo_nav2' class="nav_mo none">    
-                            <li><a href='${PageAddress.salesGuide.main}?section=1'><span>-</span>배치도</a></li>
-                            <li><a href='${PageAddress.salesGuide.main}?section=2'><span>-</span>분양면적도</a></li>
-                            <li><a href='${PageAddress.salesGuide.main}?section=3'><span>-</span>입주혜택</a></li>
+                            <li><a href='${PageAddress.salesGuide.main}?section=2'><span>-</span>배치도</a></li>
+                            <li><a href='${PageAddress.salesGuide.main}?section=3'><span>-</span>분양면적도</a></li>
+                            <li><a href='${PageAddress.salesGuide.main}?section=4'><span>-</span>입주혜택</a></li>
                         </ul>
                         <h4 id='tit_nav3'>현장 이모조모</h4>
                         <ul id='mo_nav3' class="nav_mo none">    
-                            <li><a href='${PageAddress.filedGuide.main}?section=1'><span>-</span>조감도</a></li>
-                            <li><a href='${PageAddress.filedGuide.main}?section=2'><span>-</span>현장사진</a></li>
-                            <li><a href='${PageAddress.filedGuide.main}?section=3'><span>-</span>드론영상</a></li>
+                            <li><a href='${PageAddress.filedGuide.main}?section=2'><span>-</span>조감도</a></li>
+                            <li><a href='${PageAddress.filedGuide.main}?section=3'><span>-</span>현장사진</a></li>
+                            <li><a href='${PageAddress.filedGuide.main}?section=4'><span>-</span>드론영상</a></li>
                         </ul>
                         <h4 id='tit_nav4'>보도자료</h4>
                         <ul id='mo_nav4' class="nav_mo none">    
-                             <li><a href='${PageAddress.News.main}?section=1'><span>-</span>삼성관련</a></li>
-                             <li><a href='${PageAddress.News.main}?section=2'><span>-</span>천안&middot;아산관련</a></li>
-                             <li><a href='${PageAddress.News.main}?section=3'><span>-</span>부동산이슈</a></li>
+                             <li><a href='${PageAddress.News.main}?section=2'><span>-</span>삼성관련</a></li>
+                             <li><a href='${PageAddress.News.main}?section=3'><span>-</span>천안&middot;아산관련</a></li>
+                             <li><a href='${PageAddress.News.main}?section=4'><span>-</span>부동산이슈</a></li>
                         </ul>
                         <h4 id='tit_nav5'>회사소개</h4>
                         <ul id='mo_nav5' class="nav_mo none">    
-                            <li><a href='${PageAddress.About.main}?section=1'><span>-</span>인사말</a></li>
-                            <li><a href='${PageAddress.About.main}?section=2'><span>-</span>미션&middot;비전</a></li>
-                            <li><a href='${PageAddress.About.main}?section=3'><span>-</span>오시는길</a></li>
+                            <li><a href='${PageAddress.About.main}?section=2'><span>-</span>인사말</a></li>
+                            <li><a href='${PageAddress.About.main}?section=3'><span>-</span>미션&middot;비전</a></li>
+                            <li><a href='${PageAddress.About.main}?section=4'><span>-</span>오시는길</a></li>
                         </ul>
                         <h4 id='tit_nav6'>상담안내</h4>
                         <ul id='mo_nav6' class="nav_mo none">    
-                            <li><a href='${PageAddress.Consult.main}?section=1'><span>-</span>상담 예약</a></li>
-                            <li><a href='${PageAddress.Consult.main}?section=2'><span>-</span>입주의향서</a></li>
+                            <li><a href='${PageAddress.Consult.main}?section=2'><span>-</span>상담 예약</a></li>
+                            <li><a href='${PageAddress.Consult.main}?section=3'><span>-</span>입주의향서</a></li>
                         </ul>
 
                         <div class="icons">
@@ -104,6 +105,29 @@ let HeaderFooterNavRender = () => {
                             <img src="images/head_blog.png"class='blog' alt="blog">
 
                         </div>`
+
+var htmlFile = document.URL.substring(document.URL.lastIndexOf("/") + 1, document.URL.length).split('?');
+var HeadUl = document.querySelectorAll('.head_ul_tag');
+
+if (htmlFile[0] == 'complex.html') {
+    HeadUl[0].childNodes[0].style.color = '#d6b545';
+    $('#mo_nav1').show()
+  } else if (htmlFile[0] == 'salesguide.html') {
+    HeadUl[1].childNodes[0].style.color = '#d6b545';
+    $('#mo_nav2').show()
+  } else if (htmlFile[0] == 'filed.html') {
+    HeadUl[2].childNodes[0].style.color = '#d6b545';
+    $('#mo_nav3').show()
+  } else if (htmlFile[0] == 'news.html') {
+    HeadUl[3].childNodes[0].style.color = '#d6b545';
+    $('#mo_nav4').show()
+  } else if (htmlFile[0] == 'about.html') {
+    HeadUl[4].childNodes[0].style.color = '#d6b545';
+    $('#mo_nav5').show()
+  } else if (htmlFile[0] == 'consult.html') {
+    HeadUl[5].childNodes[0].style.color = '#d6b545';
+    $('#mo_nav6').show()
+  }
         $('#mo_nav').on('scroll touchmove mousewheel', function(event) {
             event.preventDefault();
             event.stopPropagation();
@@ -142,24 +166,24 @@ let HeaderFooterNavRender = () => {
                                 <li>
                                     <div class="line" id='nav_line1'></div>
                                     <ul>
-                                        <li><a href='${PageAddress.complexGuide.main}?section=1'>사업개요</a></li>
-                                        <li><a href='${PageAddress.complexGuide.main}?section=2'>분양위치도</a></li>
+                                        <li><a href='${PageAddress.complexGuide.main}?section=3'>사업개요</a></li>
+                                        <li><a href='${PageAddress.complexGuide.main}?section=4'>분양위치도</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <div class="line" id='nav_line2'></div>
                                     <ul>
-                                        <li><a href='${PageAddress.salesGuide.main}?section=1'>배치도</a></li>
-                                        <li><a href='${PageAddress.salesGuide.main}?section=2'>분양면적도</a></li>
-                                        <li><a href='${PageAddress.salesGuide.main}?section=3'>입주혜택</a></li>
+                                        <li><a href='${PageAddress.salesGuide.main}?section=2'>배치도</a></li>
+                                        <li><a href='${PageAddress.salesGuide.main}?section=3'>분양면적도</a></li>
+                                        <li><a href='${PageAddress.salesGuide.main}?section=4'>입주혜택</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <div class="line" id='nav_line3'></div>
                                     <ul>
-                                        <li><a href='${PageAddress.filedGuide.main}?section=1'>조감도</a></li>
-                                        <li><a href='${PageAddress.filedGuide.main}?section=2'>현장사진</a></li>
-                                        <li><a href='${PageAddress.filedGuide.main}?section=3'>드론영상</a></li>
+                                        <li><a href='${PageAddress.filedGuide.main}?section=2'>조감도</a></li>
+                                        <li><a href='${PageAddress.filedGuide.main}?section=3'>현장사진</a></li>
+                                        <li><a href='${PageAddress.filedGuide.main}?section=4'>드론영상</a></li>
                                     </ul>
                                 </li>
                                 <li>
@@ -173,16 +197,16 @@ let HeaderFooterNavRender = () => {
                                 <li>
                                     <div class="line" id='nav_line5'></div>
                                     <ul>
-                                        <li><a href='${PageAddress.About.main}?section=1'>인사말</a></li>
-                                        <li><a href='${PageAddress.About.main}?section=2'>미션&middot;비전</a></li>
-                                        <li><a href='${PageAddress.About.main}?section=3'>오시는길</a></li>
+                                        <li><a href='${PageAddress.About.main}?section=2'>인사말</a></li>
+                                        <li><a href='${PageAddress.About.main}?section=3'>미션&middot;비전</a></li>
+                                        <li><a href='${PageAddress.About.main}?section=4'>오시는길</a></li>
                                     </ul>
                                 </li>
                                 <li>
                                     <div class="line" id='nav_line6'></div>
                                     <ul>
-                                        <li><a href='${PageAddress.Consult.main}?section=1'>상담 예약</a></li>
-                                        <li><a href='${PageAddress.Consult.main}?section=2'>입주의향서</a></li>
+                                        <li><a href='${PageAddress.Consult.main}?section=2'>상담 예약</a></li>
+                                        <li><a href='${PageAddress.Consult.main}?section=3'>입주의향서</a></li>
                                     </ul>
                                 </li>
                             </ul>
@@ -294,3 +318,24 @@ function MoNavFade() {
     })
     .catch(err => console.log('Login: ', err));
 }
+
+
+LinkCheck = () =>{
+    //Get QueryString
+    params = {};
+    window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (str, key, value) {
+        params[key] = value;
+    });
+    let paramsSection = params.section
+    if(paramsSection!=undefined){
+      let jb = $( '.con'+paramsSection ).offset();
+      console.log(jb)
+      $('html, body').animate({scrollTop : jb.top},100);
+
+    }
+    else{
+      console.log('업슴')
+    }
+    return params;
+ }
+ LinkCheck ()
