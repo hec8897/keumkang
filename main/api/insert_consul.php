@@ -8,9 +8,16 @@ $reqName = $Data['reqName'];
 $reqStandard = $Data['reqStandard'];
 $reqPhone = $Data['reqPhone'];
 $reqMemo = $Data['reqMemo'];
+$Cflag = $Data['Cflag'];
+
+$GetConsultData = "SELECT * FROM `tb_user` WHERE `user_id`='$Cflag'";
+$querys = mysqli_query($conn,$GetConsultData);
+$row = mysqli_fetch_array($querys);
+$Class = $row['class'];
+$userName = $row['user_name'];
 
 $sql = "INSERT INTO `tb_consult` (`reqname`, `reqphone`, `standard`,`reqmemo`, `insertdate`,`reqclass`,`cflag`) 
-VALUES ('$reqName', '$reqPhone', '$reqStandard','$reqMemo', '$time','','')";
+VALUES ('$reqName', '$reqPhone', '$reqStandard','$reqMemo', '$time','$Class','$userName')";
 
 $query = mysqli_query($conn,$sql);
 
@@ -19,7 +26,7 @@ $phpResult = isset($query)?"ok":"no";
 $json =  json_encode(
     array(
         "result"=>$data,
-        "sql"=>$sql,
+        "sql"=>$Class,
         "phpResult"=>$phpResult,
   )); 
   

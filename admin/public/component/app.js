@@ -1,4 +1,4 @@
-import 'babel-polyfill'
+import '@babel/polyfill'
 import router from './router'
 import { store } from './store';
 import HeaderComponent from './glc/header.js';

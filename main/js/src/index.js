@@ -7,10 +7,12 @@ const PageAddress = {
         main: 'salesguide.html'
     },
     filedGuide: {
-        main: 'filed.html'
+        // main: 'filed.html'
+        main: 'javascript:void()'
     },
     News: {
-        main: 'news.html'
+        // main: 'news.html'
+        main: 'javascript:void()'
     },
     About: {
         main: 'about.html'
@@ -38,8 +40,8 @@ let HeaderFooterNavRender = () => {
                             <ul class='head_ul'>
                                 <li class='head_ul_tag'><a href='${PageAddress.complexGuide.main}'>단지안내</a></li>
                                 <li class='head_ul_tag'><a href='${PageAddress.salesGuide.main}'>분양안내</a></li>
-                                <li class='head_ul_tag'><a href='${PageAddress.filedGuide.main}'>현장 이모저모</a></li>
-                                <li class='head_ul_tag'><a href='${PageAddress.News.main}'>보도자료</a></li>
+                                <li class='head_ul_tag'><a href='${PageAddress.filedGuide.main}' onclick="alert('준비중입니다')">현장 이모저모</a></li>
+                                <li class='head_ul_tag'><a href='${PageAddress.News.main}' onclick="alert('준비중입니다')">보도자료</a></li>
                                 <li class='head_ul_tag'><a href='${PageAddress.About.main}'>회사소개</a></li>
                                 <li class='head_ul_tag'><a href='${PageAddress.Consult.main}'>상담문의</a></li>
                             </ul>
@@ -327,15 +329,17 @@ LinkCheck = () =>{
         params[key] = value;
     });
     let paramsSection = params.section
+    let paramsID = params.id;
+
+    if(paramsID!=undefined){
+        sessionStorage.setItem('queryid',paramsID)
+    }
     if(paramsSection!=undefined){
       let jb = $( '.con'+paramsSection ).offset();
       console.log(jb)
       $('html, body').animate({scrollTop : jb.top},100);
-
     }
-    else{
-      console.log('업슴')
-    }
+    
     return params;
  }
  LinkCheck ()
