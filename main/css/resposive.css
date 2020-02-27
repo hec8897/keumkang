@@ -205,7 +205,7 @@
     section.saleguide.con4 ul:nth-child(2){float: none; margin: 0px;}
 
     section.filed.con1 div.title{max-width: 100%;}
-    section.filed.con2{padding-top: 50px;}
+    section.filed.con2{padding-top: 50px; height: auto;}
     section.filed.con2 div.galluery div.main_img{display: none;}
     section.filed.con2 div.galluery div.sub_img{max-width: 98%; width: 98%; height: 250px; float: initial; margin: 10px auto;}
     section.filed.con3{margin-top: 0px;}

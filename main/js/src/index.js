@@ -223,6 +223,8 @@ if (htmlFile[0] == 'complex.html') {
                                     <li><a href='${PageAddress.News.main}'>보도자료</a></li>
                                     <li><a href='${PageAddress.About.main}'>회사소개</a></li>
                                     <li><a href='${PageAddress.Consult.main}'>상담문의</a></li>
+                                    <li><a href='admin/index.html' target='blank'>관리자페이지</a></li>
+
                                 </ul>
                                 <p>대표:남재호 주소: 충남 아산시 음봉면 동암리349-9(탕정로 489-32)</p>
                                 <p>전화번호:041-544-2488 팩스번호:0505-300-9606 이메일:jeongan333@naver.com</p>

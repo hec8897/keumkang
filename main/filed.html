@@ -45,171 +45,80 @@
                     <h3>조감도</h3>
                     <div class="galluery">
                         <div class="main_img">
-                            <div class="navi">
+                            <!-- <div class="navi">
                                 <ul>
                                     <li></li>
                                     <li></li>
                                 </ul>
-                            </div>
+                            </div> -->
                         </div>
-                        <div class="sub_img">
+                        <div class="sub_img sub_img1">
                             <div class="active"></div>
                         </div>
-                        <div class="sub_img">
+                        <div class="sub_img sub_img2">
                             <div></div>
                         </div>
-                        <div class="sub_img">
+                        <div class="sub_img sub_img3">
                             <div></div>
                         </div>
-                        <div class="sub_img">
+                        <div class="sub_img sub_img4">
                             <div></div>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class='sub filed con3'>
-                <div class="wrap">
-                    <h3>현장사진</h3>
-                    <ul>
-                        <li>
-                            <div class="photo" style="background-image: url(images/filed-con3-photo1.jpg);">
-                                <div>
-                                    <img src="images/plus.png" alt="plus">
-                                </div>
-                            </div>
-                            <div class="tit">
-                                <p>
-                                    V부지 파일사업(분양완료)
-                                    <span>2020.03.17</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="photo" style="background-image: url(images/filed-con3-photo1.jpg);">
-                                <div>
-                                    <img src="images/plus.png" alt="plus">
-                                </div>
-                            </div>
-                            <div class="tit">
-                                <p>
-                                    V부지 파일사업(분양완료)
-                                    <span>2020.03.17</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="photo" style="background-image: url(images/filed-con3-photo1.jpg);">
-                                <div>
-                                    <img src="images/plus.png" alt="plus">
-                                </div>
-                            </div>
-                            <div class="tit">
-                                <p>
-                                    V부지 파일사업(분양완료)
-                                    <span>2020.03.17</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="photo" style="background-image: url(images/filed-con3-photo1.jpg);">
-                                <div>
-                                    <img src="images/plus.png" alt="plus">
-                                </div>
-                            </div>
-                            <div class="tit">
-                                <p>
-                                    V부지 파일사업(분양완료)
-                                    <span>2020.03.17</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="photo" style="background-image: url(images/filed-con3-photo1.jpg);">
-                                <div>
-                                    <img src="images/plus.png" alt="plus">
-                                </div>
-                            </div>
-                            <div class="tit">
-                                <p>
-                                    V부지 파일사업(분양완료)
-                                    <span>2020.03.17</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="photo" style="background-image: url(images/filed-con3-photo1.jpg);">
-                                <div>
-                                    <img src="images/plus.png" alt="plus">
-                                </div>
-                            </div>
-                            <div class="tit">
-                                <p>
-                                    V부지 파일사업(분양완료)
-                                    <span>2020.03.17</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="photo" style="background-image: url(images/filed-con3-photo1.jpg);">
-                                <div>
-                                    <img src="images/plus.png" alt="plus">
-                                </div>
-                            </div>
-                            <div class="tit">
-                                <p>
-                                    V부지 파일사업(분양완료)
-                                    <span>2020.03.17</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="photo" style="background-image: url(images/filed-con3-photo1.jpg);">
-                                <div>
-                                    <img src="images/plus.png" alt="plus">
-                                </div>
-                            </div>
-                            <div class="tit">
-                                <p>
-                                    V부지 파일사업(분양완료)
-                                    <span>2020.03.17</span>
-                                </p>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="photo" style="background-image: url(images/filed-con3-photo1.jpg);">
-                                <div>
-                                    <img src="images/plus.png" alt="plus">
-                                </div>
-                            </div>
-                            <div class="tit">
-                                <p>
-                                    V부지 파일사업(분양완료)
-                                    <span>2020.03.17</span>
-                                </p>
-                            </div>
-                        </li>
-                    </ul>
+            <script>
+                $(document).ready(function(){
+                    $('.sub_img').click(function(){
+                        var Images = ['images/filed-con2-gall1.jpg','images/filed-con2-gall2.jpg','images/filed-con2-gall3.jpg','images/filed-con2-gall4.jpg']
+                        $('.sub_img div').removeClass('active')
+                        $(this).children('div').not().addClass('active')
 
-                        <div class="page">
-                            <span><img src="images/left-gallery.png" alt="left"></span>
-            
-                            <span class="nobtn on">1</span>
-                            <span class="nobtn">2</span>
-                            <span class="nobtn">3</span>
-                            <span class="nobtn">4</span>
-            
-                            <span><img src="images/right-gallery.png" alt="right"></span>
-            
-                        </div>
-                </div>
+                        let ImgClassName = $(this).attr('class')
+                        if(ImgClassName == "sub_img sub_img1"){
+                            $('.main_img').css({
+                                "opacity":0.0,
+                                "background-image":" url("+Images[0]+")"
+                            })
+                                $('.main_img').delay(0).animate({"opacity":"1.0"})
+                        }
+                        else if(ImgClassName == "sub_img sub_img2"){
+                            $('.main_img').css({
+                                "opacity":0.0,
+                                "background-image":" url("+Images[1]+")"
+                            })
+                                $('.main_img').delay(0).animate({"opacity":"1.0"})
+                        }
+                        else if(ImgClassName == "sub_img sub_img3"){
+                            $('.main_img').css({
+                                "opacity":0.0,
+                                "background-image":" url("+Images[2]+")"
+                            })
+                                $('.main_img').delay(0).animate({"opacity":"1.0"})
+                        }
+                        else if(ImgClassName == "sub_img sub_img4"){
+                            $('.main_img').css({
+                                "opacity":0.0,
+                                "background-image":" url("+Images[3]+")"
+                            })
+                                $('.main_img').delay(0).animate({"opacity":"1.0"})
+                        }
+                    })
+
+                })
+
+            </script>
+
+            <section class='sub filed con3' id='filed_photo'>
+                <!-- vue -->
             </section>
 
             <section class="sub filed con4">
                 <div class="wrap">
                     <h3>드론영상</h3>
                     <div class="video">
-                        <video src="images/slide1.mp4" autoplay controls></video>
+                        <video src="images/slide1.mp4" controls></video>
                         <div class="tit">
                             <p>
                                 V부지 파일사업(분양완료)
@@ -224,6 +133,9 @@
 
         <footer></footer>
     </div>
+    <script src="https://unpkg.com/vue/dist/vue.min.js"></script>
+    <script src="modules/axios.min.js"></script>
+    <script src="dist/bundle.js"></script>
     <script src="js/src/index.min.js"></script>
     <script>
         HeaderFooterNavRender()

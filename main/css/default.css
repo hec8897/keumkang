@@ -154,7 +154,14 @@ section.filed.con2 div.galluery div.main_img div.navi ul li:nth-child(1){backgro
 section.filed.con2 div.galluery div.main_img div.navi ul li:nth-child(1):hover{background-image: url(../images/left-active-gallery.png);}
 section.filed.con2 div.galluery div.main_img div.navi ul li:nth-child(2){background-image: url(../images/right-gallery.png); ;}
 section.filed.con2 div.galluery div.main_img div.navi ul li:nth-child(2):hover{background-image: url(../images/right-active-gallery.png);}
-section.filed.con2 div.galluery div.sub_img{max-width: 230px; width: 24%; height: 130px; margin-bottom: 6.5px; float: right; background-image: url(../images/filed-con2-gall1.jpg);}
+section.filed.con2 div.galluery div.sub_img{max-width: 230px; width: 24%; height: 130px; margin-bottom: 6.5px; float: right;}
+
+section.filed.con2 div.galluery div.sub_img.sub_img1{ background-image: url(../images/filed-con2-gall1.jpg);}
+section.filed.con2 div.galluery div.sub_img.sub_img2{ background-image: url(../images/filed-con2-gall2.jpg);}
+section.filed.con2 div.galluery div.sub_img.sub_img3{ background-image: url(../images/filed-con2-gall3.jpg);}
+section.filed.con2 div.galluery div.sub_img.sub_img4{ background-image: url(../images/filed-con2-gall4.jpg);}
+
+
 section.filed.con2 div.galluery div.sub_img>div.active{background-color: rgba(0,0,0,0.0);}
 section.filed.con2 div.galluery div.sub_img>div{width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); cursor: pointer;}
 section.filed.con2 div.galluery div.sub_img>div:hover{background-color: rgba(0,0,0,0.0);}
@@ -258,10 +265,10 @@ section.saleguide.con3 table tbody tr{border-bottom: 1px solid #d0d0d0;}
 section.saleguide.con3 table .b_color{color:#478cd3}
 section.saleguide.con3 table tfoot tr{height: 30px; border-bottom: 1px solid #222; background-color: #e8f1f3;}
 
-section.filed.con3 {padding-top: 0px; height: 1750px;}
+section.filed.con3 {padding-top: 0px; height: auto; padding-bottom: 100px;}
 section.filed.con3 div.wrap{padding-top: 0px;}
-section.filed.con3 div.wrap ul{width: 100%; text-align: center; margin-top: 50px;}
-section.filed.con3 div.wrap ul li{max-width: 375px; height: 450px; background-color: #f0f0f0; display: inline-block; margin-bottom: 30px; vertical-align: middle;}
+section.filed.con3 div.wrap ul{width: 100%; text-align: left; margin-top: 50px; padding-left: 10px;}
+section.filed.con3 div.wrap ul li{max-width: 385px; height: 450px; background-color: #f0f0f0; display: inline-block; margin-bottom: 30px; vertical-align: middle;}
 section.filed.con3 div.wrap ul li:nth-child(2),
 section.filed.con3 div.wrap ul li:nth-child(5),
 section.filed.con3 div.wrap ul li:nth-child(8){margin-left: 20px; margin-right: 20px;}
