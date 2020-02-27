@@ -53,8 +53,6 @@ $json =  json_encode(
     array(
         "result"=>$result,
         "phpResult"=>$phpResult,
-        "sql"=>$sql,
-        "test"=>$idx
   )); 
   
   echo urldecode($json);

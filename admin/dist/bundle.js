@@ -13298,7 +13298,9 @@ const DelteModal = {
         })
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('spotImgDel',(Data)=>{
             this.ment = '현장사진을 삭제합니다'
-            console.log(Data)
+            this.FnMode = 'spotImgDel';
+            this.Data = Data
+            console.log(this.Data)
         })
     },
     methods: {
@@ -13325,7 +13327,14 @@ const DelteModal = {
                     mode: this.FnMode,
                     idx: this.Data
                 }
-            } else {
+            } else if(mode == 'spotImgDel'){
+                baseURI = 'api/spot.upload.php';
+                Data = {
+                    mode: this.FnMode,
+                    idx: this.Data
+                }
+            }
+            else {
                 baseURI = '123';
             }
 
@@ -13343,9 +13352,9 @@ const DelteModal = {
                                 path: '/consul',
                             })
                         }
+                        
                         else{
-                            location.reload()
-
+                            _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('spotUpdate', {result:result.data.phpResult})
                         }
                        
                     }
@@ -13610,6 +13619,8 @@ const etcModal = {
                         if(result.data.phpResult == 'ok'){
                             alert('등록되었습니다')
                             this.ModalClose()
+                            _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('spotUpdate', {result:result.data.phpResult})
+
                         }
                     })
                     .catch(err => console.log('Login: ', err));
@@ -14605,56 +14616,24 @@ const LoginPage = {
                         userPw:userPw.value
                     })
                     .then((result) => {
-                        // if(result.data.result == 'idno'){
-                        //     alert('존재하지 않는 아이디 입니다.')
-                        // }
-                        // else if(result.data.result == 'pwno'){
-                        //     alert('패스워드가 잘못되었습니다')
-                        // }
-                        // else{
-                        //     if(result.data.result.activation == '0'){
-                        //         alert('승인되지 않은 계정입니다 관리자에게 문의 해주세요')
-                        //     }
-                        //     else{
-                        //          this.$store.state.id = result.data.result.user_id;
-                        //          this.$store.state.idx = result.data.result.idx;
-                        //          this.$store.state.Name = result.data.result.user_name;
-                        //          this.$store.state.Class = result.data.result.class;
-                        //          this.$store.state.Activation = result.data.result.activation;
-                        //          this.$store.state.comcode = result.data.result.comcode;
-                        //          this.$store.state.userPhone = result.data.result.user_phone;
-                                            
-                        //         sessionStorage.setItem("ID",  this.$store.state.id);
-                        //         sessionStorage.setItem("idx",  this.$store.state.idx);
-                        //         sessionStorage.setItem("name", this.$store.state.Name);
-                        //         sessionStorage.setItem("Class",  this.$store.state.Class);
-                        //         sessionStorage.setItem("Activation",  this.$store.state.Activation);
-                        //         sessionStorage.setItem("comcode",  this.$store.state.comcode);
-                        //         sessionStorage.setItem("userPhone", this.$store.state.userPhone);
-
-                        //         if(sessionStorage.comcode == 100){
-                        //             alert('어서오세요'+this.$store.state.Name+'님')
-                        //             router.push({name:'cflag' ,path:'/cflag'})
-                        //             .catch (err => {})
-                    
-                        //         }
-                        //         else{
-                        //             alert('어서오세요'+this.$store.state.Name+'님')
-                        //             router.push({name:'consul' ,path:'/consul'})
-                        //             .catch (err => {})
-                        //         }
-                        //        eventBus.$emit('nav',sessionStorage.comcode)
-                        //     }
-                        // }
-                                      
-                                 
-                                 this.$store.state.id = 'ceomaker';
-                                 this.$store.state.idx = 6;
-                                 this.$store.state.Name = '김다운';
-                                 this.$store.state.Class = '금강';
-                                 this.$store.state.Activation = 1;
-                                 this.$store.state.comcode = 1;
-                                 this.$store.state.userPhone = '01023866487';
+                        if(result.data.result == 'idno'){
+                            alert('존재하지 않는 아이디 입니다.')
+                        }
+                        else if(result.data.result == 'pwno'){
+                            alert('패스워드가 잘못되었습니다')
+                        }
+                        else{
+                            if(result.data.result.activation == '0'){
+                                alert('승인되지 않은 계정입니다 관리자에게 문의 해주세요')
+                            }
+                            else{
+                                 this.$store.state.id = result.data.result.user_id;
+                                 this.$store.state.idx = result.data.result.idx;
+                                 this.$store.state.Name = result.data.result.user_name;
+                                 this.$store.state.Class = result.data.result.class;
+                                 this.$store.state.Activation = result.data.result.activation;
+                                 this.$store.state.comcode = result.data.result.comcode;
+                                 this.$store.state.userPhone = result.data.result.user_phone;
                                             
                                 sessionStorage.setItem("ID",  this.$store.state.id);
                                 sessionStorage.setItem("idx",  this.$store.state.idx);
@@ -14663,7 +14642,6 @@ const LoginPage = {
                                 sessionStorage.setItem("Activation",  this.$store.state.Activation);
                                 sessionStorage.setItem("comcode",  this.$store.state.comcode);
                                 sessionStorage.setItem("userPhone", this.$store.state.userPhone);
-                                
 
                                 if(sessionStorage.comcode == 100){
                                     alert('어서오세요'+this.$store.state.Name+'님')
@@ -14677,6 +14655,39 @@ const LoginPage = {
                                     .catch (err => {})
                                 }
                                _glc_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('nav',sessionStorage.comcode)
+                            }
+                        }
+                                      
+                                 
+                            //      this.$store.state.id = 'ceomaker';
+                            //      this.$store.state.idx = 6;
+                            //      this.$store.state.Name = '김다운';
+                            //      this.$store.state.Class = '금강';
+                            //      this.$store.state.Activation = 1;
+                            //      this.$store.state.comcode = 1;
+                            //      this.$store.state.userPhone = '01023866487';
+                                            
+                            //     sessionStorage.setItem("ID",  this.$store.state.id);
+                            //     sessionStorage.setItem("idx",  this.$store.state.idx);
+                            //     sessionStorage.setItem("name", this.$store.state.Name);
+                            //     sessionStorage.setItem("Class",  this.$store.state.Class);
+                            //     sessionStorage.setItem("Activation",  this.$store.state.Activation);
+                            //     sessionStorage.setItem("comcode",  this.$store.state.comcode);
+                            //     sessionStorage.setItem("userPhone", this.$store.state.userPhone);
+                                
+
+                            //     if(sessionStorage.comcode == 100){
+                            //         alert('어서오세요'+this.$store.state.Name+'님')
+                            //         router.push({name:'cflag' ,path:'/cflag'})
+                            //         .catch (err => {})
+                    
+                            //     }
+                            //     else{
+                            //         alert('어서오세요'+this.$store.state.Name+'님')
+                            //         router.push({name:'consul' ,path:'/consul'})
+                            //         .catch (err => {})
+                            //     }
+                            //    eventBus.$emit('nav',sessionStorage.comcode)
                            
                     })
             
@@ -15360,11 +15371,13 @@ const spotImg = {
                 <td>분류</td>
                 <td>미리보기</td>
                 <td>제목</td>
+                <td>시공일자</td>
+
             </tr>
         </thead>
         <tbody>
-            <tr class='new_view_tr'v-for='(result,i) in results' v-if='i < limit && i >= start' @click='prevImg(event)'>
-                <td><input type='checkbox' @click='checkboxEv(event,result.idx)'></td>
+            <tr class='new_view_tr'v-for='(result,i) in results' v-if='i < limit && i >= start'>
+                <td><input type='checkbox' @click='checkboxEv(event,result.idx)' class='checkbox_1'></td>
                 <td>{{i+1}}</td>
                 <td>{{result.cate}}</td>
                 <td>
@@ -15372,6 +15385,8 @@ const spotImg = {
                     <img src='images/dev_img2.png' v-else alt='미리보기'>
                 </td>
                 <td>{{result.title}}</td>
+                <td>{{result.Date}}</td>
+
         </tr>
         </tbody>
     </table>
@@ -15390,7 +15405,7 @@ components:{
 },
 data(){
     return {
-        lists: Array,
+        lists: [],
         results: Array,
         start: 0,
         limit: 10,
@@ -15398,33 +15413,64 @@ data(){
     }
 },
 created(){
-    this.lists = [
-        {
-            idx: 0,
-            img: "",
-            title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-            join: 340,
-            cate: "삼성",
-            img: "images/dev_img.png"
-
-        },
-        {
-            idx: 1,
-            img: "",
-            title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-            join: 340,
-            cate: "삼성",
-            img: "images/dev_img.png"
-
-        }
-    ]
+   this.getData()
+   _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$on('spotUpdate',(Data)=>{
+    this.getData()
+   })
 },
-mounted(){
-    this.results = this.lists
+mounted() {
+    _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$on('NextPage', (Data) => {
+        this.start = Data * 10;
+        this.limit = (Data * 10) + 10
+
+        this.SelectData = [];
+
+        const CheckBox =document.querySelectorAll('.checkbox_1');
+        // 체크박스 초기화
+        for(let i = 0; i< CheckBox.length; i++){
+            CheckBox[i].checked = false
+        }
+
+    })
 },
 methods:{
-    prevImg(){
-        alert(1)
+    getData(){
+        const baseURI = 'api/getdata.spot.php';
+        axios.post(`${baseURI}`,{} 
+        )
+        .then((result) => {
+            if(result.data.phpResult == 'ok'){
+                this.lists = result.data.result
+                this.results = this.lists
+            }
+            else{
+                this.lists = [
+                    {
+                        idx: 0,
+                        title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
+                        cate: "삼성",
+                        img: "images/dev_img.png",
+                        Date:""
+            
+                    },
+                    {
+                        idx: 1,
+                        title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
+                        cate: "삼성",
+                        img: "images/dev_img.png",
+                        Date:""
+                    }
+                ]
+                this.results = this.lists
+    
+            }
+            _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit('UpdateList', {
+                DataLength: Math.ceil((this.results.length) / 10),
+                nowpage: this.limit - 10
+            })
+
+        })
+        .catch(err => console.log('Login: ', err));
     },
     checkboxEv(event,idx){
         event.stopPropagation();

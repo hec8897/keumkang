@@ -58,7 +58,9 @@ const DelteModal = {
         })
         eventBus.$on('spotImgDel',(Data)=>{
             this.ment = '현장사진을 삭제합니다'
-            console.log(Data)
+            this.FnMode = 'spotImgDel';
+            this.Data = Data
+            console.log(this.Data)
         })
     },
     methods: {
@@ -85,7 +87,14 @@ const DelteModal = {
                     mode: this.FnMode,
                     idx: this.Data
                 }
-            } else {
+            } else if(mode == 'spotImgDel'){
+                baseURI = 'api/spot.upload.php';
+                Data = {
+                    mode: this.FnMode,
+                    idx: this.Data
+                }
+            }
+            else {
                 baseURI = '123';
             }
 
@@ -103,9 +112,9 @@ const DelteModal = {
                                 path: '/consul',
                             })
                         }
+                        
                         else{
-                            location.reload()
-
+                            eventBus.$emit('spotUpdate', {result:result.data.phpResult})
                         }
                        
                     }

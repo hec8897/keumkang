@@ -239,6 +239,8 @@ const etcModal = {
                         if(result.data.phpResult == 'ok'){
                             alert('등록되었습니다')
                             this.ModalClose()
+                            eventBus.$emit('spotUpdate', {result:result.data.phpResult})
+
                         }
                     })
                     .catch(err => console.log('Login: ', err));

@@ -336,7 +336,6 @@ LinkCheck = () =>{
     }
     if(paramsSection!=undefined){
       let jb = $( '.con'+paramsSection ).offset();
-      console.log(jb)
       $('html, body').animate({scrollTop : jb.top},100);
     }
     

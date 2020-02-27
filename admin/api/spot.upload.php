@@ -3,10 +3,15 @@
   mysqli_set_charset($conn,"utf-8"); 
   header('Access-Control-Allow-Origin: *');  
   $data = json_decode(file_get_contents("php://input"),true);
+
+  $Data = $data['Data'];
+  $mode = $Data['mode'];
+
   $reqTit = $_POST['reqtit'];
   $reqStandard = $_POST['reqStandard'];
   $reqDate = $_POST['reqDate'];
   $Files = $_FILES['reqFile'];
+
 
   function FileUploader($files){
     $file = $files;
@@ -33,12 +38,31 @@
     return $Result = $Results;
     }
 
-        $spotImg = FileUploader($Files);
+    if($mode == 'spotImgDel'){
+        $idxs = $Data['idx'];
+        for($count = 0; $count <count($idxs); $count++){
+            $idx = $idxs[$count];
+            $getFile = "SELECT `imgroute` FROM `tb_spot` WHERE `idx` = '$idx'";
+            $queryFile = mysqli_query($conn,$getFile);
+            $row = mysqli_fetch_array($queryFile);
 
+            unlink("../../spot/".$row['imgroute']);
+
+            $sql = "DELETE FROM `tb_spot` WHERE `idx` = '$idx'";
+            $query = mysqli_query($conn,$sql);
+        }
+        $phpResult = isset($query)?"ok":"no";
+
+    }else{
+        $spotImg = FileUploader($Files);
         $sql = "INSERT INTO `tb_spot` (`standard`, `reqtit`, `reqdate`, `imgroute`) VALUES ('$reqStandard', '$reqTit', '$reqDate', '$spotImg')";
         $query = mysqli_query($conn,$sql);
-
         $phpResult = isset($query)?"ok":"no";
+
+    }
+    
+  
+    
         $json =  json_encode(
           array(
               "phpResult"=> $phpResult
