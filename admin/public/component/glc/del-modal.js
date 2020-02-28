@@ -43,6 +43,14 @@ const DelteModal = {
 
             console.log('이미지삭제' + Data)
         })
+        eventBus.$on('del_mp4', (Data) => {
+            this.ment = '드론영상을 삭제합니다';
+            this.ment2 = '(삭제 후 새로 등록할수 있습니다.)';
+            this.Data = Data;
+            this.FnMode = 'del_mp4';
+            //여기까지했음
+        })
+
         eventBus.$on('account_del', (Data) => {
             this.ment = '사용자 계정을 삭제합니다'
             this.FnMode = 'DeleteAcc';

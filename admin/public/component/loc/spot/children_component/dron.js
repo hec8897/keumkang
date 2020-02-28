@@ -14,14 +14,15 @@ const Dron = {
                     </div>
                     
                     <div class="input-file" v-else>
-                        <a href='' target='blank'>{{mp4FileRoute}}</a>
-                        <label for="upload01" class="file-label b_red" @click='OpenDelteModal()'>
+                        <a href='' target='blank'>파일있음</a>
+                        <label for="upload01" class="file-label b_red" @click='OpenDelteModal'>
                             파일 삭제
                         </label>
                     </div>
                </div>`,
     created() {
-        this.fileUploderStyle()
+        this.fileUploderStyle();
+        this.getData()
     },
     components:{
         'del-modal':DelteModal,
@@ -74,15 +75,39 @@ const Dron = {
             }, 100);
             eventBus.$emit('mp4',Data)
         },
-        OpenDelteModal(Data,mode) {
+        OpenDelteModal(mode) {
             const Modal = document.getElementById('modal-del')
             Modal.style.display = 'block';
             setTimeout(() => {
                 Modal.style.opacity = '1';
             }, 100);
 
-            eventBus.$emit(mode,Data)
-        }
+            eventBus.$emit('del_mp4',this.mp4FileRoute)
+        },
+        DelteFile(FileName){
+            const baseURI = 'api/get.mp4.php';
+            axios.post(`${baseURI}`,{FileName} 
+            )
+            .then((result) => {
+            })
+            .catch(err => console.log('Login: ', err));
+        },
+        getData(){
+            const baseURI = 'api/getdata.mp4.php';
+            axios.post(`${baseURI}`,{} 
+            )
+            .then((result) => {
+                if(result.data.result !=null){
+                    this.mp4FileRoute = result.data.result
+                }
+                else{
+                    this.mp4FileRoute = ''
+                }
+                console.log(result.data)
+    
+            })
+            .catch(err => console.log('Login: ', err));
+        },
     }
 
 }

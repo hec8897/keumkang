@@ -15,7 +15,7 @@ const NewsView = {
             <ul>
                 <li><h5>작성자</h5></li>
                 <li class='harf'>
-                    <input type='text' v-if="id === 'new' || list.writer === ''"/>
+                    <input type='text' v-if="id === 'new' || list.writer === ''" placeholder='작성자'/>
                     <input type='text' v-else v-bind:value='list.writer'/>
                 </li>
                 <li><h5>분류</h5></li>
@@ -47,12 +47,12 @@ const NewsView = {
                 </li>
                 <li><h5>제목</h5></li>
                 <li>
-                    <input type='text' v-if="id === 'new'" value=''/>
+                    <input type='text' v-if="id === 'new'" value='' placeholder='제목을 입력해주세요'/>
                     <input type='text' v-else v-bind:value='list.title'/>
                 </li>
                 <li><h5>링크</h5></li>
                 <li>
-                    <input type='text' v-if="id === 'new'" value=''/>
+                    <input type='text' v-if="id === 'new'" value='' placeholder='바로가기 링크주소를 입력해주세요'/>
                     <input type='text' v-else v-bind:value='list.link'/>
                 </li>
                 <li><h5>대표이미지</h5></li>
@@ -107,6 +107,7 @@ const NewsView = {
     },
     created() {
         this.fileUploderStyle()
+        console.log(this.id)
 
     },
     methods: {

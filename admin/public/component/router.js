@@ -50,7 +50,7 @@ const router = new VueRouter({
       }
     },
     {
-      path: '/newsbord/newbordview/:idx',
+      path: '/newsbord/newbordview/:id',
       component: NewsView,
       props: true,
       beforeEnter: (to, from, next) => {

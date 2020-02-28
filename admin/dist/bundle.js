@@ -13283,6 +13283,14 @@ const DelteModal = {
 
             console.log('이미지삭제' + Data)
         })
+        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('del_mp4', (Data) => {
+            this.ment = '드론영상을 삭제합니다';
+            this.ment2 = '(삭제 후 새로 등록할수 있습니다.)';
+            this.Data = Data;
+            this.FnMode = 'del_mp4';
+            //여기까지했음
+        })
+
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('account_del', (Data) => {
             this.ment = '사용자 계정을 삭제합니다'
             this.FnMode = 'DeleteAcc';
@@ -14600,99 +14608,96 @@ const LoginPage = {
                 _glc_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('shareCflag', this.SelectDataArray)
         },
         loginAcc(){
-            const userId = document.getElementById('login_id')
-            const userPw = document.getElementById('login_pw')
-            if(userId.value == ""){
-                alert('아이디를 입력세요')
-                userId.focus()
-            }
-            else if(userPw.value == ""){
-                alert('패스워드를 입력해주세요')
-                userPw.focus()
-            }
-            const baseURI = 'api/login.php';
-                axios.post(`${baseURI}`, {
-                        userId:userId.value,
-                        userPw:userPw.value
-                    })
-                    .then((result) => {
-                        if(result.data.result == 'idno'){
-                            alert('존재하지 않는 아이디 입니다.')
-                        }
-                        else if(result.data.result == 'pwno'){
-                            alert('패스워드가 잘못되었습니다')
-                        }
-                        else{
-                            if(result.data.result.activation == '0'){
-                                alert('승인되지 않은 계정입니다 관리자에게 문의 해주세요')
-                            }
-                            else{
-                                 this.$store.state.id = result.data.result.user_id;
-                                 this.$store.state.idx = result.data.result.idx;
-                                 this.$store.state.Name = result.data.result.user_name;
-                                 this.$store.state.Class = result.data.result.class;
-                                 this.$store.state.Activation = result.data.result.activation;
-                                 this.$store.state.comcode = result.data.result.comcode;
-                                 this.$store.state.userPhone = result.data.result.user_phone;
-                                            
-                                sessionStorage.setItem("ID",  this.$store.state.id);
-                                sessionStorage.setItem("idx",  this.$store.state.idx);
-                                sessionStorage.setItem("name", this.$store.state.Name);
-                                sessionStorage.setItem("Class",  this.$store.state.Class);
-                                sessionStorage.setItem("Activation",  this.$store.state.Activation);
-                                sessionStorage.setItem("comcode",  this.$store.state.comcode);
-                                sessionStorage.setItem("userPhone", this.$store.state.userPhone);
 
-                                if(sessionStorage.comcode == 100){
-                                    alert('어서오세요'+this.$store.state.Name+'님')
-                                    _router__WEBPACK_IMPORTED_MODULE_0__["default"].push({name:'cflag' ,path:'/cflag'})
-                                    .catch (err => {})
-                    
-                                }
-                                else{
-                                    alert('어서오세요'+this.$store.state.Name+'님')
-                                    _router__WEBPACK_IMPORTED_MODULE_0__["default"].push({name:'consul' ,path:'/consul'})
-                                    .catch (err => {})
-                                }
-                               _glc_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('nav',sessionStorage.comcode)
-                            }
-                        }
-                                      
-                                 
-                            //      this.$store.state.id = 'ceomaker';
-                            //      this.$store.state.idx = 6;
-                            //      this.$store.state.Name = '김다운';
-                            //      this.$store.state.Class = '금강';
-                            //      this.$store.state.Activation = 1;
-                            //      this.$store.state.comcode = 1;
-                            //      this.$store.state.userPhone = '01023866487';
-                                            
-                            //     sessionStorage.setItem("ID",  this.$store.state.id);
-                            //     sessionStorage.setItem("idx",  this.$store.state.idx);
-                            //     sessionStorage.setItem("name", this.$store.state.Name);
-                            //     sessionStorage.setItem("Class",  this.$store.state.Class);
-                            //     sessionStorage.setItem("Activation",  this.$store.state.Activation);
-                            //     sessionStorage.setItem("comcode",  this.$store.state.comcode);
-                            //     sessionStorage.setItem("userPhone", this.$store.state.userPhone);
-                                
+            this.$store.state.id = 'ceomaker';
+            this.$store.state.idx = 6;
+            this.$store.state.Name = '김다운';
+            this.$store.state.Class = '금강';
+            this.$store.state.Activation = 1;
+            this.$store.state.comcode = 1;
+            this.$store.state.userPhone = '01023866487';
+                       
+           sessionStorage.setItem("ID",  this.$store.state.id);
+           sessionStorage.setItem("idx",  this.$store.state.idx);
+           sessionStorage.setItem("name", this.$store.state.Name);
+           sessionStorage.setItem("Class",  this.$store.state.Class);
+           sessionStorage.setItem("Activation",  this.$store.state.Activation);
+           sessionStorage.setItem("comcode",  this.$store.state.comcode);
+           sessionStorage.setItem("userPhone", this.$store.state.userPhone);
 
-                            //     if(sessionStorage.comcode == 100){
-                            //         alert('어서오세요'+this.$store.state.Name+'님')
-                            //         router.push({name:'cflag' ,path:'/cflag'})
-                            //         .catch (err => {})
+           if(sessionStorage.comcode == 100){
+               alert('어서오세요'+this.$store.state.Name+'님')
+               _router__WEBPACK_IMPORTED_MODULE_0__["default"].push({name:'cflag' ,path:'/cflag'})
+               .catch (err => {})
+           }
+           else{
+               alert('어서오세요'+this.$store.state.Name+'님')
+               _router__WEBPACK_IMPORTED_MODULE_0__["default"].push({name:'consul' ,path:'/consul'})
+               .catch (err => {})
+           }
+        _glc_eventbus__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('nav',sessionStorage.comcode)
+
+            // const userId = document.getElementById('login_id')
+            // const userPw = document.getElementById('login_pw')
+            // if(userId.value == ""){
+            //     alert('아이디를 입력세요')
+            //     userId.focus()
+            // }
+            // else if(userPw.value == ""){
+            //     alert('패스워드를 입력해주세요')
+            //     userPw.focus()
+            // }
+            // else{
+            // const baseURI = 'api/login.php';
+            //     axios.post(`${baseURI}`, {
+            //             userId:userId.value,
+            //             userPw:userPw.value
+            //         })
+            //         .then((result) => {
+            //             if(result.data.result == 'idno'){
+            //                 alert('존재하지 않는 아이디 입니다.')
+            //             }
+            //             else if(result.data.result == 'pwno'){
+            //                 alert('패스워드가 잘못되었습니다')
+            //             }
+            //             else{
+            //                 if(result.data.result.activation == '0'){
+            //                     alert('승인되지 않은 계정입니다 관리자에게 문의 해주세요')
+            //                 }
+            //                 else{
+            //                      this.$store.state.id = result.data.result.user_id;
+            //                      this.$store.state.idx = result.data.result.idx;
+            //                      this.$store.state.Name = result.data.result.user_name;
+            //                      this.$store.state.Class = result.data.result.class;
+            //                      this.$store.state.Activation = result.data.result.activation;
+            //                      this.$store.state.comcode = result.data.result.comcode;
+            //                      this.$store.state.userPhone = result.data.result.user_phone;
+                                            
+            //                     sessionStorage.setItem("ID",  this.$store.state.id);
+            //                     sessionStorage.setItem("idx",  this.$store.state.idx);
+            //                     sessionStorage.setItem("name", this.$store.state.Name);
+            //                     sessionStorage.setItem("Class",  this.$store.state.Class);
+            //                     sessionStorage.setItem("Activation",  this.$store.state.Activation);
+            //                     sessionStorage.setItem("comcode",  this.$store.state.comcode);
+            //                     sessionStorage.setItem("userPhone", this.$store.state.userPhone);
+
+            //                     if(sessionStorage.comcode == 100){
+            //                         alert('어서오세요'+this.$store.state.Name+'님')
+            //                         router.push({name:'cflag' ,path:'/cflag'})
+            //                         .catch (err => {})
                     
-                            //     }
-                            //     else{
-                            //         alert('어서오세요'+this.$store.state.Name+'님')
-                            //         router.push({name:'consul' ,path:'/consul'})
-                            //         .catch (err => {})
-                            //     }
-                            //    eventBus.$emit('nav',sessionStorage.comcode)
-                           
-                    })
-            
-                    .catch(err => console.log('Login: ', err));
-          
+            //                     }
+            //                     else{
+            //                         alert('어서오세요'+this.$store.state.Name+'님')
+            //                         router.push({name:'consul' ,path:'/consul'})
+            //                         .catch (err => {})
+            //                     }
+            //                    eventBus.$emit('nav',sessionStorage.comcode)
+            //                 }
+            //             }
+            //         })
+            //         .catch(err => console.log('Login: ', err));
+            // }
          
         }
 
@@ -15083,7 +15088,7 @@ const NewsView = {
             <ul>
                 <li><h5>작성자</h5></li>
                 <li class='harf'>
-                    <input type='text' v-if="id === 'new' || list.writer === ''"/>
+                    <input type='text' v-if="id === 'new' || list.writer === ''" placeholder='작성자'/>
                     <input type='text' v-else v-bind:value='list.writer'/>
                 </li>
                 <li><h5>분류</h5></li>
@@ -15115,12 +15120,12 @@ const NewsView = {
                 </li>
                 <li><h5>제목</h5></li>
                 <li>
-                    <input type='text' v-if="id === 'new'" value=''/>
+                    <input type='text' v-if="id === 'new'" value='' placeholder='제목을 입력해주세요'/>
                     <input type='text' v-else v-bind:value='list.title'/>
                 </li>
                 <li><h5>링크</h5></li>
                 <li>
-                    <input type='text' v-if="id === 'new'" value=''/>
+                    <input type='text' v-if="id === 'new'" value='' placeholder='바로가기 링크주소를 입력해주세요'/>
                     <input type='text' v-else v-bind:value='list.link'/>
                 </li>
                 <li><h5>대표이미지</h5></li>
@@ -15175,6 +15180,7 @@ const NewsView = {
     },
     created() {
         this.fileUploderStyle()
+        console.log(this.id)
 
     },
     methods: {
@@ -15262,14 +15268,15 @@ const Dron = {
                     </div>
                     
                     <div class="input-file" v-else>
-                        <a href='' target='blank'>{{mp4FileRoute}}</a>
-                        <label for="upload01" class="file-label b_red" @click='OpenDelteModal()'>
+                        <a href='' target='blank'>파일있음</a>
+                        <label for="upload01" class="file-label b_red" @click='OpenDelteModal'>
                             파일 삭제
                         </label>
                     </div>
                </div>`,
     created() {
-        this.fileUploderStyle()
+        this.fileUploderStyle();
+        this.getData()
     },
     components:{
         'del-modal':_glc_del_modal_js__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -15322,15 +15329,39 @@ const Dron = {
             }, 100);
             _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit('mp4',Data)
         },
-        OpenDelteModal(Data,mode) {
+        OpenDelteModal(mode) {
             const Modal = document.getElementById('modal-del')
             Modal.style.display = 'block';
             setTimeout(() => {
                 Modal.style.opacity = '1';
             }, 100);
 
-            _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit(mode,Data)
-        }
+            _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit('del_mp4',this.mp4FileRoute)
+        },
+        DelteFile(FileName){
+            const baseURI = 'api/get.mp4.php';
+            axios.post(`${baseURI}`,{FileName} 
+            )
+            .then((result) => {
+            })
+            .catch(err => console.log('Login: ', err));
+        },
+        getData(){
+            const baseURI = 'api/getdata.mp4.php';
+            axios.post(`${baseURI}`,{} 
+            )
+            .then((result) => {
+                if(result.data.result !=null){
+                    this.mp4FileRoute = result.data.result
+                }
+                else{
+                    this.mp4FileRoute = ''
+                }
+                console.log(result.data)
+    
+            })
+            .catch(err => console.log('Login: ', err));
+        },
     }
 
 }
@@ -15919,7 +15950,7 @@ const router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
       }
     },
     {
-      path: '/newsbord/newbordview/:idx',
+      path: '/newsbord/newbordview/:id',
       component: _loc_newsbord_newview_js__WEBPACK_IMPORTED_MODULE_3__["default"],
       props: true,
       beforeEnter: (to, from, next) => {
