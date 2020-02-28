@@ -13342,6 +13342,13 @@ const DelteModal = {
                     idx: this.Data
                 }
             }
+            else if(mode == 'del_mp4'){
+                baseURI = 'api/mp4.fn.php';
+                Data = {
+                    mode: this.FnMode,
+                    Data: this.Data
+                }
+            }
             else {
                 baseURI = '123';
             }
