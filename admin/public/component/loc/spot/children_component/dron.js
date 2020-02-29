@@ -21,7 +21,8 @@ const Dron = {
                </div>`,
     created() {
         this.fileUploderStyle();
-        this.getData()
+        this.getData();
+        
         eventBus.$on('upload_mp4',(Data)=>{
             console.log(this.refMp4)
             this.postMp4Data()
@@ -131,15 +132,16 @@ const Dron = {
         },
         getData(){
             const baseURI = 'api/getdata.mp4.php';
-            axios.post(`${baseURI}`,{} 
+            axios.get(`${baseURI}`,{} 
             )
             .then((result) => {
-                if(result.data.result !=null){
-                    this.mp4FileRoute = result.data.result
-                }
-                else{
-                    this.mp4FileRoute = ''
-                }
+                console.log(result)
+                // if(result.data.result !=null ){
+                //     this.mp4FileRoute = result.data.result
+                // }
+                // else{
+                //     this.mp4FileRoute = ''
+                // }
             })
             .catch(err => console.log('Login: ', err));
         },
