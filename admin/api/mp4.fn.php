@@ -9,6 +9,8 @@
   
   if($unlinkFile){
     $result = 'ok';
+    $sql = "UPDATE `dron_active` SET `activation` = '0' WHERE `idx` = 1";
+    $query = mysqli_query($conn,$sql);
   }
   else{
     $result = 'no';

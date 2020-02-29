@@ -22,7 +22,7 @@ const Dron = {
     created() {
         this.fileUploderStyle();
         this.getData();
-        
+
         eventBus.$on('upload_mp4',(Data)=>{
             console.log(this.refMp4)
             this.postMp4Data()
@@ -116,13 +116,13 @@ const Dron = {
             let InsertData = new FormData()
             InsertData.append('mode','uploadmp4')
             InsertData.append('mp4',this.refMp4)
-            console.log(this.refMp4)
             const baseURI = 'api/mp4.upload.php';
             axios.post(`${baseURI}`,InsertData
             )
             .then((result) => {
                 if (result.data.phpResult == 'ok') {
-                    location.reload()
+                    console.log(result)
+                    // location.reload()
                 }
                 else{
                     alert('등록에 실패하였습니다')
@@ -131,17 +131,12 @@ const Dron = {
             .catch(err => console.log('Login: ', err));
         },
         getData(){
-            const baseURI = 'api/getdata.mp4.php';
-            axios.get(`${baseURI}`,{} 
+            const baseURI = 'api/getdata.dron.php';
+            axios.post(`${baseURI}`,'ok' 
             )
             .then((result) => {
                 console.log(result)
-                // if(result.data.result !=null ){
-                //     this.mp4FileRoute = result.data.result
-                // }
-                // else{
-                //     this.mp4FileRoute = ''
-                // }
+    
             })
             .catch(err => console.log('Login: ', err));
         },

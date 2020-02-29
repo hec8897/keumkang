@@ -1,11 +1,9 @@
 <?php
+include('inc/conn.php');
 header('Access-Control-Allow-Origin: *');  
 $data = json_decode(file_get_contents("php://input"),true);
-
-
-$mode == $_POST['mode'];
-
-  $File = $_FILES['mp4'];
+$mode = $_POST['mode'];
+$Files = $_FILES['mp4'];
   function FileUploader($files){
     $file = $files;
     $upload_directory = '../mp4/';
@@ -19,11 +17,13 @@ $mode == $_POST['mode'];
     }
     else if(move_uploaded_file($file['tmp_name'], $upload_directory."dron.".$ext)) {
             $Results = 'ok';
+            // $sql = "UPDATE `dron_active` SET `activation` = '1' WHERE `idx` = 1";
+            // $query = mysqli_query($conn,$sql);
     }
     return $result = $Results;
     }
 
-    $result = FileUploader($File);
+    $result = FileUploader($Files);
 
   
   $json =  json_encode(
