@@ -13346,7 +13346,7 @@ const DelteModal = {
                 baseURI = 'api/mp4.fn.php';
                 Data = {
                     mode: this.FnMode,
-                    Data: this.Data
+                    file: this.Data
                 }
             }
             else {
@@ -13355,9 +13355,10 @@ const DelteModal = {
 
 
             axios.post(`${baseURI}`, {
-                    Data
+                    Data  
                 })
                 .then((result) => {
+                    console.log(result)
                     if (result.data.phpResult == 'ok') {
                         this.ModalClose()
 
@@ -13369,7 +13370,7 @@ const DelteModal = {
                         }
                         
                         else{
-                            _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('spotUpdate', {result:result.data.phpResult})
+                            _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('Update', {result:result.data.phpResult})
                         }
                        
                     }
@@ -14038,7 +14039,8 @@ const saveModal = {
                         <p>{{ment}}</p>
                     </div>
                     <div class="modal_foot">
-                        <span class="b_blue" @click='PostData(FnMode)'>확인</span>
+                        <span class="b_blue" v-if="FnMode === 'mp4upload'" @click='uploadMp4'>등록</span>
+                        <span class="b_blue" v-else  @click='PostData(FnMode)'>확인</span>
                         <span v-on:click='ModalClose' class="b_sgrey">취소</span>
                     </div>
                 </div>
@@ -14048,7 +14050,8 @@ const saveModal = {
             idx: null,
             Data:null,
             FnMode:null,
-            ment:"보도자료를 등록 하시겠습니까?"
+            ment:"보도자료를 등록 하시겠습니까?",
+            Data:''
         }
     },
     mounted(){
@@ -14058,7 +14061,8 @@ const saveModal = {
         })
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('mp4',(Data)=>{
             this.ment = '드론영상을 등록하시겠습니까?'
-            this.FnMode = 'mp4'
+            this.FnMode = 'mp4upload'
+            this.Data = Data
         })
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('updateNews',(Data)=>{
             this.ment = '보도자료를 수정 하시겠습니까?'
@@ -14082,6 +14086,9 @@ const saveModal = {
                 Modal.style.display = 'none';
             }, 100);
         },
+        uploadMp4(){
+            _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('upload_mp4','ok')
+        },
         PostData(mode){
             let baseURI;
             let Data;
@@ -14092,11 +14099,12 @@ const saveModal = {
                     idx:this.Data
                 }
             }
-            else{
-                baseURI = '123';
-            }
+          
+        
             axios.post(`${baseURI}`, {Data})
             .then((result) => {
+                console.log(result)
+
                 if (result.data.phpResult == 'ok') {
                     this.ModalClose()
                     location.reload()
@@ -15271,11 +15279,10 @@ const Dron = {
                     <div class="input-file" v-if="mp4FileRoute == ''">
                         <label for="upload01" class="file-label">파일 선택</label> 
                             <input type="text" readonly="readonly" class="file-name" placeholder='홈페이지에 표시될 드론영상'/> 
-                            <input type="file" id="upload01" class="file-upload" ref="mainimg" />
+                            <input type="file" id="upload01" class="file-upload" ref="up_mp4" @change='OpenSaveModal'/>
                     </div>
-                    
                     <div class="input-file" v-else>
-                        <a href='' target='blank'>파일있음</a>
+                        <a href='mp4/dron.mp4' target='blank'>파일보기</a>
                         <label for="upload01" class="file-label b_red" @click='OpenDelteModal'>
                             파일 삭제
                         </label>
@@ -15284,6 +15291,13 @@ const Dron = {
     created() {
         this.fileUploderStyle();
         this.getData()
+        _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$on('upload_mp4',(Data)=>{
+            console.log(this.refMp4)
+            this.postMp4Data()
+           })
+        _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$on('Update',(Data)=>{
+            this.getData()
+           })
     },
     components:{
         'del-modal':_glc_del_modal_js__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -15291,7 +15305,8 @@ const Dron = {
     },
     data() {
         return {
-            mp4FileRoute: ''
+            mp4FileRoute: '',
+            refMp4:''
         }
     },
     methods: {
@@ -15318,7 +15333,7 @@ const Dron = {
                                     fileName = $target.val(),
                                     $fileText = $target.siblings('.file-name');
                                     $fileText.val(fileName);
-                                    Dron.methods.OpenSaveModal('','mp4up')
+                                    // Dron.methods.OpenSaveModal('','mp4up')
                             })
                             $btnUpload.on('focusin focusout',
                                 function (e) {
@@ -15328,15 +15343,26 @@ const Dron = {
                 }
             })(jQuery);
         },
-        OpenSaveModal(Data,mode) {
-            const Modal = document.getElementById('modal-alert')
-            Modal.style.display = 'block';
-            setTimeout(() => {
-                Modal.style.opacity = '1';
-            }, 100);
-            _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit('mp4',Data)
+        OpenSaveModal() {
+            const File = this.$refs.up_mp4.files[0]
+            if(File.size > 50000000){
+                alert('파일사이즈가 너무 큽니다.(4MB 이내로 올려주세요)')
+            }
+            else if(File.type !='video/mp4' && File.type !='video/avi'){
+                alert('지원하지 않는파일형식입니다.(mp4,avi형식만지원)')
+            }
+            else{
+                const Modal = document.getElementById('modal-alert')
+                Modal.style.display = 'block';
+                setTimeout(() => {
+                    Modal.style.opacity = '1';
+                }, 100);
+                this.refMp4 = File
+                _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit('mp4','ok')
+        }
+
         },
-        OpenDelteModal(mode) {
+        OpenDelteModal() {
             const Modal = document.getElementById('modal-del')
             Modal.style.display = 'block';
             setTimeout(() => {
@@ -15350,6 +15376,25 @@ const Dron = {
             axios.post(`${baseURI}`,{FileName} 
             )
             .then((result) => {
+                console.log(result)
+            })
+            .catch(err => console.log('Login: ', err));
+        },
+        postMp4Data(){
+            let InsertData = new FormData()
+            InsertData.append('mode','uploadmp4')
+            InsertData.append('mp4',this.refMp4)
+            console.log(this.refMp4)
+            const baseURI = 'api/mp4.upload.php';
+            axios.post(`${baseURI}`,InsertData
+            )
+            .then((result) => {
+                if (result.data.phpResult == 'ok') {
+                    location.reload()
+                }
+                else{
+                    alert('등록에 실패하였습니다')
+                }
             })
             .catch(err => console.log('Login: ', err));
         },
@@ -15364,8 +15409,6 @@ const Dron = {
                 else{
                     this.mp4FileRoute = ''
                 }
-                console.log(result.data)
-    
             })
             .catch(err => console.log('Login: ', err));
         },
@@ -15452,7 +15495,7 @@ data(){
 },
 created(){
    this.getData()
-   _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$on('spotUpdate',(Data)=>{
+   _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$on('Update',(Data)=>{
     this.getData()
    })
 },

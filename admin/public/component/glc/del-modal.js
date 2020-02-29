@@ -106,7 +106,7 @@ const DelteModal = {
                 baseURI = 'api/mp4.fn.php';
                 Data = {
                     mode: this.FnMode,
-                    Data: this.Data
+                    file: this.Data
                 }
             }
             else {
@@ -115,9 +115,10 @@ const DelteModal = {
 
 
             axios.post(`${baseURI}`, {
-                    Data
+                    Data  
                 })
                 .then((result) => {
+                    console.log(result)
                     if (result.data.phpResult == 'ok') {
                         this.ModalClose()
 
@@ -129,7 +130,7 @@ const DelteModal = {
                         }
                         
                         else{
-                            eventBus.$emit('spotUpdate', {result:result.data.phpResult})
+                            eventBus.$emit('Update', {result:result.data.phpResult})
                         }
                        
                     }

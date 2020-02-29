@@ -8,7 +8,8 @@ const saveModal = {
                         <p>{{ment}}</p>
                     </div>
                     <div class="modal_foot">
-                        <span class="b_blue" @click='PostData(FnMode)'>확인</span>
+                        <span class="b_blue" v-if="FnMode === 'mp4upload'" @click='uploadMp4'>등록</span>
+                        <span class="b_blue" v-else  @click='PostData(FnMode)'>확인</span>
                         <span v-on:click='ModalClose' class="b_sgrey">취소</span>
                     </div>
                 </div>
@@ -18,7 +19,8 @@ const saveModal = {
             idx: null,
             Data:null,
             FnMode:null,
-            ment:"보도자료를 등록 하시겠습니까?"
+            ment:"보도자료를 등록 하시겠습니까?",
+            Data:''
         }
     },
     mounted(){
@@ -28,7 +30,8 @@ const saveModal = {
         })
         eventBus.$on('mp4',(Data)=>{
             this.ment = '드론영상을 등록하시겠습니까?'
-            this.FnMode = 'mp4'
+            this.FnMode = 'mp4upload'
+            this.Data = Data
         })
         eventBus.$on('updateNews',(Data)=>{
             this.ment = '보도자료를 수정 하시겠습니까?'
@@ -52,6 +55,9 @@ const saveModal = {
                 Modal.style.display = 'none';
             }, 100);
         },
+        uploadMp4(){
+            eventBus.$emit('upload_mp4','ok')
+        },
         PostData(mode){
             let baseURI;
             let Data;
@@ -62,11 +68,12 @@ const saveModal = {
                     idx:this.Data
                 }
             }
-            else{
-                baseURI = '123';
-            }
+          
+        
             axios.post(`${baseURI}`, {Data})
             .then((result) => {
+                console.log(result)
+
                 if (result.data.phpResult == 'ok') {
                     this.ModalClose()
                     location.reload()

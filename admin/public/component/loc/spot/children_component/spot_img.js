@@ -61,7 +61,7 @@ data(){
 },
 created(){
    this.getData()
-   eventBus.$on('spotUpdate',(Data)=>{
+   eventBus.$on('Update',(Data)=>{
     this.getData()
    })
 },
