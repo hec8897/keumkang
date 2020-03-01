@@ -290,12 +290,14 @@ if (htmlFile[0] == 'complex.html') {
 }
 function MoNavFade() {
     $('#mo_nav').fadeToggle(100);
+
     if($('#nav-icon3').attr('class') == 'mo'){
       $('html, body').css({'overflow-y': 'hidden', 'height': '100%'});
     }
     else{
       $('html, body').css({'overflow-y': 'scroll', 'height': 'auto'});
     }
+    
     $('#nav-icon3').toggleClass('open');
   }
 
