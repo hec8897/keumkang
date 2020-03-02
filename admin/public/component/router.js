@@ -33,6 +33,7 @@ const router = new VueRouter({
       }
     },
     {
+      name:'newbord',
       path: '/newsbord',
       component: NewsBord,
         beforeEnter: (to, from, next) => {

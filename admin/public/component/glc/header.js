@@ -6,7 +6,8 @@ const HeaderComponent = {
         <h1>금강 관리자페이지</h1>
         </div>
             <div class="head_info">
-                <span class="btn_out" v-on:click="DestorySessionData">로그아웃</span>
+            <a class="btn_out b_blue" href='http://kumkangenc.kr/' target='blank'>홈페이지</a>
+            <span class="btn_out" v-on:click="DestorySessionData">로그아웃</span>
             </div>
 </header>`,
     methods:{

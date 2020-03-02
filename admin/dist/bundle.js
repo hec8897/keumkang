@@ -13183,8 +13183,8 @@ if (inBrowser && window.Vue) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_polyfill__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @babel/polyfill */ "../node_modules/@babel/polyfill/lib/index.js");
-/* harmony import */ var _babel_polyfill__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_babel_polyfill__WEBPACK_IMPORTED_MODULE_6__);
+/* harmony import */ var _babel_polyfill__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/polyfill */ "../node_modules/@babel/polyfill/lib/index.js");
+/* harmony import */ var _babel_polyfill__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_polyfill__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./router */ "./public/component/router.js");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./store */ "./public/component/store.js");
 /* harmony import */ var _glc_header_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./glc/header.js */ "./public/component/glc/header.js");
@@ -13267,10 +13267,17 @@ const DelteModal = {
         }
     },
     created() {
-        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('News', (Data) => {
+        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('delte_news', (Data) => {
             this.ment = '보도자료를 삭제합니다'
-            this.FnMode = 'News';
+            this.FnMode = 'delte_news';
+            this.Data = Data;
             console.log(Data)
+        })
+
+        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('new_news', (Data) => {
+            this.ment = '저장 되지 않은 내용입니다 삭제하시겠습니까?'
+            this.FnMode = 'new_news_del';
+            this.Data = Data;
         })
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('consul', (Data) => {
             this.ment = '상담내역을 삭제합니다'
@@ -13279,9 +13286,9 @@ const DelteModal = {
         })
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('NewsImg', (Data) => {
             this.ment = '메인 이미지를 삭제합니다'
-            this.FnMode = 'ImgDelte';
-
-            console.log('이미지삭제' + Data)
+            console.log(Data)
+            this.FnMode = 'NewsImg_del';
+            this.Data = Data
         })
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('del_mp4', (Data) => {
             this.ment = '드론영상을 삭제합니다';
@@ -13349,6 +13356,29 @@ const DelteModal = {
                     file: this.Data
                 }
             }
+            else if(mode == 'new_news'){
+                baseURI = 'api/news.save.fn.php';
+                Data = {
+                    mode: this.FnMode,
+                    file: this.Data
+                }
+            }
+            else if(mode == 'delte_news'){
+                baseURI = 'api/news.save.fn.php';
+                Data = {
+                    mode: this.FnMode,
+                    idx:this.Data
+                }
+
+            }
+            else if(mode == 'NewsImg_del' ){
+                baseURI = 'api/news.save.fn.php';
+                Data = {
+                    mode: this.FnMode,
+                    file: this.Data.Data,
+                    idx:this.Data.idx
+                }
+            }
             else {
                 baseURI = '123';
             }
@@ -13366,6 +13396,18 @@ const DelteModal = {
                             _router_js__WEBPACK_IMPORTED_MODULE_1__["default"].push({
                                 name: 'consul',
                                 path: '/consul',
+                            })
+                        }
+                        else if(this.FnMode == 'new_news'){
+                            _router_js__WEBPACK_IMPORTED_MODULE_1__["default"].push({
+                                name:'newbord',
+                                path: '/newsbord',
+                            })
+                        }
+                        else if(this.FnMode == 'NewsImg_del'){
+                            _router_js__WEBPACK_IMPORTED_MODULE_1__["default"].push({
+                                name:'newbord',
+                                path: '/newsbord',
                             })
                         }
                         
@@ -13681,7 +13723,8 @@ const HeaderComponent = {
         <h1>금강 관리자페이지</h1>
         </div>
             <div class="head_info">
-                <span class="btn_out" v-on:click="DestorySessionData">로그아웃</span>
+            <a class="btn_out b_blue" href='http://kumkangenc.kr/' target='blank'>홈페이지</a>
+            <span class="btn_out" v-on:click="DestorySessionData">로그아웃</span>
             </div>
 </header>`,
     methods:{
@@ -14029,6 +14072,8 @@ const NavComponent = {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _eventbus_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./eventbus.js */ "./public/component/glc/eventbus.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../router */ "./public/component/router.js");
+
 
 
 const saveModal = {
@@ -14040,6 +14085,8 @@ const saveModal = {
                     </div>
                     <div class="modal_foot">
                         <span class="b_blue" v-if="FnMode === 'mp4upload'" @click='uploadMp4'>등록</span>
+                        <span class="b_blue" v-else-if="FnMode === 'new'" @click='newUpload'>기사등록</span>
+                        <span class="b_blue" v-else-if="FnMode === 'backpage'" @click='backpage'>확인</span>
                         <span class="b_blue" v-else  @click='PostData(FnMode)'>확인</span>
                         <span v-on:click='ModalClose' class="b_sgrey">취소</span>
                     </div>
@@ -14056,6 +14103,7 @@ const saveModal = {
     },
     mounted(){
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('new',(Data)=>{
+            console.log(Data)
             this.ment = '보도자료를 등록 하시겠습니까?'
             this.FnMode = 'new'
         })
@@ -14073,7 +14121,12 @@ const saveModal = {
             this.Data = Data
             this.FnMode = 'Active'
         })
-       
+
+        _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('backpage',(Data)=>{
+            this.ment = '저장되지 않았습니다 목록으로 나가시겠습니까?'
+            this.Data = Data
+            this.FnMode = 'backpage'
+        })
 
     },
 
@@ -14088,6 +14141,15 @@ const saveModal = {
         },
         uploadMp4(){
             _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('upload_mp4','ok')
+        },
+        newUpload(){
+            _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('newUpload','ok')
+        },
+        backpage(){
+            _router__WEBPACK_IMPORTED_MODULE_1__["default"].push({
+                name:'newbord',
+                path: '/newsbord',
+            })
         },
         PostData(mode){
             let baseURI;
@@ -14754,7 +14816,7 @@ const newsTable = {
                         <tr>
                             <td>번호</td>
                             <td>분류</td>
-                            <td>미리보기</td>
+                            <td>작성일자</td>
                             <td>제목</td>
                             <td>조회</td>
                         </tr>
@@ -14763,10 +14825,7 @@ const newsTable = {
                         <router-link class='new_view_tr' tag='tr' v-for='(result,i) in results' v-bind:to = "'/newsbord/newbordview/'+result.idx" v-if='i < limit && i >= start'>
                             <td>{{i+1}}</td>
                             <td>{{result.cate}}</td>
-                            <td>
-                                <img v-bind:src='result.img' v-if="result.img!=''" alt='미리보기'>
-                                <img src='images/dev_img2.png' v-else alt='미리보기'>
-                            </td>
+                            <td>{{result.insertdate}}</td>
                             <td>{{result.title}}</td>
                             <td>{{result.join}}</td>
                         </router-link>
@@ -14790,219 +14849,7 @@ const newsTable = {
         }
     },
     created() {
-        // db에서 가져온데이터를 this.lists에 담아야함
-        this.lists = [
-            {
-                idx: 0,
-                img: "",
-                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                join: 340,
-                cate: "삼성",
-                img: "images/dev_img.png"
-
-            },
-            {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
-                join: 340,
-                cate: "천안",
-                img: "images/dev_img.png"
-
-            }, {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
-                join: 340,
-                cate: "천안"
-            }, {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
-                join: 340,
-                cate: "천안"
-            }, {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
-                join: 340,
-                cate: "천안"
-            },
-            {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도",
-                join: 340,
-                cate: "부동산"
-            },
-            {
-                idx: 0,
-                img: "",
-                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                join: 340,
-                cate: "삼성"
-            },
-            {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
-                join: 340,
-                cate: "천안"
-            },
-            {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도",
-                join: 340,
-                cate: "부동산"
-            },
-            {
-                idx: 0,
-                img: "",
-                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                join: 340,
-                cate: "삼성"
-            },
-            {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
-                join: 340,
-                cate: "천안"
-            },
-            {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도",
-                join: 340,
-                cate: "부동산"
-            },
-            {
-                idx: 0,
-                img: "",
-                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                join: 340,
-                cate: "삼성"
-            },
-            {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
-                join: 340,
-                cate: "천안"
-            },
-            {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도",
-                join: 340,
-                cate: "부동산"
-            },
-            {
-                idx: 0,
-                img: "",
-                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                join: 340,
-                cate: "삼성"
-            },
-            {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
-                join: 340,
-                cate: "천안"
-            },
-            {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도",
-                join: 340,
-                cate: "부동산"
-            },
-            {
-                idx: 0,
-                img: "",
-                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                join: 340,
-                cate: "삼성"
-            },
-            {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
-                join: 340,
-                cate: "천안"
-            },
-            {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도",
-                join: 340,
-                cate: "부동산"
-            },
-            {
-                idx: 0,
-                img: "",
-                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                join: 340,
-                cate: "삼성"
-            },
-            {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
-                join: 340,
-                cate: "천안"
-            },
-            {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도",
-                join: 340,
-                cate: "부동산"
-            }, {
-                idx: 0,
-                img: "",
-                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                join: 340,
-                cate: "삼성"
-            },
-            {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
-                join: 340,
-                cate: "천안"
-            },
-            {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도",
-                join: 340,
-                cate: "부동산"
-            },
-            {
-                idx: 0,
-                img: "",
-                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                join: 340,
-                cate: "삼성"
-            },
-            {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도 착공",
-                join: 340,
-                cate: "천안"
-            },
-            {
-                idx: 1,
-                img: "",
-                title: "인천 검단산업단지 안동포사거리 지하차도",
-                join: 340,
-                cate: "부동산"
-            }
-        ]
+        this.getData()
     },
     mounted() {
         this.results = this.lists;
@@ -15016,6 +14863,53 @@ const newsTable = {
         })
     },
     methods: {
+        getData(){
+            const baseURI = 'api/getdata.news.php';
+            axios.get(`${baseURI}`
+            )
+            .then((result) => {
+                if(result.data.phpResult == 'ok'){
+                    this.lists = result.data.result
+                    this.results = this.lists
+                }
+                else{
+                    this.lists = [
+                        {
+                            idx: 0,
+                            img: "",
+                            title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
+                            join: 340,
+                            cate: "삼성",
+                            img: "images/dev_img.png"
+            
+                        },
+                        {
+                            idx: 1,
+                            img: "",
+                            title: "인천 검단산업단지 안동포사거리 지하차도 착공",
+                            join: 340,
+                            cate: "천안",
+                            img: "images/dev_img.png"
+            
+                        }, {
+                            idx: 1,
+                            img: "",
+                            title: "인천 검단산업단지 안동포사거리 지하차도 착공",
+                            join: 340,
+                            cate: "천안"
+                        }
+                    ]
+                    this.results = this.lists
+        
+                }
+                _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_1__["default"].$emit('UpdateList', {
+                    DataLength: Math.ceil((this.results.length) / 10),
+                    nowpage: this.limit - 10
+                })
+    
+            })
+            .catch(err => console.log('Login: ', err));
+        },
         searchCate(event) {
             const lists = this.lists;
             const targetData = event.target.value;
@@ -15087,6 +14981,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _glc_save_modal_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../glc/save-modal.js */ "./public/component/glc/save-modal.js");
 /* harmony import */ var _glc_del_modal_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../glc/del-modal.js */ "./public/component/glc/del-modal.js");
 /* harmony import */ var _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../glc/eventbus.js */ "./public/component/glc/eventbus.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../router */ "./public/component/router.js");
+
 
 
 
@@ -15104,19 +15000,19 @@ const NewsView = {
             <ul>
                 <li><h5>작성자</h5></li>
                 <li class='harf'>
-                    <input type='text' v-if="id === 'new' || list.writer === ''" placeholder='작성자'/>
-                    <input type='text' v-else v-bind:value='list.writer'/>
+                    <input type='text' v-if="id === 'new' || list.writer === ''" placeholder='작성자' id='writer'/>
+                    <input type='text' v-else v-bind:value='list.writer' id='writer'/>
                 </li>
                 <li><h5>분류</h5></li>
                 <li class='harf'>
-                    <select v-if="id === 'new' || list.cate === ''">
+                    <select v-if="id === 'new' || list.cate === ''" id='standard'>
                         <option value=''>분류</option>
                         <option value='삼성'>삼성</option>
                         <option value='천안'>천안</option>
                         <option value='부동산'>부동산</option>
                         <option value='기타'>기타</option>
                     </select>
-                    <select v-else>
+                    <select v-else id='standard'>
                         <option v-if="list.cate === ''" value='' selected>분류</option>
                         <option v-else value=''>분류</option>
 
@@ -15136,70 +15032,156 @@ const NewsView = {
                 </li>
                 <li><h5>제목</h5></li>
                 <li>
-                    <input type='text' v-if="id === 'new'" value='' placeholder='제목을 입력해주세요'/>
-                    <input type='text' v-else v-bind:value='list.title'/>
+                    <input type='text' v-if="id === 'new'" value='' placeholder='제목을 입력해주세요' id='title'/>
+                    <input type='text' v-else v-bind:value='list.title' id='title'/>
                 </li>
                 <li><h5>링크</h5></li>
                 <li>
-                    <input type='text' v-if="id === 'new'" value='' placeholder='바로가기 링크주소를 입력해주세요'/>
-                    <input type='text' v-else v-bind:value='list.link'/>
+                    <input type='text' v-if="id === 'new'" value='' placeholder='바로가기 링크주소를 입력해주세요' id='link'/>
+                    <input type='text' v-else v-bind:value='list.link' id='link'/>
                 </li>
                 <li><h5>대표이미지</h5></li>
                 <li>
                 <div class="input-file" v-if="id ==='new' || list.img === ''">
-                    <input type="text" readonly="readonly" class="file-name" /> 
+                    <input type="text" readonly="readonly" class="file-name" id='file_input' /> 
                     <label for="upload01" class="file-label">파일 업로드</label> 
-                    <input type="file" name="" id="upload01" class="file-upload" ref="mainimg" />
+                    <input type="file" name="" id="upload01" class="file-upload" ref="mainimg" @change='fileChange'/>
                 </div>
 
                 <div class="input-file" v-else>
-                    <a href='list.img' target='blank'>{{list.img}}</a>
-                    <label for="upload01" class="file-label b_red" v-on:click="OpenDelteModal(list.idx,'NewsImg')">
+                    <a v-bind:href="'news/main/'+list.img" target='blank'>이미지보기</a>
+                    <label for="upload01" class="file-label b_red" @click="OpenDelteModal(list.img,'NewsImg')">
                         파일 삭제
                     </label>
                 </div>
                 </li>
                 <li><h5>내용</h5></li>
                 <li>
-                    <textarea>에디터활용해야함... 어떤거로할지</textarea>
+                    <iframe src="summernote.html" id='summernote_iframe'></iframe>
                 </li>
             </ul>
             </div>
 
             <div class="btn_wrap">
-                <span class="b_red" v-if="id != 'new'" v-on:click="OpenDelteModal(list.idx,'News')">삭제</span>
-                <span class="b_blue" v-if="id === 'new'" v-on:click="OpenSaveModal('new','new')">등록</span>
+                <span class="b_red" v-if="id == 'new'" v-on:click="OpenDelteModal(0,'new_news')">삭제</span>
+                <span class="b_red" v-else v-on:click="OpenDelteModal(list.idx,'delte_news')">삭제</span>
+                <span class="b_blue" v-if="id === 'new'" v-on:click="PostData()">등록</span>
                 <span class="b_blue" v-else v-on:click="OpenSaveModal(list.idx,'updateNews')">수정</span>
-                <router-link tag='span' to='/newsbord' class="b_sgrey">목록</span>
+                <span class="b_sgrey" v-on:click="backPage">목록</span>
             </div>
 
         </div>
     </div>`,
-    components:{
-        'save-modal':_glc_save_modal_js__WEBPACK_IMPORTED_MODULE_0__["default"],
-        'delte-modal':_glc_del_modal_js__WEBPACK_IMPORTED_MODULE_1__["default"]
+    components: {
+        'save-modal': _glc_save_modal_js__WEBPACK_IMPORTED_MODULE_0__["default"],
+        'delte-modal': _glc_del_modal_js__WEBPACK_IMPORTED_MODULE_1__["default"],
     },
     data() {
         return {
-            list: {
-                idx: 0,
-                writer:"개발자",
-                img: "",
-                link:'http://123213',
-                title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                join: 340,
-                cate: "천안",
-                desc:""
-            }
-
+            list:'',
+            descImgArray:'',
+            refFile: ''
         }
     },
     created() {
         this.fileUploderStyle()
-        console.log(this.id)
-
+        if (this.id != 'new') {
+            this.getData()
+        }
     },
     methods: {
+        PostData() {
+            const sumNote = document.getElementById('summernote_iframe').contentWindow.document.getElementById("summernote");
+            const sumNoteImgs = $('#summernote_iframe').get(0).contentWindow.ImgArray;
+
+            const Wirte = document.getElementById('writer');
+            const Standard = document.getElementById('standard');
+            const title = document.getElementById('title');
+            const link = document.getElementById('link');
+
+            const mainImg = this.refFile;
+            const noteDescImg = sumNoteImgs;
+            const noteDesc = sumNote.value
+
+            if (Wirte.value == '') {
+                alert('작성자를 입력해주세요')
+            } else if (Standard.value == "") {
+                alert('분류를 입력해주세요')
+            } else {
+                this.OpenSaveModal('new', 'new')
+                _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$on('newUpload', function () {
+                    let InsertData = new FormData;
+                    InsertData.append('mode', 'new')
+                    InsertData.append('wirter', Wirte.value)
+                    InsertData.append('title', title.value)
+                    InsertData.append('standard', Standard.value)
+                    InsertData.append('link', link.value)
+
+                    InsertData.append('mainImg', mainImg)
+                    InsertData.append('noteDescImg', noteDescImg)
+                    InsertData.append('noteDesc', noteDesc)
+
+                    const baseURI = 'api/news.save.fn.php'
+                    axios.post(`${baseURI}`,
+                            InsertData
+                        )
+                        .then((result) => {
+                            if (result.data.phpResult == 'ok') {
+                                _router__WEBPACK_IMPORTED_MODULE_3__["default"].push({
+                                    name: 'newbord',
+                                    path: '/newsbord',
+                                })
+                            } else {
+                                alert('다시 시도 해주세요')
+                            }
+                        })
+                        .catch(err => console.log('Login: ', err));
+                })
+            }
+        },
+        getData() {
+            const baseURI = 'api/getdata.news.php';
+            axios.post(`${baseURI}`, {
+                    idx: this.id,
+                    mode: 'view'
+                })
+                .then((result) => {
+                    console.log(result)
+                    if (result.data.phpResult == 'ok') {
+                        this.list = result.data.result[0]
+                        $('#summernote_iframe').load(function () {
+                            $('#summernote_iframe').get(0).contentWindow.InsertDesc(result.data.result[0].desc)
+                        })
+                    } else {
+                        this.list = [{
+                            idx: 0,
+                            writer: "개발자",
+                            img: "",
+                            link: 'http://123213',
+                            title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
+                            join: 340,
+                            cate: "천안",
+                            desc: "",
+                            descImg:""
+                        }]
+                    }
+                })
+                .catch(err => console.log('Login: ', err));
+        },
+        fileChange() {
+            const File = this.$refs.mainimg.files[0]
+            const FileInput = document.getElementById('file_input');
+            if (File.size > 1000000) {
+                alert('파일사이즈가 너무 큽니다.')
+                FileInput.value = ''
+            } else if (File.type != 'image/png' && File.type != 'image/jpeg') {
+                alert('지원하지 않는파일형식입니다.')
+                FileInput.value = ''
+            } else {
+                this.refFile = File
+                FileInput.value = File.name
+            }
+        },
         fileUploderStyle() {
             (function ($) {
                 var $fileBox = null;
@@ -15218,12 +15200,12 @@ const NewsView = {
                             var $this = $fileBox.eq(ids),
                                 $btnUpload = $this.find('[type="file"]'),
                                 $label = $this.find('.file-label');
-                            $btnUpload.on('change', function () {
-                                var $target = $(this),
-                                    fileName = $target.val(),
-                                    $fileText = $target.siblings('.file-name');
-                                $fileText.val(fileName);
-                            })
+                            // $btnUpload.on('change', function () {
+                            //     var $target = $(this),
+                            //         fileName = $target.val(),
+                            //         $fileText = $target.siblings('.file-name');
+                            //     $fileText.val(fileName);
+                            // })
                             $btnUpload.on('focusin focusout',
                                 function (e) {
                                     e.type == 'focusin' ? $label.addClass('file-focus') : $label.removeClass('file-focus');
@@ -15232,22 +15214,49 @@ const NewsView = {
                 }
             })(jQuery);
         },
-        OpenSaveModal(Data,mode) {
+        OpenSaveModal(Data, mode) {
             const Modal = document.getElementById('modal-alert')
             Modal.style.display = 'block';
             setTimeout(() => {
                 Modal.style.opacity = '1';
             }, 100);
-            _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit(mode,Data)
-        },
 
-        OpenDelteModal(Data,mode) {
+            _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit(mode, Data)
+        },
+        OpenDelteModal(Data, mode) {
             const Modal = document.getElementById('modal-del')
             Modal.style.display = 'block';
             setTimeout(() => {
                 Modal.style.opacity = '1';
             }, 100);
-            _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit(mode,Data)
+            if (mode == 'new_news') {
+                const sumNoteImgs = $('#summernote_iframe').get(0).contentWindow.ImgArray
+                _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit(mode, sumNoteImgs)
+            } 
+            else if(mode == 'delte_news'){
+                let PostData = {
+                    mainImg,
+                    descImg,
+                    idx:this.id
+                }
+                _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit(mode, PostData)
+            }
+            else {
+                let PostData = {
+                    Data,
+                    idx:this.id
+                }
+                _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit(mode, PostData)
+            }
+        },
+        backPage(){
+            const Modal = document.getElementById('modal-alert')
+            Modal.style.display = 'block';
+            setTimeout(() => {
+                Modal.style.opacity = '1';
+            }, 100);
+
+            _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit('backpage', '0')
         }
     }
 }
@@ -15981,6 +15990,7 @@ const router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
       }
     },
     {
+      name:'newbord',
       path: '/newsbord',
       component: _loc_newsbord_newsbord_js__WEBPACK_IMPORTED_MODULE_2__["default"],
         beforeEnter: (to, from, next) => {

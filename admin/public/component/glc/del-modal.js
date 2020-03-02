@@ -27,10 +27,17 @@ const DelteModal = {
         }
     },
     created() {
-        eventBus.$on('News', (Data) => {
+        eventBus.$on('delte_news', (Data) => {
             this.ment = '보도자료를 삭제합니다'
-            this.FnMode = 'News';
+            this.FnMode = 'delte_news';
+            this.Data = Data;
             console.log(Data)
+        })
+
+        eventBus.$on('new_news', (Data) => {
+            this.ment = '저장 되지 않은 내용입니다 삭제하시겠습니까?'
+            this.FnMode = 'new_news_del';
+            this.Data = Data;
         })
         eventBus.$on('consul', (Data) => {
             this.ment = '상담내역을 삭제합니다'
@@ -39,9 +46,9 @@ const DelteModal = {
         })
         eventBus.$on('NewsImg', (Data) => {
             this.ment = '메인 이미지를 삭제합니다'
-            this.FnMode = 'ImgDelte';
-
-            console.log('이미지삭제' + Data)
+            console.log(Data)
+            this.FnMode = 'NewsImg_del';
+            this.Data = Data
         })
         eventBus.$on('del_mp4', (Data) => {
             this.ment = '드론영상을 삭제합니다';
@@ -109,6 +116,29 @@ const DelteModal = {
                     file: this.Data
                 }
             }
+            else if(mode == 'new_news'){
+                baseURI = 'api/news.save.fn.php';
+                Data = {
+                    mode: this.FnMode,
+                    file: this.Data
+                }
+            }
+            else if(mode == 'delte_news'){
+                baseURI = 'api/news.save.fn.php';
+                Data = {
+                    mode: this.FnMode,
+                    idx:this.Data
+                }
+
+            }
+            else if(mode == 'NewsImg_del' ){
+                baseURI = 'api/news.save.fn.php';
+                Data = {
+                    mode: this.FnMode,
+                    file: this.Data.Data,
+                    idx:this.Data.idx
+                }
+            }
             else {
                 baseURI = '123';
             }
@@ -126,6 +156,18 @@ const DelteModal = {
                             router.push({
                                 name: 'consul',
                                 path: '/consul',
+                            })
+                        }
+                        else if(this.FnMode == 'new_news'){
+                            router.push({
+                                name:'newbord',
+                                path: '/newsbord',
+                            })
+                        }
+                        else if(this.FnMode == 'NewsImg_del'){
+                            router.push({
+                                name:'newbord',
+                                path: '/newsbord',
                             })
                         }
                         
