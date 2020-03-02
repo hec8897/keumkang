@@ -27,7 +27,7 @@ const NavComponent = {
                         <router-link tag='li' to='/spot' v-if="comcodeData==='1'">
                             <b class="caret fr"></b>
                             <i class="material-icons">subscriptions</i>
-                            현장사진/드론영상
+                            현장사진
                         </router-link>
                     </ul>
                 </nav>`,

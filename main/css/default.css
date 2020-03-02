@@ -36,7 +36,7 @@ div.mo_nav div.icons img.blog{max-width: 30px;}
 footer{width: 100%; height: 310px; background-color: #292929; position: relative; z-index: 80;}
 footer div.wrap{padding-top: 50px; box-sizing: border-box;}
 footer h2{width: 185px; margin: 0 auto; font-size: 1rem;}
-footer ul{text-align: center; margin-top: 40px; margin-bottom: 40px;}
+footer ul{text-align: center; margin-top: 60px; margin-bottom: 20px;}
 footer ul li{display: inline; margin: 0px 20px;}
 footer ul li a{color: white;}
 footer p{text-align: center; color: #d0d0d0; font-weight: 100; font-size: 0.875rem; line-height: 1.2rem; letter-spacing: 0.5px;}
@@ -71,7 +71,7 @@ section.con1 a.slide_btn:hover{background-color: white; color: #222;}
 .swiper-button-next{right: 10%;}
 
 section.con2{ position: relative; z-index: 1;}
-section.con2 div.obj{position: absolute; width: 100%; height: 64%; background-color: #e8f1f3;}
+section.con2 div.obj{position: absolute; width: 100%; height: 80%; background-color: #e8f1f3;}
 section.con2 div.wrap{padding:0px;height: 550px; position: relative; padding-bottom: 0px;}
 section.con2 div.panel{max-width: 450px; height: 100%;position: absolute;}
 section.con2 div.panel1{left: 0; top: 100px;}
@@ -79,11 +79,14 @@ section.con2 div.panel2{max-width: 820px; top: -50px; background-color: white; r
 section.con2 div.panel2 h3{text-align: left; font-weight: 200;}
 section.con2 div.panel2 h3 span{font-weight: bold; font-size: 3.125rem; display: block; margin-top: 10px; margin-bottom: 30px;} 
 section.con2 div.panel2 p{margin-bottom: 10px;}
-section.con2 div.panel2 a.con2_btn{display: block; width: 250px; border: 1px solid #d6b545; padding: 25px 15px; color: #d6b545; margin-top: 60px; cursor: pointer;}
+section.con2 div.panel2 a.con2_btn{display: block; width: 250px; border: 1px solid #d6b545; padding: 25px 15px; color: #d6b545; margin-top: 60px; cursor: pointer; transition: 0.2s ease-in-out;}
 section.con2 div.panel2 a.con2_btn:hover{background-color: #d6b545; color: white;}
+section.con2 div.panel2 a.con2_btn img.active{display: none;}
+section.con2 div.panel2 a.con2_btn:hover img.active{display: block;}
+section.con2 div.panel2 a.con2_btn:hover img.beactive{display: none;}
 section.con2 div.panel2 a.con2_btn img{width: 18px;float: right;}
 
-section.con3{height: 380px; padding-top: 100px; box-sizing: border-box;}
+section.con3{height: 340px; padding-top: 100px; box-sizing: border-box;}
 section.con3 h4{margin-top: 20px;}
 
 section.con4{height: 420px; background-color: #e8f1f3; text-align: center;}
@@ -104,7 +107,7 @@ section.con5 h4{margin-top: 20px;}
 section.con5 div.wrap{padding-bottom: 100px;}
 section.con5 ul.news_section{margin-top: 50px;}
 section.con5 ul.news_section li{height: 140px;  padding: 30px; box-sizing: border-box; transition: 0.1s; vertical-align: middle; cursor: pointer; background-color: #f6f6f6; margin-bottom: 10px;}
-section.con5 ul.news_section li:hover{border: 2px solid #d6b545;}
+section.con5 ul.news_section li:hover{border: 1px solid #d6b545;}
 section.con5 ul.news_section li div.header_new{width: 80px ; height: 80px;  float: left; padding: 20px 0px; box-sizing: border-box; text-align: center; font-size: 20px;color: white; line-height: 22px;}
 section.con5 ul.news_section li div.header_new.sam{background-color: #389cfa;}
 section.con5 ul.news_section li div.header_new.cheon{background-color: #6acf4b;}
@@ -121,7 +124,7 @@ section.con6 ul li:nth-last-child(1){margin-right: 0px;}
 section.con6 ul li img{width: 55px;}
 section.con6 h4,section.con6 p{color: white; letter-spacing: -1px;}
 section.con6 h4 {margin-top: 40px; margin-bottom: 15px;}
-section.con6 p{font-weight: 100; line-height: 20px;}
+section.con6 p{font-weight: 100; line-height: 20px; font-size: 14px;}
 
 
 /************ sub ************/
@@ -223,6 +226,7 @@ section.complex.con3 table thead tr{border-top: 1px solid #222; border-bottom: 1
 section.complex.con3 table thead tr td{font-weight: bold; color: #222;}
 section.complex.con3 table tbody tr{border-bottom: 1px solid #d0d0d0; height: 45px;}
 section.complex.con3 table tr{height: 50px;}
+section.complex.con3 table tr.gray{background-color: #f9f9f9;}
 section.complex.con3 table tr th{width: 40%; border-right: 1px solid #d0d0d0; text-align: center; vertical-align: middle; }
 section.complex.con3 table tr td{padding-left: 10px; box-sizing: border-box; font-size: 14px; color: #666;  vertical-align: middle;}
 section.about.con3{padding: 0px; height: 750px; text-align: center;}
@@ -240,7 +244,7 @@ section.consult.con3 div.wrap div.panel a.btn{display: inline-block; width: 200p
     -webkit-box-shadow: 5px 5px 6px 0px rgba(0,0,0,0.27);
     -moz-box-shadow: 5px 5px 6px 0px rgba(0,0,0,0.27);
     box-shadow: 5px 5px 6px 0px rgba(0,0,0,0.27); cursor: pointer; 
-    margin-left: 25%;
+    margin-left: 23%;
     text-align: center;}
 
 
@@ -250,6 +254,7 @@ section.saleguide.con3 ul.tb_nav li{background-color: #f6f6f6;  float: left; wid
 section.saleguide.con3 ul.tb_nav li.active{border: 1px solid #222; border-bottom: 0; background-color: white;}
 section.saleguide.con3{padding-top: 0; height: auto;}
 section.saleguide.con3 div.wrap{padding-top: 0px;}
+section.saleguide.con3 div.wrap h3{font-weight: 100;}
 section.saleguide.con3 div.wrap h3 span{font-weight: bold; font-size: 3.125rem;}
 section.saleguide.con3 table{table-layout: fixed;}
 section.saleguide.con3 table tr td{border-right: 1px solid #d0d0d0; vertical-align: middle; text-align: center;}
@@ -289,8 +294,10 @@ section.complex.con4 table thead td,section.complex.con4 table thead th{font-wei
 section.complex.con4 table thead td span{line-height: 20px; text-align: center; background-color: #222; color: white; display: inline-block; width: 20px; height: 20px; border-radius: 100%; font-size: 13px; padding: 2px;}
 section.complex.con4 table thead td.active span{background-color: #f24836;}
 section.complex.con4 table tr{height: 45px;}
+section.complex.con4 table tr.gray_blue{background-color: #e8f1f3;}
+section.complex.con4 table tr.gray{background-color: #f0f0f0;}
 section.complex.con4 table tbody tr{height: 50px; border-bottom: 1px solid #d0d0d0;}
-section.complex.con4 table th{width: 125px; vertical-align: middle; border-right: 1px solid #d0d0d0; color: #666;}
+section.complex.con4 table th{width: 125px; vertical-align: middle; border-right: 1px solid #d0d0d0; color: #666; font-size: 14px;}
 section.complex.con4 table td{width: 150px; vertical-align: middle; border-right: 1px solid #d0d0d0; font-size: 14px; color: #666;}
 section.complex.con4 table td.active{border-right: 2px solid #f24836; border-left: 2px solid #f24836; color: #f24836;}
 section.complex.con4 table td:nth-last-child(1){border-right: 0px;}
@@ -303,7 +310,7 @@ section.saleguide.con4 h3{position: relative; z-index: 10;}
 section.saleguide.con4 ul{ width: 39%; display: inline-block; margin-top: 45px; position: relative; z-index: 2; vertical-align: text-bottom;}
 section.saleguide.con4 ul li{text-align: left; margin-bottom: 30px;}
 section.saleguide.con4 ul li{font-size: 1.563rem;}
-section.saleguide.con4 ul li span{width: 30px; height: 30px; text-align: center; line-height: 30px; vertical-align: top; background-color: #1065a8; font-size: 0.875rem; color: white; border-radius: 5px; margin-right: 10px; display: inline-block;}
+section.saleguide.con4 ul li span{width: 30px; height: 30px; text-align: center; line-height: 30px; vertical-align: top; background-color: #1065a8; font-size: 0.875rem; color: white; border-radius: 10px; margin-right: 10px; display: inline-block;}
 section.saleguide.con4 ul li p{margin-top: 15px; padding-left: 40px; color: #666; ;}
 section.saleguide.con4 img.sales-obj{position: absolute; right: 0px; max-width: 240px; z-index: 1; bottom: 0;}
 
