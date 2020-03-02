@@ -250,9 +250,10 @@ const NewsView = {
                 eventBus.$emit(mode, sumNoteImgs)
             } 
             else if(mode == 'delte_news'){
+                let DescImg = this.list.descImg
                 let PostData = {
-                    mainImg,
-                    descImg,
+                    mainImg:this.list.img,
+                    descImg:DescImg.split(","),
                     idx:this.id
                 }
                 eventBus.$emit(mode, PostData)

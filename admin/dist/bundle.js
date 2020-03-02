@@ -13367,7 +13367,7 @@ const DelteModal = {
                 baseURI = 'api/news.save.fn.php';
                 Data = {
                     mode: this.FnMode,
-                    idx:this.Data
+                    Data:this.Data
                 }
 
             }
@@ -15234,9 +15234,10 @@ const NewsView = {
                 _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit(mode, sumNoteImgs)
             } 
             else if(mode == 'delte_news'){
+                let DescImg = this.list.descImg
                 let PostData = {
-                    mainImg,
-                    descImg,
+                    mainImg:this.list.img,
+                    descImg:DescImg.split(","),
                     idx:this.id
                 }
                 _glc_eventbus_js__WEBPACK_IMPORTED_MODULE_2__["default"].$emit(mode, PostData)

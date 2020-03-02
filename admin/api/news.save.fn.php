@@ -73,10 +73,11 @@
   }
   else if($mode == 'delte_news'){
       $idx = $Data['idx'];
+      $mainImg = $Data['mainImg'];
+      $descImg = $Data['descImg'];
       $sql = "DELETE FROM `tb_news` WHERE `tb_news`.`idx` = $idx";
-      $query = mysqli_query($conn,$sql);
-      $phpResult = isset($query)?"ok":"no";
-
+    //   $query = mysqli_query($conn,$sql);
+    //   $phpResult = isset($query)?"ok":"no";
   }
 
 
@@ -84,7 +85,8 @@
         array(
             "phpResult"=>$phpResult,
             'mode'=>$mode,
-            'test'=>$sql
+            'test'=>$Data['descImg']
+            //여기까지함 받아온값....
     )); 
 
     echo urldecode($json);

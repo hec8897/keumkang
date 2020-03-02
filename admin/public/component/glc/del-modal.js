@@ -127,7 +127,7 @@ const DelteModal = {
                 baseURI = 'api/news.save.fn.php';
                 Data = {
                     mode: this.FnMode,
-                    idx:this.Data
+                    Data:this.Data
                 }
 
             }
