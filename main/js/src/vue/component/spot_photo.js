@@ -30,7 +30,7 @@ const SpotPhoto = {
                     lists:[],
                     results:[],
                     start:0,
-                    limit:9
+                    limit:10
                 }
             },
             created(){
@@ -109,7 +109,6 @@ const SpotPhoto = {
                 eventBus.$on('NextPage', (Data) => {
                     this.start = Data * 10-1;
                     this.limit = (Data * 10) + 9
-        
                 })
             }
         }
