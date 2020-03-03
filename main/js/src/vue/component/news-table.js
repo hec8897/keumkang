@@ -12,7 +12,9 @@ const NewsTable = {
                 <div class="head green" v-else-if="list.cate =='천안'">천안</br>아산</div>
                 <div class="head ameral" v-else-if="list.cate =='부동산'">부동산</br>이슈</div>
 
-                <div class="prev_img" v-bind:style="{ backgroundImage: 'url(admin/news/main/' + list.img + ')' }"></div>
+                <div class="prev_img" v-if="list.img == 'none.jpg'" style="background-image: url(images/none.jpg)"></div>
+                <div class="prev_img" v-else v-bind:style="{ backgroundImage: 'url(admin/news/main/' + list.img + ')' }"></div>
+
                 <div class="prev_desc">
                     <span class="mo blue" v-if="list.cate =='삼성'">삼성</span>
                     <span class="mo green" v-else-if="list.cate =='천안'">천안,아산</span>
@@ -49,8 +51,6 @@ created(){
         })
     })
 
-
-
     eventBus.$on('cateChange', (Data)=>{
         this.lists = Data
         this.start = 0
@@ -67,6 +67,12 @@ mounted() {
         this.start = Data * 10-1;
         this.limit = (Data * 10) + 9
     })
+
+},
+updated(){
+    const FirstTag = $('.news_desc').children()[0]
+    console.log(FirstTag)
+
 },
 data(){
     return{

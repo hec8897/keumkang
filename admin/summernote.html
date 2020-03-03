@@ -96,7 +96,7 @@
                 } else if (result.data.file == 'huge') {
                     alert('사이즈가너무큽니다.');
                 } else {
-                    var url = 'http://kumkangenc.kr/test/news/' + result.data.file;
+                    var url = 'http://kumkangenc.kr/admin/news/' + result.data.file;
                     $(el).summernote('editor.insertImage', url);
                     $('#imageBoard > ul').append('<li class="summernote_img"><img src="' + url + '"/></li>');
                     ImgArray.push(result.data.file);
