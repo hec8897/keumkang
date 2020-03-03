@@ -204,15 +204,16 @@ section.news.con2 div.news_list .blue{background-color: #328bfa; }
 section.news.con2 div.news_list .green{background-color: #5fb535;}
 section.news.con2 div.news_list .ameral{background-color: #2cbab2;}
 section.news.con2 div.news_list div.prev_img{max-width: 160px; height: 100px ;display: inline-block; vertical-align: middle; margin-left: 20px;}  
-section.news.con2 div.news_list div.prev_desc{max-width: 600px; height: 100px; display: inline-block; vertical-align: middle; margin-left: 10px; padding-top: 5px;}
+section.news.con2 div.news_list div.prev_desc{max-width: 600px; height: 100px; display: inline-block; vertical-align: middle; margin-left: 10px; padding-top: 5px; overflow: hidden;}
 section.news.con2 div.news_list div.prev_desc h4{text-align: left;margin: 15px auto;}
 section.news.con2 div.news_list div.prev_desc p{font-size: 0.875rem; color: #666;}
-section.news.con2 div.news_list div.prev_desc p > *{font-size: 0.875rem; color: #666; display: inline;}
-section.news.con2 div.news_list div.prev_desc p.news_desc img{display: none;}
-section.news.con2 div.news_list div.prev_desc span{display: none; padding:0px 5px;vertical-align: middle; border-radius: 5px; color: white; font-size: 0.875rem;}
+section.news.con2 div.news_list div.prev_desc p.news_desc img{display: none!important;}
+section.news.con2 div.news_list div.prev_desc span.mo{display: none; padding:0px 5px;vertical-align: middle; border-radius: 5px; color: white; font-size: 0.875rem;}
 section.news.con2 div.news_list div.prev_desc span.blue{background-color: #328bfa; }
 section.news.con2 div.news_list div.prev_desc span.green{background-color: #5fb535; }
 section.news.con2 div.news_list div.prev_desc span.ameral{background-color: #2cbab2;}
+section.news.con2 div.news_list div.prev_desc p > *{font-size: 0.875rem!important;; color: #666!important;; display: inline!important;; text-align: left!important;}
+section.news.con2 div.news_list p.news_desc > span{color: black!important;}
 
 section.news.con2 div.news_list div.join{max-width: 100px; display: inline-block; text-align: center; margin-left: 1%; color: #666; position: absolute; right: 0; top: 50%;}
 
