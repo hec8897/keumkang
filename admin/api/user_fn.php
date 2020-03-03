@@ -9,16 +9,21 @@
     if($mode == "baActive"){
         $sql = "UPDATE `tb_user` SET `Activation` = '0' WHERE `idx` = '$idx'";
         $query = mysqli_query($conn,$sql);
+        $phpResult = isset($query)?"ok":"no";
     }
     else if($mode == 'Active'){
         $sql = "UPDATE `tb_user` SET `Activation` = '1' WHERE `idx` = '$idx'";
         $query = mysqli_query($conn,$sql);
+        $phpResult = isset($query)?"ok":"no";
+
     }
     else if($mode == 'chpw'){
         $chpw = $Data['ChPw'];
         $hash = password_hash($chpw,PASSWORD_DEFAULT);
         $sql = "UPDATE `tb_user` SET `user_pw` = '$hash' WHERE `idx` = '$idx'";
         $query = mysqli_query($conn,$sql);
+        $phpResult = isset($query)?"ok":"no";
+
 
     }
     else if($mode == 'cflag'){
@@ -33,13 +38,20 @@
                 $sql = "UPDATE `tb_consult` SET `cflag` = '$cflag',`reqclass`='$Class' WHERE `idx` = '$SelectData[$loop]'";
             }
             $query = mysqli_query($conn,$sql);
+            $phpResult = isset($query)?"ok":"no";
+
         }
     }
+    else if($mode == 'DeleteAcc'){
+        $idx = $Data['idx'];
+        $sql = "DELETE FROM `tb_user` WHERE `idx` = '$idx'";
+        $query = mysqli_query($conn,$sql);
+        $phpResult = isset($query)?"ok":"no";
+    }
 
-    $phpResult = isset($query)?"ok":"no";
 
     $Login_info = json_encode(
-        array('phpResult'=> $phpResult,"data"=>$data,"sql"=>$sql)
+        array('phpResult'=> $phpResult,"data"=>$data,'test'=>$sql)
     );
     echo urldecode($Login_info);
     header('Content-Type: application/json');

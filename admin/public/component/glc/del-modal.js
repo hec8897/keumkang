@@ -57,6 +57,7 @@ const DelteModal = {
         eventBus.$on('account_del', (Data) => {
             this.ment = '사용자 계정을 삭제합니다'
             this.FnMode = 'DeleteAcc';
+            this.Data = Data;
 
         })
         eventBus.$on('account_beactive', (Data) => {
@@ -90,7 +91,14 @@ const DelteModal = {
                     mode: this.FnMode,
                     idx: this.Data
                 }
-            } else if (mode == 'ConsulDel') {
+            } else if(mode == 'DeleteAcc'){
+                baseURI = 'api/user_fn.php';
+                Data = {
+                    mode: this.FnMode,
+                    idx: this.Data
+                }
+            }
+            else if (mode == 'ConsulDel') {
                 baseURI = 'api/consul_fn.php';
                 Data = {
                     mode: this.FnMode,
@@ -134,6 +142,7 @@ const DelteModal = {
                     Data
                 })
                 .then((result) => {
+                    console.log(result)
                     if (result.data.phpResult == 'ok') {
                         this.ModalClose()
 
@@ -150,7 +159,11 @@ const DelteModal = {
                         } else if (this.FnMode == 'NewsImg_del') {
                             location.reload()
                        
-                        } else if (this.FnMode == 'delte_news') {
+                        } else if (this.FnMode == 'DeleteAcc') {
+                            location.reload()
+                       
+                        }
+                         else if (this.FnMode == 'delte_news') {
                             router.push({
                                 name: 'newbord',
                                 path: '/newsbord',

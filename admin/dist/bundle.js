@@ -13297,6 +13297,7 @@ const DelteModal = {
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('account_del', (Data) => {
             this.ment = '사용자 계정을 삭제합니다'
             this.FnMode = 'DeleteAcc';
+            this.Data = Data;
 
         })
         _eventbus_js__WEBPACK_IMPORTED_MODULE_0__["default"].$on('account_beactive', (Data) => {
@@ -13330,7 +13331,14 @@ const DelteModal = {
                     mode: this.FnMode,
                     idx: this.Data
                 }
-            } else if (mode == 'ConsulDel') {
+            } else if(mode == 'DeleteAcc'){
+                baseURI = 'api/user_fn.php';
+                Data = {
+                    mode: this.FnMode,
+                    idx: this.Data
+                }
+            }
+            else if (mode == 'ConsulDel') {
                 baseURI = 'api/consul_fn.php';
                 Data = {
                     mode: this.FnMode,
@@ -13374,6 +13382,7 @@ const DelteModal = {
                     Data
                 })
                 .then((result) => {
+                    console.log(result)
                     if (result.data.phpResult == 'ok') {
                         this.ModalClose()
 
@@ -13390,7 +13399,11 @@ const DelteModal = {
                         } else if (this.FnMode == 'NewsImg_del') {
                             location.reload()
                        
-                        } else if (this.FnMode == 'delte_news') {
+                        } else if (this.FnMode == 'DeleteAcc') {
+                            location.reload()
+                       
+                        }
+                         else if (this.FnMode == 'delte_news') {
                             _router_js__WEBPACK_IMPORTED_MODULE_1__["default"].push({
                                 name: 'newbord',
                                 path: '/newsbord',
@@ -15755,7 +15768,7 @@ const userTool = {
             <span class='b_red' v-if="list.Activation === '1'" @click="OpenDelteModal(list.idx,'account_beactive')">계정 접속 제한</span>
             <span class='b_blue' v-else-if ="list.Activation === '0'" @click="OpenSaveModal(list.idx,'account_use')">계정 접속 승인</span>
 
-            <span class='b_red' @click="OpenDelteModal(this.idx,'account_del')">계정 삭제</span>
+            <span class='b_red' @click="OpenDelteModal('account_del')">계정 삭제</span>
 
         </div>
 
@@ -15775,10 +15788,8 @@ const userTool = {
     created(){
         _glc_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('GetUsertool', (Data)=>{
             this.list = Data
+            this.GetConsultData()
         })
-    },
-    updated(){
-        this.GetConsultData()
     },
     methods:{
         OpenSaveModal(Data, mode) {
@@ -15794,7 +15805,7 @@ const userTool = {
                 _glc_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit(mode, Data)
             }
         },
-        OpenDelteModal(Data, mode) {
+        OpenDelteModal(mode) {
             if(this.list.length == 1){
                 alert('계정을 선택해주세요')
             }
@@ -15805,7 +15816,7 @@ const userTool = {
                 setTimeout(() => {
                     Modal.style.opacity = '1';
                 }, 100);
-                _glc_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit(mode, Data)
+                _glc_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit(mode, this.list.idx)
             }
         },
         OpenEtcModal() {

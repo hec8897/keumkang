@@ -47,7 +47,7 @@ const userTool = {
             <span class='b_red' v-if="list.Activation === '1'" @click="OpenDelteModal(list.idx,'account_beactive')">계정 접속 제한</span>
             <span class='b_blue' v-else-if ="list.Activation === '0'" @click="OpenSaveModal(list.idx,'account_use')">계정 접속 승인</span>
 
-            <span class='b_red' @click="OpenDelteModal(this.idx,'account_del')">계정 삭제</span>
+            <span class='b_red' @click="OpenDelteModal('account_del')">계정 삭제</span>
 
         </div>
 
@@ -67,10 +67,8 @@ const userTool = {
     created(){
         eventBus.$on('GetUsertool', (Data)=>{
             this.list = Data
+            this.GetConsultData()
         })
-    },
-    updated(){
-        this.GetConsultData()
     },
     methods:{
         OpenSaveModal(Data, mode) {
@@ -86,7 +84,7 @@ const userTool = {
                 eventBus.$emit(mode, Data)
             }
         },
-        OpenDelteModal(Data, mode) {
+        OpenDelteModal(mode) {
             if(this.list.length == 1){
                 alert('계정을 선택해주세요')
             }
@@ -97,7 +95,7 @@ const userTool = {
                 setTimeout(() => {
                     Modal.style.opacity = '1';
                 }, 100);
-                eventBus.$emit(mode, Data)
+                eventBus.$emit(mode, this.list.idx)
             }
         },
         OpenEtcModal() {
