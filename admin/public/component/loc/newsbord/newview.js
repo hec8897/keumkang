@@ -81,8 +81,8 @@ const NewsView = {
             <div class="btn_wrap">
                 <span class="b_red" v-if="id == 'new'" v-on:click="OpenDelteModal(0,'new_news')">삭제</span>
                 <span class="b_red" v-else v-on:click="OpenDelteModal(list.idx,'delte_news')">삭제</span>
-                <span class="b_blue" v-if="id === 'new'" v-on:click="PostData()">등록</span>
-                <span class="b_blue" v-else v-on:click="OpenSaveModal(list.idx,'updateNews')">수정</span>
+                <span class="b_blue" v-if="id === 'new'" v-on:click="PostData('new')">등록</span>
+                <span class="b_blue" v-else v-on:click="PostData('update')">수정</span>
                 <span class="b_sgrey" v-on:click="backPage">목록</span>
             </div>
 
@@ -94,6 +94,7 @@ const NewsView = {
     },
     data() {
         return {
+            idx:'',
             list:'',
             descImgArray:'',
             refFile: ''
@@ -106,7 +107,7 @@ const NewsView = {
         }
     },
     methods: {
-        PostData() {
+        PostData(mode) {
             const sumNote = document.getElementById('summernote_iframe').contentWindow.document.getElementById("summernote");
             const sumNoteImgs = $('#summernote_iframe').get(0).contentWindow.ImgArray;
 
@@ -124,10 +125,14 @@ const NewsView = {
             } else if (Standard.value == "") {
                 alert('분류를 입력해주세요')
             } else {
-                this.OpenSaveModal('new', 'new')
+                this.OpenSaveModal(mode,'new')
+
+                let idx = this.id;
+
                 eventBus.$on('newUpload', function () {
                     let InsertData = new FormData;
-                    InsertData.append('mode', 'new')
+                    InsertData.append('mode', mode)
+                    InsertData.append('idx', idx)
                     InsertData.append('wirter', Wirte.value)
                     InsertData.append('title', title.value)
                     InsertData.append('standard', Standard.value)
@@ -143,10 +148,16 @@ const NewsView = {
                         )
                         .then((result) => {
                             if (result.data.phpResult == 'ok') {
-                                router.push({
-                                    name: 'newbord',
-                                    path: '/newsbord',
-                                })
+                                if(result.data.mode == 'new'){
+
+                                    router.push({
+                                        name: 'newbord',
+                                        path: '/newsbord',
+                                    })
+                                }
+                                else{
+                                    location.reload()
+                                }
                             } else {
                                 alert('다시 시도 해주세요')
                             }
@@ -162,11 +173,13 @@ const NewsView = {
                     mode: 'view'
                 })
                 .then((result) => {
-                    console.log(result)
                     if (result.data.phpResult == 'ok') {
                         this.list = result.data.result[0]
+                        let DescImg = this.list.descImg.split(',')
                         $('#summernote_iframe').load(function () {
                             $('#summernote_iframe').get(0).contentWindow.InsertDesc(result.data.result[0].desc)
+                            $('#summernote_iframe').get(0).contentWindow.ImgArray = DescImg
+
                         })
                     } else {
                         this.list = [{

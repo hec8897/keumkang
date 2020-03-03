@@ -31,9 +31,7 @@ const DelteModal = {
             this.ment = '보도자료를 삭제합니다'
             this.FnMode = 'delte_news';
             this.Data = Data;
-            console.log(Data)
         })
-
         eventBus.$on('new_news', (Data) => {
             this.ment = '저장 되지 않은 내용입니다 삭제하시겠습니까?'
             this.FnMode = 'new_news_del';
@@ -46,7 +44,6 @@ const DelteModal = {
         })
         eventBus.$on('NewsImg', (Data) => {
             this.ment = '메인 이미지를 삭제합니다'
-            console.log(Data)
             this.FnMode = 'NewsImg_del';
             this.Data = Data
         })
@@ -55,14 +52,12 @@ const DelteModal = {
             this.ment2 = '(삭제 후 새로 등록할수 있습니다.)';
             this.Data = Data;
             this.FnMode = 'del_mp4';
-            //여기까지했음
         })
 
         eventBus.$on('account_del', (Data) => {
             this.ment = '사용자 계정을 삭제합니다'
             this.FnMode = 'DeleteAcc';
 
-            console.log('사용자계정 삭제' + Data)
         })
         eventBus.$on('account_beactive', (Data) => {
             this.ment = '사용자 계정 접근을 중단합니다';
@@ -71,11 +66,10 @@ const DelteModal = {
             this.FnMode = 'baActive';
 
         })
-        eventBus.$on('spotImgDel',(Data)=>{
+        eventBus.$on('spotImgDel', (Data) => {
             this.ment = '현장사진을 삭제합니다'
             this.FnMode = 'spotImgDel';
             this.Data = Data
-            console.log(this.Data)
         })
     },
     methods: {
@@ -102,53 +96,44 @@ const DelteModal = {
                     mode: this.FnMode,
                     idx: this.Data
                 }
-            } else if(mode == 'spotImgDel'){
+            } else if (mode == 'spotImgDel') {
                 baseURI = 'api/spot.upload.php';
                 Data = {
                     mode: this.FnMode,
                     idx: this.Data
                 }
-            }
-            else if(mode == 'del_mp4'){
+            } else if (mode == 'del_mp4') {
                 baseURI = 'api/mp4.fn.php';
                 Data = {
                     mode: this.FnMode,
                     file: this.Data
                 }
-            }
-            else if(mode == 'new_news'){
+            } else if (mode == 'new_news') {
                 baseURI = 'api/news.save.fn.php';
                 Data = {
                     mode: this.FnMode,
                     file: this.Data
                 }
-            }
-            else if(mode == 'delte_news'){
+            } else if (mode == 'delte_news') {
                 baseURI = 'api/news.save.fn.php';
                 Data = {
                     mode: this.FnMode,
-                    Data:this.Data
+                    Data: this.Data
                 }
-
-            }
-            else if(mode == 'NewsImg_del' ){
+            } else if (mode == 'NewsImg_del') {
                 baseURI = 'api/news.save.fn.php';
                 Data = {
                     mode: this.FnMode,
                     file: this.Data.Data,
-                    idx:this.Data.idx
+                    idx: this.Data.idx
                 }
-            }
-            else {
+            } else {
                 baseURI = '123';
             }
-
-
             axios.post(`${baseURI}`, {
-                    Data  
+                    Data
                 })
                 .then((result) => {
-                    console.log(result)
                     if (result.data.phpResult == 'ok') {
                         this.ModalClose()
 
@@ -157,24 +142,25 @@ const DelteModal = {
                                 name: 'consul',
                                 path: '/consul',
                             })
-                        }
-                        else if(this.FnMode == 'new_news'){
+                        } else if (this.FnMode == 'new_news') {
                             router.push({
-                                name:'newbord',
+                                name: 'newbord',
                                 path: '/newsbord',
                             })
-                        }
-                        else if(this.FnMode == 'NewsImg_del'){
-                            router.push({
-                                name:'newbord',
-                                path: '/newsbord',
-                            })
-                        }
-                        
-                        else{
-                            eventBus.$emit('Update', {result:result.data.phpResult})
-                        }
+                        } else if (this.FnMode == 'NewsImg_del') {
+                            location.reload()
                        
+                        } else if (this.FnMode == 'delte_news') {
+                            router.push({
+                                name: 'newbord',
+                                path: '/newsbord',
+                            })
+
+                        } else {
+                            eventBus.$emit('Update', {
+                                result: result.data.phpResult
+                            })
+                        }
                     }
                 })
                 .catch(err => console.log('Login: ', err));

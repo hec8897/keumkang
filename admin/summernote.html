@@ -100,7 +100,6 @@
                     $(el).summernote('editor.insertImage', url);
                     $('#imageBoard > ul').append('<li class="summernote_img"><img src="' + url + '"/></li>');
                     ImgArray.push(result.data.file);
-                    // NewImgArray.push(url);
                 }
             }).catch(function (err) {
                 return console.log('Login: ', err);

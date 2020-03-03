@@ -10,7 +10,7 @@ const saveModal = {
                     </div>
                     <div class="modal_foot">
                         <span class="b_blue" v-if="FnMode === 'mp4upload'" @click='uploadMp4'>등록</span>
-                        <span class="b_blue" v-else-if="FnMode === 'new'" @click='newUpload'>기사등록</span>
+                        <span class="b_blue" v-else-if="FnMode === 'news'" @click='newUpload'>기사등록</span>
                         <span class="b_blue" v-else-if="FnMode === 'backpage'" @click='backpage'>확인</span>
                         <span class="b_blue" v-else  @click='PostData(FnMode)'>확인</span>
                         <span v-on:click='ModalClose' class="b_sgrey">취소</span>
@@ -28,9 +28,13 @@ const saveModal = {
     },
     mounted(){
         eventBus.$on('new',(Data)=>{
-            console.log(Data)
-            this.ment = '보도자료를 등록 하시겠습니까?'
-            this.FnMode = 'new'
+            if(Data == 'update'){
+                this.ment = '보도자료를 수정 하시겠습니까?'
+            }
+            else{
+                this.ment = '보도자료를 등록 하시겠습니까?'
+            }
+            this.FnMode = 'news'
         })
         eventBus.$on('mp4',(Data)=>{
             this.ment = '드론영상을 등록하시겠습니까?'

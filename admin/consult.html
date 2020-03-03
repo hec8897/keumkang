@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="금강 이엔씨" />
+    <meta name="author" content="CEOMAKER" />
+    <meta name="keywords" content="천안 아산 공장부지 탕정 삼성탕정 원룸 산업단지 탕정지구 삼성 분양 탕정분양 탕정지구분양" />
+    <meta name="description" content="전 분야의 영역 구분없이 가장 적합한 솔루션을 제공하투자 이익을 공유(토지주,주주)하는 부동산개발전문 회사입니다." />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="http://kumkangenc.kr/images/og.jpg" />
+    <meta property="og:title" content="금강 이엔씨" />
+    <meta property="og:locale" content="ko_KR" />
+    <meta property="og:description" content="전 분야의 영역 구분없이 가장 적합한 솔루션을 제공하투자 이익을 공유(토지주,주주)하는 부동산개발전문 회사입니다." />
+    <meta property="og:url" content="http://kumkangenc.kr/" />
+
+    <link rel="stylesheet" href="css/swiper.min.css">
+    <link rel="stylesheet" href="css/element.css">
+    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="css/resposive.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.js"></script>
+    <!-- Minified version of `es6-promise-auto` below. -->
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js"></script>
+    <script src="modules/axios.min.js"></script>
+    <script src="js/animation.js"></script>
+    <script>
+        var Promise = require('es6-promise').Promise;
+    </script>
+    <title>금강</title>
+</head>
+
+<body>
+    <div id="wrap">
+        <div class="mo_nav" id='mo_nav'></div>
+
+        <header></header>
+        <nav></nav>
+        <main>
+            <section class="sub consult con1">
+                <div class="title">
+                    <h3>상담문의</h3>
+                    <h3 class="mid">부담없이 상담을 받아보세요</h3>
+                </div>
+            </section>
+            <section class="sub consult con2">
+                <div class="wrap">
+                    <h3>상담예약</h3>
+
+                    <div class="privacy">
+                        <div class="p_box">
+                            <p>금강이엔씨는 개인정보를 중요시 하며 정보통신망 이용촉진 및 정보보호에 관한 법률을 준수하고 있습니다.</p>
+                            <ol>
+                                <li>
+                                    개인정보의 수집목적 <br>
+                                    회사는 수집한 개인정보를 상담 문의 목적을 위해 활용합니다.
+                                </li>
+                                <li>
+                                    수집하는 개인정보 항목 <br>
+                                    회사는 상담, 서비스 신청 등을 위해 아래와 같은 개인정보를 수집하고 있습니다. <br>
+                                    수집항목 : 이름, 이메일주소, 휴대폰번호, 전화번호, 그 외 개인이 직접 입력한 내용
+                                </li>
+                                <li>
+                                    수집하는 개인정보의 처리 및 보존기간<br>
+                                    회사는 개인정보의 처리목적이 달성될 때까지 개인정보를 보유하고, 목적이 달성된 후에는 지체없이 파기합니다. <br>
+                                    다만, 사전동의를 받은 경우 또는 관련 법규에 의하여 보존 필요성이 있는 경우 에는 보존할 수 있습니다.
+                                </li>
+                                <li>
+                                    동의거부 권리 및 동의거부시 불이익<br>
+                                    고객은 본 개인정보 수집 및 이용 동의를 거부할 권리가 있습니다. 다만, 동의거부시 서비스 이용에 제한이 있을 수있습니다.
+                                </li>
+                            </ol>
+                        </div>
+                        <div class="checkbox">
+                            <input type="checkbox" id="checkbox_1" value="" />
+                            <label for="checkbox_1">개인정보수집 및 이용에 동의합니다.</label>
+                        </div>
+                    </div>
+                    <div class="form_area">
+                        <div>
+                            <p>이름</p>
+                            <input type="text" placeholder="이름을 입력하세요" id='reqname'>
+                        </div>
+
+                        <div>
+                            <p>전화번호</p>
+                            <input name="" type="text" placeholder="전화번호를 입력하세요" id='reqphone'>
+                        </div>
+
+                        <div>
+                            <p>분류</p>
+                            <select name="" id="reqstandard">
+                                <option value="">상담선택</option>
+                                <option value="삼성">삼성</option>
+                                <option value="천안">천안,아산</option>
+                                <option value="부동산">부동산</option>
+                                <option value="기타">기타</option>
+                            </select>
+                        </div>
+
+                        <div class="txt">
+                            <p>문의내용</p>
+                            <textarea name="" placeholder="내용을 입력하세요" id='reqmemo'></textarea>
+                        </div>
+                    </div>
+                    <div class="btn" onclick="InsertData()">
+                        상담예약 신청하기
+                    </div>
+            </section>
+            <section class="sub consult con3">
+                <div class="wrap">
+                    <h3>입주의향서</h3>
+                    <div class="panel">
+                        <img src="images/consul-con3-icon.png" alt="">
+                        <div class="tit">
+                            <h4>DOWNLOAD</h4>
+                            <h3>탕정산업단지 입주의향서를 다운받으실 수 있습니다</h3>
+                        </div>
+                        <a class="btn" download href='file/file.docx'>
+                            입주의향서 다운로드
+                        </a>
+
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer></footer>
+    </div>
+    <script src="js/src/index.min.js"></script>
+    <script>
+        
+        HeaderFooterNavRender();
+        function InsertData() {
+            var checkedBox = document.getElementById('checkbox_1');
+
+            var reqName = document.getElementById('reqname');
+            var reqStandard = document.getElementById('reqstandard');
+            var reqPhone = document.getElementById('reqphone');
+            var reqMemo = document.getElementById('reqmemo');
+
+            if(checkedBox.checked == false){
+                alert('개인정보 수집에 동의해주세요')
+            }
+            else if (reqName.value == "") {
+                alert('성함을 입력해주세요');
+            } else if (reqStandard.value == "") {
+                alert('원하시는 상담내용을 선택해주세요');
+            } else if (reqPhone.value == "") {
+                alert('연락처를 입력해주세요');
+            } else {
+              
+                var Data = {
+                    reqName: reqName.value,
+                    reqStandard: reqStandard.value,
+                    reqPhone: reqPhone.value,
+                    reqMemo: reqMemo.value,
+                    Cflag:sessionStorage.queryid!=undefined?sessionStorage.queryid:""
+                };
+                var baseURI = 'api/insert_consul.php';
+                axios.post("".concat(baseURI), {
+                    Data: Data
+                }).then(function (result) {
+                    console.log(result)
+                    if (result.data.phpResult == 'ok') {
+                        alert('상담신청완료');
+                    }
+                }).catch(function (err) {
+                    return console.log('Login: ', err);
+                });
+            }
+        }
+    </script>
+</body>
+
+</html>

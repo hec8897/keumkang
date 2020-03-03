@@ -30,28 +30,32 @@
         return $Result = $Results;
     }
 
-    if($mode == 'new'){
         $MainImg = $_FILES['mainImg'];
-
         $Wirte = $_POST['wirter'];
         $Title = $_POST['title'];
         $Standard = $_POST['standard'];
         $link = $_POST['link'];
         $MainImgName = isset($_FILES['mainImg'])?FileUploader($MainImg):'none.jpg';
-
         $noteDesc = $_POST['noteDesc'];
         $noteDescImg = $_POST['noteDescImg'];
         $InsertTime = date('Y-m-d');
 
+    if($mode == 'new'){
         $sql = "INSERT INTO `tb_news` (`writer`, `title`, `standard`, `link`, `main_img`, `note_desc`, `note_img`, `join_count`, `insertdate`)
         VALUES ('$Wirte', '$Title', '$Standard', '$link', '$MainImgName', '$noteDesc', '$noteDescImg', 0 , '$InsertTime')";
+        $query = mysqli_query($conn,$sql);
+        $phpResult = isset($query)?"ok":"no";
+        }
+    else if($mode == 'update'){
+        $idx = $_POST['idx'];
+        $sql = "UPDATE `tb_news` SET  `writer` = '$Wirte',`title`='$Title',`standard`='$Standard',`link`= '$link', `main_img` = '$MainImgName', `note_desc`='$noteDesc',`note_img` ='$noteDescImg' WHERE `idx` = '$idx'";
         $query = mysqli_query($conn,$sql);
         $phpResult = isset($query)?"ok":"no";
     }
     else if($mode == 'NewsImg_del'){
         $file = $Data['file'];
         $idx = $Data['idx'];
-        $unlinkResult = unlink('../'.$file);
+        $unlinkResult = unlink('../news/main/'.$file);
         $sql = "UPDATE `tb_news` SET `main_img` = '' WHERE `idx` = '$idx'";
         $query = mysqli_query($conn,$sql);
 
@@ -62,7 +66,6 @@
     for($count=0; $count<count($files); $count++){
         $unlinkResult = unlink('../news/'.$files[$count]);
     }
-
     if(count($files)>0){
       $phpResult = isset($unlinkResult)?"ok":"no";
     }
@@ -72,12 +75,18 @@
 
   }
   else if($mode == 'delte_news'){
-      $idx = $Data['idx'];
-      $mainImg = $Data['mainImg'];
-      $descImg = $Data['descImg'];
+      $fileData = $Data['Data'];
+      $idx = $fileData['idx'];
+      $mainImg = $fileData['mainImg'];
+      $descImg = $fileData['descImg'];
+      $mainUnlink = unlink('../news/main/'.$mainImg);
+
+      for($count=0; $count<count($descImg); $count++){
+          $descUnlink = unlink('../news/'.$descImg[$count]);
+      }
       $sql = "DELETE FROM `tb_news` WHERE `tb_news`.`idx` = $idx";
-    //   $query = mysqli_query($conn,$sql);
-    //   $phpResult = isset($query)?"ok":"no";
+      $query = mysqli_query($conn,$sql);
+      $phpResult = isset($query)?"ok":"no";
   }
 
 
@@ -85,8 +94,8 @@
         array(
             "phpResult"=>$phpResult,
             'mode'=>$mode,
-            'test'=>$Data['descImg']
-            //여기까지함 받아온값....
+            'test'=>$file,
+            "test2"=>$idx
     )); 
 
     echo urldecode($json);
