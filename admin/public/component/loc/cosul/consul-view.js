@@ -10,7 +10,7 @@ const ConsulView = {
                     <div class="info_wrap">
                         <div class="order">
                             <table class='consul_tb'>
-                            <tr>
+                                <tr>
                                     <th>분류</th>
                                     <td>{{list.cate}}</td>
                                 </tr>
@@ -49,26 +49,26 @@ const ConsulView = {
     },
     data() {
         return {
-            list:Array,
-            comcode:Number(this.$store.state.comcode)
+            list: Array,
+            comcode: Number(this.$store.state.comcode)
         }
     },
     created() {
-        let Mode = sessionStorage.comcode=='100'?'normal':'administor';
+        let Mode = sessionStorage.comcode == '100' ? 'normal' : 'administor';
         let Data = {
             Cflag: sessionStorage.name,
             Class: sessionStorage.Class
         }
         const baseURI = 'api/getdata.consult.php';
         axios.post(`${baseURI}`, {
-            idx:this.idx,
-            Mode,
-            Data
+                idx: this.idx,
+                Mode,
+                Data
             })
             .then((result) => {
-                    if (result.data.phpResult == 'ok') {
-                        this.list = result.data.result[0]
-                    }
+                if (result.data.phpResult == 'ok') {
+                    this.list = result.data.result[0]
+                }
             })
             .catch(err => console.log('Login: ', err));
     },

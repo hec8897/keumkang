@@ -2,8 +2,6 @@ import eventBus from '../../../glc/eventbus';
 import DelteModal from '../../../glc/del-modal';
 import etcModal from '../../../glc/etc-modal';
 import saveModal from '../../../glc/save-modal';
-
-
 const userTool = {
     props:['userData'],
     template:`<div class='user_tool'>
@@ -89,13 +87,17 @@ const userTool = {
                 alert('계정을 선택해주세요')
             }
             else{
-
-                const Modal = document.getElementById('modal-del')
-                Modal.style.display = 'block';
-                setTimeout(() => {
-                    Modal.style.opacity = '1';
-                }, 100);
-                eventBus.$emit(mode, this.list.idx)
+                if(this.list.comcode == 1){
+                    alert('관리자 계정은 삭제할 수 없습니다')
+                }
+                else{
+                    const Modal = document.getElementById('modal-del')
+                    Modal.style.display = 'block';
+                    setTimeout(() => {
+                        Modal.style.opacity = '1';
+                    }, 100);
+                    eventBus.$emit(mode, this.list.idx)
+                }
             }
         },
         OpenEtcModal() {

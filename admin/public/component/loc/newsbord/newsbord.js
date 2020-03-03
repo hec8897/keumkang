@@ -10,9 +10,6 @@ const NewsBord = {
     components:{
         'news-bord' : newsTable
     }
-    // components:{
-        // 'news-bord':newsTable
-    // }
 }
 
 export default NewsBord;

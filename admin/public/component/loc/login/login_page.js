@@ -6,7 +6,6 @@ const LoginPage = {
     template: `  <div class="con_wrap login_page">
     <div class="login_wrap">
     <join-modal></join-modal>
-        <!-- Login area -->
         <div class="login_box">
             <div class="login_bi">
                 <h1>금강로그인페이지</h1></div>
@@ -123,13 +122,13 @@ const LoginPage = {
                                 sessionStorage.setItem("userPhone", this.$store.state.userPhone);
 
                                 if(sessionStorage.comcode == 100){
-                                    alert('어서오세요'+this.$store.state.Name+'님')
+                                    alert('어서오세요 '+this.$store.state.Name+' 님')
                                     router.push({name:'cflag' ,path:'/cflag'})
                                     .catch (err => {})
                     
                                 }
                                 else{
-                                    alert('어서오세요'+this.$store.state.Name+'님')
+                                    alert('어서오세요 '+this.$store.state.Name+' 님')
                                     router.push({name:'consul' ,path:'/consul'})
                                     .catch (err => {})
                                 }

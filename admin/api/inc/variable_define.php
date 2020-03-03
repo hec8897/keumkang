@@ -1,5 +1,4 @@
 <?php
-//상담테이블
 $columArray = array(
     "`idx`", 
     "`reqphone`", 
@@ -35,7 +34,6 @@ function UpdateQuery($Value, $Query,$Colums){
 }    
 
 function InsertColumGet($option,$colums){
-    //BasicInsert = allcolums
     if($option == "BasicInsert"){
         $Colum="";
         for($Count = 0; $Count<count($colums); $Count++){

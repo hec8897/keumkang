@@ -73,7 +73,6 @@ mounted() {
         this.SelectData = [];
 
         const CheckBox =document.querySelectorAll('.checkbox_1');
-        // 체크박스 초기화
         for(let i = 0; i< CheckBox.length; i++){
             CheckBox[i].checked = false
         }
@@ -94,14 +93,6 @@ methods:{
                 this.lists = [
                     {
                         idx: 0,
-                        title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                        cate: "삼성",
-                        img: "images/dev_img.png",
-                        Date:""
-            
-                    },
-                    {
-                        idx: 1,
                         title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
                         cate: "삼성",
                         img: "images/dev_img.png",
@@ -147,9 +138,7 @@ methods:{
         }
         else{
             alert('삭제를원하는 목록을 선택해주세요')
-
         }
-     
 }
 }
 

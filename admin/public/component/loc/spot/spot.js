@@ -4,20 +4,14 @@ const Spot = {
     template:`
     <div class="con_wrap">
         <div class='content spot_bord'>
-            <!-- <h2>드론 영상</h2> -->
-            <!-- <dron-controller></dron-controller> -->
             <h2 class='sec_tit'>현장 사진</h2>
             <spot-controller></spot-controller>
         </div>
     </div>`,
     components:{
-        'dron-controller':Dron,
+        'dron-controller':Dron, //Not used
         'spot-controller':spotImg
     }
-  
-    // components:{
-        // 'news-bord':newsTable
-    // }
 }
 
 export default Spot;

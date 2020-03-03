@@ -1,7 +1,6 @@
 import ListNumber from '../../glc/list-numbering.js';
 import eventBus from '../../glc/eventbus.js'
 
-
 const shareConsulView = {
     template: `
         <div class="con_wrap">

@@ -6,7 +6,7 @@ const ConsulView = {
     template: `<div class='table_wrap consul_wrap'>
                 <share-modal></share-modal>
                 <div class='filters'>
-                    <span>상담신청 건</span><b>{{this.results.length}}건</b>
+                    <span>상담 신청 건</span><b>{{this.results.length}}건</b>
                     <select v-on:change="searchCate($event)">
                         <option value='전체'>전체</option>
                         <option value='삼성'>삼성</option>
@@ -55,7 +55,6 @@ const ConsulView = {
             SelectDataArray:[]
         }
     },
-
     created() {
         const baseURI = 'api/getdata.consult.php';
         axios.post(`${baseURI}`, {
@@ -64,7 +63,6 @@ const ConsulView = {
                     if (result.data.phpResult == 'ok') {
                         this.lists = result.data.result
                         this.results = this.lists;
-
                         eventBus.$emit('UpdateList', {
                             DataLength: Math.ceil((this.results.length) / 10),
                             nowpage: this.limit - 10
@@ -72,26 +70,17 @@ const ConsulView = {
                     }
             })
             .catch(err => console.log('Login: ', err));
-   
     },
     mounted() {
-        // this.results = this.lists;
-        // eventBus.$emit('UpdateList', {
-        //     DataLength: Math.ceil((this.results.length) / 10),
-        //     nowpage: this.limit - 10
-        // })
+
         eventBus.$on('NextPage', (Data) => {
             this.start = Data * 10;
             this.limit = (Data * 10) + 10
-
             this.SelectDataArray = [];
-
             const CheckBox =document.querySelectorAll('.checkbox_1');
-            // 체크박스 초기화
             for(let i = 0; i< CheckBox.length; i++){
                 CheckBox[i].checked = false
             }
-
         })
     },
     methods: {
@@ -124,7 +113,6 @@ const ConsulView = {
         OpenEtcModal() {
             if(this.SelectDataArray.length < 1){
                 alert('자료를 선택해주세요')
-
             }
             else{
                 const Modal = document.getElementById('modal-etc')

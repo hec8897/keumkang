@@ -4,7 +4,7 @@ import eventBus from '../../glc/eventbus.js'
 const newsTable = {
     template: `<div class='table_wrap'>
                 <div class='filters'>
-                    <span>총 게시물수</span><b>{{this.results.length}}건</b>
+                    <span>총 게시물 수</span><b>{{this.results.length}}건</b>
                     <select v-on:change="searchCate($event)">
                         <option value='전체'>전체</option>
                         <option value='삼성'>삼성</option>
@@ -51,6 +51,10 @@ const newsTable = {
     },
     created() {
         this.getData()
+        eventBus.$on('updateNews', ()=>{
+            this.getData()
+        })
+
     },
     mounted() {
         this.results = this.lists;
@@ -82,26 +86,9 @@ const newsTable = {
                             join: 340,
                             cate: "삼성",
                             img: "images/dev_img.png"
-            
-                        },
-                        {
-                            idx: 1,
-                            img: "",
-                            title: "인천 검단산업단지 안동포사거리 지하차도 착공",
-                            join: 340,
-                            cate: "천안",
-                            img: "images/dev_img.png"
-            
-                        }, {
-                            idx: 1,
-                            img: "",
-                            title: "인천 검단산업단지 안동포사거리 지하차도 착공",
-                            join: 340,
-                            cate: "천안"
-                        }
-                    ]
+                        }]
+                        
                     this.results = this.lists
-        
                 }
                 eventBus.$emit('UpdateList', {
                     DataLength: Math.ceil((this.results.length) / 10),

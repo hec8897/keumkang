@@ -149,11 +149,13 @@ const NewsView = {
                         .then((result) => {
                             if (result.data.phpResult == 'ok') {
                                 if(result.data.mode == 'new'){
-
+                                    eventBus.$emit('updateNews', 'ok')
                                     router.push({
                                         name: 'newbord',
                                         path: '/newsbord',
                                     })
+
+
                                 }
                                 else{
                                     location.reload()
