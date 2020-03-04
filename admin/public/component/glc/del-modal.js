@@ -142,7 +142,6 @@ const DelteModal = {
                     Data
                 })
                 .then((result) => {
-                    console.log(result)
                     if (result.data.phpResult == 'ok') {
                         this.ModalClose()
 

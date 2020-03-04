@@ -57,7 +57,7 @@
             }
         }
         else if(isset($title)){
-            $sql = "SELECT * FROM `tb_news` WHERE `title` LIKE '%$title%    ' ORDER BY `idx` DESC";
+            $sql = "SELECT * FROM `tb_news` WHERE `title` LIKE '%$title%' ORDER BY `idx` DESC";
 
         }
         else{

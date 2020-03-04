@@ -19,7 +19,6 @@ const router = new VueRouter({
       component: userMain,
       beforeEnter: (to, from, next) => {
         if (sessionStorage.length == 0) {
-          console.log(to)
           router.push({
             path: '/',
             component: LoginPage,

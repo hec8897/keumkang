@@ -24,7 +24,6 @@ const Dron = {
         this.getData();
 
         eventBus.$on('upload_mp4',(Data)=>{
-            console.log(this.refMp4)
             this.postMp4Data()
            })
         eventBus.$on('Update',(Data)=>{
@@ -108,7 +107,6 @@ const Dron = {
             axios.post(`${baseURI}`,{FileName} 
             )
             .then((result) => {
-                console.log(result)
             })
             .catch(err => console.log('Login: ', err));
         },

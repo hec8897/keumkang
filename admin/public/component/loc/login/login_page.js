@@ -33,7 +33,6 @@ const LoginPage = {
             router.push({path:'/'}).catch (err => {})
         }
         else{
-            console.log(sessionStorage)
             router.push({path:'/consul'}).catch (err => {})
         }
         },

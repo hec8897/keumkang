@@ -12,7 +12,6 @@ const NewsSearch = {
                 </div>`,
     methods: {
         findCate(event) {
-            console.log(event.target.value)
             eventBus.$emit('seachCate', {
                 cate: event.target.value
             })
@@ -27,7 +26,6 @@ const NewsSearch = {
                     title: searchTit.value
                 })
             }
-            console.log(searchTit.value)
 
         }
     }

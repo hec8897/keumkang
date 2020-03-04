@@ -316,7 +316,6 @@ function MoNavFade() {
 
     axios.post(`${baseURI}`, {Data})
     .then((result) => {
-        console.log(result)
         if (result.data.phpResult == 'ok') {
             alert('상담신청완료')
         } 
