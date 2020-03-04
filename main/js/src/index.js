@@ -11,8 +11,7 @@ const PageAddress = {
         // main: 'javascript:void()'
     },
     News: {
-        // main: 'news.html'
-        main: 'javascript:void()'
+        main: 'news.html'
     },
     About: {
         main: 'about.html'
@@ -41,7 +40,7 @@ let HeaderFooterNavRender = () => {
                                 <li class='head_ul_tag'><a href='${PageAddress.complexGuide.main}'>단지안내</a></li>
                                 <li class='head_ul_tag'><a href='${PageAddress.salesGuide.main}'>분양안내</a></li>
                                 <li class='head_ul_tag'><a href='${PageAddress.filedGuide.main}'>현장 이모저모</a></li>
-                                <li class='head_ul_tag'><a href='${PageAddress.News.main}' onclick="alert('준비중입니다')">보도자료</a></li>
+                                <li class='head_ul_tag'><a href='${PageAddress.News.main}'>보도자료</a></li>
                                 <li class='head_ul_tag'><a href='${PageAddress.About.main}'>회사소개</a></li>
                                 <li class='head_ul_tag'><a href='${PageAddress.Consult.main}'>상담문의</a></li>
                             </ul>
@@ -85,9 +84,9 @@ let HeaderFooterNavRender = () => {
                         </ul>
                         <h4 id='tit_nav4'>보도자료</h4>
                         <ul id='mo_nav4' class="nav_mo none">    
-                             <li><a href='${PageAddress.News.main}?section=2'><span>-</span>삼성관련</a></li>
-                             <li><a href='${PageAddress.News.main}?section=3'><span>-</span>천안&middot;아산관련</a></li>
-                             <li><a href='${PageAddress.News.main}?section=4'><span>-</span>부동산이슈</a></li>
+                             <li><a href='news.html#/newstb/삼성'><span>-</span>삼성관련</a></li>
+                             <li><a href='news.html#/newstb/천안'><span>-</span>천안&middot;아산관련</a></li>
+                             <li><a href='news.html#/newstb/부동산'><span>-</span>부동산이슈</a></li>
                         </ul>
                         <h4 id='tit_nav5'>회사소개</h4>
                         <ul id='mo_nav5' class="nav_mo none">    
@@ -191,9 +190,9 @@ if (htmlFile[0] == 'complex.html') {
                                 <li>
                                     <div class="line" id='nav_line4'></div>
                                     <ul>
-                                        <li><a href='${PageAddress.News.main}?section=1'>삼성관련</a></li>
-                                        <li><a href='${PageAddress.News.main}?section=2'>천안&middot;아산관련</a></li>
-                                        <li><a href='${PageAddress.News.main}?section=3'>부동산이슈</a></li>
+                                        <li><a href='news.html#/newstb/삼성'>삼성관련</a></li>
+                                        <li><a href='news.html#/newstb/천안'>천안&middot;아산관련</a></li>
+                                        <li><a href='news.html#/newstb/부동산'>부동산이슈</a></li>
                                     </ul>
                                 </li>
                                 <li>

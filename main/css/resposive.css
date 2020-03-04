@@ -245,7 +245,13 @@
         height: auto;
         padding-bottom: 100px;
     }
-    section.news.con2 div.search_ui{line-height: initial; padding:45px 0px; box-sizing: border-box  ;}
+    section.news.con2 div.news_zoom div.title span.mo{display: inline-block; vertical-align: middle; width: 70px; color: white; font-size: 0.875rem; height: 20px; line-height: 20px; text-align: center; margin: 10px 0px;}
+    section.news.con2 div.news_list div.nav ul li{font-size: 14px; height: 40px; line-height: 40px;}
+    section.news.con2 div.news_list div.prev_desc span.mo{display: inline-block;}
+    section.news.con2 div.news_list div.news_lists{margin-top: 20px;}
+    section.news.con2 div.news_list div.news_lists ul li{height: 100px; padding: 0px;}
+    section.news.con2 div.news_list div.prev_desc{box-sizing: border-box; padding-top: 10px;}
+    section.news.con2 div.search_ui{line-height: initial; padding:40px 0px; box-sizing: border-box  ;}
     section.consult.con3 div.wrap div.panel{
         height: 260px;
     }
@@ -253,14 +259,18 @@
     section.news.con2 div.news_list div.prev_desc > p{display: block;}
     section.consult.con3 div.wrap div.panel a.btn{width: 100%; margin-top: 30px;}
     section.news.con2 div.news_list div.head{display: none;}
-    section.news.con2{padding-top: 50px; padding-bottom: 50px;}
-    section.news.con2 div.search_ui select, section.news.con2 div.search_ui input{width: 47%; max-width: 270px; margin: 2px;}
-    section.news.con2 div.btn{width: 95%; margin-top: 10px; max-width: 550px;}
-    section.news.con2 div.news_list div.prev_img{width: 100px; height: 70px;}
-    section.news.con2 div.news_list div.prev_desc h4{ text-overflow:ellipsis; overflow: hidden; white-space:nowrap; -webkit-line-clamp: 2;}
+    section.news.con2{padding-top: 20px; padding-bottom: 50px;}
+    section.news.con2 div.search_ui select, section.news.con2 div.search_ui input{width: 47%; max-width: 270px; margin: 2px; height: 50px;}
+    section.news.con2 div.btn{width: 95%; margin-top: 10px; max-width: 550px; height: 50px; line-height: 50px;}
+    section.news.con2 div.news_list div.prev_img{width: 100px; height: 80px;}
+    section.news.con2 div.news_list div.prev_desc h4{ text-overflow:ellipsis; overflow: hidden; white-space:nowrap; -webkit-line-clamp: 2; margin: 5px auto; font-size: 16px;}
     section.news.con2 div.news_list div.prev_desc p{ text-overflow:ellipsis; overflow: hidden; white-space:nowrap; -webkit-line-clamp: 2;}
-    section.news.con2 div.news_list div.prev_desc span{display: inline; padding:0px 5px;vertical-align: middle; border-radius: 5px; color: white; font-size: 0.875rem;}
-    section.news.con2 div.news_list div.prev_desc span{display: inline;}
+    section.news.con2 div.news_list div.prev_desc span{display: inline-block; vertical-align: middle; width: 70px; color: white; font-size: 0.875rem; height: 20px; line-height: 20px;}
+    section.news.con2 div.news_list{width: 100%;}
+    section.news.con2 div.news_list div.nav ul{margin-bottom: 0px;}
+    section.news.con2 div.news_zoom div.desc_area{padding: 20px 0px;}
+    section.news.con2 div.next_news img{padding-top: 25px;}
+    section.news.con2 div.news_zoom div.head_line{border-top: 0px;}
 
 
 }
@@ -320,6 +330,8 @@
     section.con3 h3{float: left;;}
     section.sub.about.con3 h3{float: initial; margin-top: 50px;}
     section.sub.consult.con3 h3{float: initial;}
+    section.news.con2 div.news_list div.prev_desc h4{font-size: 14px;}
+    section.news.con2 div.news_list div.prev_desc p{font-size: 13px;}
 
     section.con3 h4{float: left;;}
     section.con6{height:550px;} 

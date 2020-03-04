@@ -13835,12 +13835,15 @@ const newsZoom = {
                 <div class="head green" v-else-if="list.cate =='천안'">천안</br>아산</div>
                 <div class="head ameral" v-else-if="list.cate =='부동산'">부동산</br>이슈</div>
                 <div class="title">
+                    <span class="mo blue" v-if="list.cate =='삼성'">삼성</span> 
+                    <span class="mo green" v-else-if="list.cate =='천안'">천안,아산</span>
+                    <span class="mo ameral" v-else-if="list.cate =='부동산'">부동산</span>
                     <h5>{{list.title}}</h5>
                     <p>등록일 : {{list.insertDate}}<span>|</span> 조회 : {{list.join}}</p>
                 </div>
             </div>
             <div class="desc_area">
-                <a class='link' v-bind:href='list.link'>기사원문 : <span>{{list.link}}</span></a>
+                <a class='link' v-bind:href='list.link' v-if="list.link!=''">기사원문 : <span>{{list.link}}</span></a>
                 <div v-html="list.desc"></div>
             </div>
         </div>`
