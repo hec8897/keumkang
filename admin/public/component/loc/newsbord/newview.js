@@ -51,6 +51,11 @@ const NewsView = {
                     <input type='text' v-if="id === 'new'" value='' placeholder='제목을 입력해주세요' id='title'/>
                     <input type='text' v-else v-bind:value='list.title' id='title'/>
                 </li>
+                <li><h5>부제목</h5></li>
+                <li>
+                    <input type='text' v-if="id === 'new'" value='' placeholder='부제목을 입력해주세요' id='sub_title'/>
+                    <input type='text' v-else v-bind:value='list.subTitle' id='sub_title'/>
+                </li>
                 <li><h5>링크</h5></li>
                 <li>
                     <input type='text' v-if="id === 'new'" value='' placeholder='바로가기 링크주소를 입력해주세요' id='link'/>
@@ -114,6 +119,8 @@ const NewsView = {
             const Wirte = document.getElementById('writer');
             const Standard = document.getElementById('standard');
             const title = document.getElementById('title');
+            const subTitle = document.getElementById('sub_title');
+
             const link = document.getElementById('link');
 
             const mainImg = this.refFile;
@@ -135,8 +142,11 @@ const NewsView = {
                     InsertData.append('idx', idx)
                     InsertData.append('wirter', Wirte.value)
                     InsertData.append('title', title.value)
+                    InsertData.append('sub_title', subTitle.value)
+
                     InsertData.append('standard', Standard.value)
                     InsertData.append('link', link.value)
+
 
                     InsertData.append('mainImg', mainImg)
                     InsertData.append('noteDescImg', noteDescImg)
@@ -190,6 +200,7 @@ const NewsView = {
                             img: "",
                             link: 'http://123213',
                             title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
+                            subTitle:'부제목 천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
                             join: 340,
                             cate: "천안",
                             desc: "",

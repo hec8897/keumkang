@@ -33,6 +33,7 @@
         $MainImg = $_FILES['mainImg'];
         $Wirte = $_POST['wirter'];
         $Title = $_POST['title'];
+        $subTilte = $_POST['sub_title'];
         $Standard = $_POST['standard'];
         $link = $_POST['link'];
         $MainImgName = isset($_FILES['mainImg'])?FileUploader($MainImg):'none.jpg';
@@ -41,14 +42,14 @@
         $InsertTime = date('Y-m-d');
 
     if($mode == 'new'){
-        $sql = "INSERT INTO `tb_news` (`writer`, `title`, `standard`, `link`, `main_img`, `note_desc`, `note_img`, `join_count`, `insertdate`)
-        VALUES ('$Wirte', '$Title', '$Standard', '$link', '$MainImgName', '$noteDesc', '$noteDescImg', 0 , '$InsertTime')";
+        $sql = "INSERT INTO `tb_news` (`writer`, `title`,`sub_title`, `standard`, `link`, `main_img`, `note_desc`, `note_img`, `join_count`, `insertdate`)
+        VALUES ('$Wirte', '$Title','$subTilte', '$Standard', '$link', '$MainImgName', '$noteDesc', '$noteDescImg', 0 , '$InsertTime')";
         $query = mysqli_query($conn,$sql);
         $phpResult = isset($query)?"ok":"no";
         }
     else if($mode == 'update'){
         $idx = $_POST['idx'];
-        $sql = "UPDATE `tb_news` SET  `writer` = '$Wirte',`title`='$Title',`standard`='$Standard',`link`= '$link', `main_img` = '$MainImgName', `note_desc`='$noteDesc',`note_img` ='$noteDescImg' WHERE `idx` = '$idx'";
+        $sql = "UPDATE `tb_news` SET  `writer` = '$Wirte',`title`='$Title',`sub_title`='$subTilte',`standard`='$Standard',`link`= '$link', `main_img` = '$MainImgName', `note_desc`='$noteDesc',`note_img` ='$noteDescImg' WHERE `idx` = '$idx'";
         $query = mysqli_query($conn,$sql);
         $phpResult = isset($query)?"ok":"no";
     }

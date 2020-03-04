@@ -14,6 +14,7 @@
                 "idx"=>$row['idx'],
                 "img"=>$row['main_img'],
                 "title"=>$row['title'],
+                "subTitle"=>$row['sub_title'],
                 "cate"=>$row['standard'],
                 "desc"=>$row['join_count'],
                 "link"=>$row['link'],
