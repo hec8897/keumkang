@@ -250,6 +250,7 @@
         height: 260px;
     }
     section.news.con2 div.search_ui{height: 190px;}
+    section.news.con2 div.news_list div.prev_desc > p{display: block;}
     section.consult.con3 div.wrap div.panel a.btn{width: 100%; margin-top: 30px;}
     section.news.con2 div.news_list div.head{display: none;}
     section.news.con2{padding-top: 50px; padding-bottom: 50px;}

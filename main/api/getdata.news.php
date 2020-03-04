@@ -5,6 +5,7 @@
     $result = array();
 
     $idx = $data['idx'];
+    $cate = $data['cate'];
 
     if(isset($idx)){
         $sql = "SELECT * FROM `tb_news` WHERE `idx` = '$idx'";
@@ -24,13 +25,24 @@
             ));
     }
     else{
-        $sql = "SELECT * FROM `tb_news` ORDER BY `idx` DESC";
+        if(isset($cate)){
+            if($cate == 'all'){
+                $sql = "SELECT * FROM `tb_news` ORDER BY `idx` DESC";
+            }
+            else{
+                $sql = "SELECT * FROM `tb_news` WHERE `standard` = '$cate' ORDER BY `idx` DESC";
+            }
+        }
+        else{
+            $sql = "SELECT * FROM `tb_news` ORDER BY `idx` DESC";
+        }
         $query = mysqli_query($conn,$sql);
         while($row = mysqli_fetch_array($query)){
             array_push($result,array(
                 "idx"=>$row['idx'],
                 "cate"=>$row['standard'],
                 "title"=>$row['title'],
+                "subTitle"=>$row['sub_title'],
                 "img"=>$row['main_img'],
                 "desc"=>$row['note_desc'],
                 "insertdate"=>$row['insertdate'],

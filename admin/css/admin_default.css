@@ -130,6 +130,7 @@ div.new_bord table thead tr td{border-top:1px solid #222; border-bottom: 1px sol
 
 div.new_bord table tbody tr{border-bottom: 1px solid #d0d0d0;}
 div.new_bord table tbody tr:hover{background-color: #f0f0f0;}
+div.new_bord table tr td{text-overflow: ellipsis;overflow: hidden;white-space: nowrap;}
 div.new_bord table tr td:nth-child(1){width: 10%;}
 div.new_bord table tr td:nth-child(2){width: 10%;}
 div.new_bord table tr td:nth-child(3){width: 10%;}

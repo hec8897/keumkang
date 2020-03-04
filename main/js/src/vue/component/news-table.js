@@ -1,13 +1,13 @@
 import listNumber from './news-list-numbering';
 import eventBus from './eventbus.js';
 const NewsTable = {
-    props:['propsdatas'],
-    template:`
+    props: ['propsdatas'],
+    template: `
     <div class="news_lists" >
         <ul>
             <li v-for ="(list,i) in lists" v-if='i < limit && start <= i'>
 
-                <a v-bind:href="'news_view.html?idx='+list.idx">
+                <router-link v-bind:to="'/news/'+list.idx">
                 <div class="head blue" v-if="list.cate =='삼성'">삼성</br>뉴스</div>
                 <div class="head green" v-else-if="list.cate =='천안'">천안</br>아산</div>
                 <div class="head ameral" v-else-if="list.cate =='부동산'">부동산</br>이슈</div>
@@ -20,12 +20,14 @@ const NewsTable = {
                     <span class="mo green" v-else-if="list.cate =='천안'">천안,아산</span>
                     <span class="mo ameral" v-else-if="list.cate =='부동산'">부동산</span>
                     <h4>{{list.title}}</h4>
-                    <p class='news_desc' v-html="list.desc"></p>
+                    <p class='news_desc'>
+                        {{list.subTitle}}
+                    </p>
                 </div>
                 <div class="join">
                     {{list.join}}건
                 </div>
-            </a>
+            </router-link>
             </li>
           
         </ul>
@@ -35,52 +37,47 @@ const NewsTable = {
     </div>
 
 </div>`,
-components:{
-    'list-number':listNumber
+    components: {
+        'list-number': listNumber
 
-},
-created(){
-    this.lists = this.propsdatas;
+    },
+    created() {
+        this.lists = this.propsdatas;
 
-    eventBus.$on('listUpadate',(Data)=>{
-        this.lists = Data;
+        eventBus.$on('listUpadate', (Data) => {
+            this.lists = Data;
 
-        eventBus.$emit('UpdateNews', {
-            DataLength: Math.ceil((this.lists.length) / 10),
-            nowpage: this.limit - 10
+            eventBus.$emit('UpdateNews', {
+                DataLength: Math.ceil((this.lists.length) / 10),
+                nowpage: this.limit - 10
+            })
         })
-    })
 
-    eventBus.$on('cateChange', (Data)=>{
-        this.lists = Data
-        this.start = 0
-        this.limit = 10
-        eventBus.$emit('UpdateNews', {
-            DataLength: Math.ceil((this.lists.length) / 10),
-            nowpage: this.limit - 10
+        eventBus.$on('cateChange', (Data) => {
+            this.lists = Data
+            this.start = 0
+            this.limit = 10
+            eventBus.$emit('UpdateNews', {
+                DataLength: Math.ceil((this.lists.length) / 10),
+                nowpage: this.limit - 10
+            })
         })
-    })
 
-},
-mounted() {
-    eventBus.$on('NextPage', (Data) => {
-        this.start = Data * 10-1;
-        this.limit = (Data * 10) + 9
-    })
+    },
+    mounted() {
+        eventBus.$on('NextPage', (Data) => {
+            this.start = Data * 10 - 1;
+            this.limit = (Data * 10) + 9
+        })
 
-},
-updated(){
-    const FirstTag = $('.news_desc').children()[0]
-    console.log(FirstTag)
-
-},
-data(){
-    return{
-        lists:[],
-        start:0,
-        limit:10
+    },
+    data() {
+        return {
+            lists: [],
+            start: 0,
+            limit: 10
+        }
     }
-}
 }
 
 export default NewsTable;
