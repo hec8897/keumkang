@@ -221,6 +221,36 @@ section.news.con2 div.news_list div.prev_desc span.ameral{background-color: #2cb
 
 /* section.news.con2 div.news_list div.prev_desc div,section.news.con2 div.news_list div.prev_desc p{text-align: left!important; display: inline!important; background-color: rgb(255,255,255)!important;} */
 section.news.con2 div.news_list div.join{max-width: 100px; display: inline-block; text-align: center; margin-left: 1%; color: #666; position: absolute; right: 0; top: 50%;}
+section.news.con2 div.news_zoom{max-width: 1200px; margin: 0 auto;}
+section.news.con2 div.news_zoom div.head_line{ padding: 20px 0px; border-top: 1px solid #222; border-bottom: 1px solid #d0d0d0; margin-bottom: 30px;}
+section.news.con2 div.news_zoom div.head{width:80px; height: 80px; padding-top: 20px; line-height: 1.5rem; color: white; box-sizing: border-box; text-align: center; display: inline-block; vertical-align: middle; margin-left: 20px;}  
+section.news.con2 div.news_zoom .blue{background-color: #328bfa; }
+section.news.con2 div.news_zoom .green{background-color: #5fb535;}
+section.news.con2 div.news_zoom .ameral{background-color: #2cbab2;}
+
+section.news.con2 div.news_zoom div.title{width: 85%; display: inline-block; margin-left: 20px; vertical-align: middle;}
+section.news.con2 div.news_zoom div.title h5{margin-bottom: 10px;}
+section.news.con2 div.news_zoom div.title p{color: #999; font-size: 14px;}
+section.news.con2 div.news_zoom div.title span{color: #999; margin: 10px;}
+section.news.con2 div.news_zoom .blue{background-color: #328bfa; }
+section.news.con2 div.news_zoom div.desc_area{text-align: center; padding: 50px 0px; border-bottom: 2px solid #d0d0d0;}
+section.news.con2 div.news_zoom div.desc_area >a span{color: #999; text-decoration: underline; margin-left: 10px;}
+section.news.con2 div.news_zoom div.desc_area>div{margin-top: 40px;}
+section.news.con2 div.next_news{text-align: center; padding-top: 50px;}
+section.news.con2 div.next_news img{width: 15px; padding-top: 10px;opacity: 0.6; cursor: pointer;}
+section.news.con2 div.news_zoom div.desc_area img{width: auto;}
+
+section.news.con2 div.next_news div.btn{background-color: white; height: 50px; line-height: 50px; border: 1px solid #666; color: #444; font-size: 14px; width: 200px;
+    -webkit-box-shadow: 5px 5px 6px 0px rgba(0,0,0,0.27);
+    -moz-box-shadow: 5px 5px 6px 0px rgba(0,0,0,0.27);
+    box-shadow: 5px 5px 6px 0px rgba(0,0,0,0.27); cursor: pointer; 
+    transition: 0.1s ease-in-out;
+    }
+    section.news.con2 div.next_news div.btn:hover{background-color: #d6b545; color: white; border-color: rgba(0, 0, 0, 0);}
+section.news.con2 div.next_news img:hover{opacity: 1.0;}
+section.news.con2 div.next_news img.left{float: left; }
+section.news.con2 div.next_news img.right{float: right;}
+
 
 section.complex.con3 {padding-top: 0px;box-sizing: border-box;  height: 650px; position: relative;} 
 section.complex.con3 div.obj_l{height: 400px; width: 35%; position: absolute; background-color: #e8f1f3; bottom: 0; z-index: -1;} 

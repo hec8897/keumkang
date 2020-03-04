@@ -13572,6 +13572,99 @@ const NewsNav = {
 
 /***/ }),
 
+/***/ "./js/src/vue/component/news-next.js":
+/*!*******************************************!*\
+  !*** ./js/src/vue/component/news-next.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _component_eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../component/eventbus */ "./js/src/vue/component/eventbus.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../router */ "./js/src/vue/router.js");
+
+
+
+const NewsNaxt = {
+    props:['idx'],
+    template: `
+    <div class='next_news'>
+        <img src="images/left-news.png" alt="left" class='left' @click='prevPage'>
+        <router-link tag='div' class='btn' to="/">목록보기</router-link>
+        <img src="images/right-news.png" alt="right" class='right' @click='NextPage'>
+    </div>
+    `,
+    created(){
+        this.getData(this.idx)
+        _component_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('thisChange',(Data)=>{
+            this.getData(Data)
+        })
+
+    },
+   
+    data(){
+        return{
+            ListArray:[],
+            thisPage:'',
+            nextPage:'',
+            PrevPage:''
+        }
+    },
+    methods:{
+      
+        prevPage(){
+            _component_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('prevPage', {
+                prevIdx: this.PrevPage
+            })
+        },
+        NextPage(){
+            _component_eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('NextPage', {
+                nextIdx: this.nextPage
+            })
+
+        },
+        getData(idx){
+            const baseURI = 'api/getdata.news.php';
+            axios.post(`${baseURI}`, {
+                    idx: idx,
+                    mode:'nextPage'
+                })
+                .then((result) => {
+                    if (result.data.phpResult == 'ok') {
+                        for(let i = 0; i<result.data.result.length; i++){
+                            this.ListArray.push(result.data.result[i][0])
+                        }
+                        
+                    } else {
+                        this.ListArray = [0,1,2]
+                    }
+
+                    const thisIndex = this.ListArray.indexOf(idx)
+                    if(this.ListArray[0] == this.ListArray[thisIndex]){
+                        this.nextPage = this.ListArray[thisIndex+1]
+                        this.PrevPage = this.ListArray[this.ListArray.length-1]
+                    }
+                    else if(this.ListArray[this.ListArray.length-1] == this.ListArray[thisIndex]){
+                        this.nextPage = this.ListArray[0]
+                        this.PrevPage = this.ListArray[thisIndex-1]
+                    }
+                    else{
+                        this.nextPage = this.ListArray[thisIndex+1]
+                        this.PrevPage = this.ListArray[thisIndex-1]
+                    }
+                    
+
+                })
+                .catch(err => console.log('Login: ', err));
+        }
+    }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (NewsNaxt);
+
+/***/ }),
+
 /***/ "./js/src/vue/component/news-search.js":
 /*!*********************************************!*\
   !*** ./js/src/vue/component/news-search.js ***!
@@ -13717,6 +13810,89 @@ const NewsTable = {
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (NewsTable);
+
+/***/ }),
+
+/***/ "./js/src/vue/component/news-zoom.js":
+/*!*******************************************!*\
+  !*** ./js/src/vue/component/news-zoom.js ***!
+  \*******************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _eventbus__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./eventbus */ "./js/src/vue/component/eventbus.js");
+
+
+const newsZoom = {
+    props: ['idx'],
+    template: `        
+    <div class="news_zoom">
+            <div class="head_line">
+                <!-- <div class="head blue">삼성</br>뉴스</div> -->
+                <div class="head blue" v-if="list.cate =='삼성'">삼성</br>뉴스</div>
+                <div class="head green" v-else-if="list.cate =='천안'">천안</br>아산</div>
+                <div class="head ameral" v-else-if="list.cate =='부동산'">부동산</br>이슈</div>
+                <div class="title">
+                    <h5>{{list.title}}</h5>
+                    <p>등록일 : {{list.insertDate}}<span>|</span> 조회 : {{list.join}}</p>
+                </div>
+            </div>
+            <div class="desc_area">
+                <a class='link' v-bind:href='list.link'>기사원문 : <span>{{list.link}}</span></a>
+                <div v-html="list.desc"></div>
+            </div>
+        </div>`
+        ,
+    created() {
+        this.getdata(this.idx)
+            _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('prevPage',(Data)=>{
+            this.getdata(Data.prevIdx)
+            _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('thisChange',Data.prevIdx)
+            })
+    
+            _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$on('NextPage',(Data)=>{
+            this.getdata(Data.nextIdx)
+            _eventbus__WEBPACK_IMPORTED_MODULE_0__["default"].$emit('thisChange',Data.nextIdx)
+
+            })
+    },
+    data() {
+        return {
+            list: []
+        }
+    },
+    methods: {
+        getdata(idx) {
+            const baseURI = 'api/getdata.news.php';
+            axios.post(`${baseURI}`, {
+                    idx: idx
+                })
+                .then((result) => {
+                    if (result.data.phpResult == 'ok') {
+                        this.list = result.data.result[0]
+
+                    } else {
+                        this.list = [{
+                            idx: 0,
+                            cate: '삼성',
+                            title: 'dummy천안 북부지역 개발의 선두 천안 성거산업단지 올해 첫삽',
+                            subTitle: 'sub_title1111',
+                            img: 'images/con4-panel1.png',
+                            desc: '천안은 6년 이상 산업단지 공급이 없어, 제조공장을 찾는 기업체들의 아쉬움이 많았다. 그런데, 2020년 새해 시작부터 천안지역에 ',
+                            join: 10
+                        }]
+                    }
+
+                })
+                .catch(err => console.log('Login: ', err));
+
+        }
+    }
+}
+
+/* harmony default export */ __webpack_exports__["default"] = (newsZoom);
 
 /***/ }),
 
@@ -13892,19 +14068,21 @@ const newsTableMain = {
     this.getdata(postcate)
 
     _component_eventbus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('seachCate', (Data) => {
-      this.getdata(Data.cate)
+      this.getdata(Data)
       _component_eventbus__WEBPACK_IMPORTED_MODULE_3__["default"].$emit('cateChange', this.results)
     })
     _component_eventbus__WEBPACK_IMPORTED_MODULE_3__["default"].$on('seachTitle', (Data) => {
-      console.log(Data)
+      this.getdata(Data)
+
     })
   },
   methods: {
 
-    getdata(cate) {
+    getdata(Data) {
       const baseURI = 'api/getdata.news.php';
       axios.post(`${baseURI}`, {
-          cate: cate
+          title:Data.title,
+          cate: Data.cate
         })
         .then((result) => {
           if (result.data.phpResult == 'ok') {
@@ -13971,7 +14149,14 @@ const newsTableMain = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _component_news_search__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./component/news-search */ "./js/src/vue/component/news-search.js");
 /* harmony import */ var _component_news_nav__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./component/news-nav */ "./js/src/vue/component/news-nav.js");
-/* harmony import */ var _component_eventbus__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./component/eventbus */ "./js/src/vue/component/eventbus.js");
+/* harmony import */ var _component_news_zoom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./component/news-zoom */ "./js/src/vue/component/news-zoom.js");
+/* harmony import */ var _component_news_next__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./component/news-next */ "./js/src/vue/component/news-next.js");
+/* harmony import */ var _component_eventbus__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./component/eventbus */ "./js/src/vue/component/eventbus.js");
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./router */ "./js/src/vue/router.js");
+
+
+
+
 
 
 
@@ -13983,73 +14168,32 @@ const newsViewMain = {
         <news-search></news-search>
         <div class="news_list">
             <news-nav></news-nav>
-            뉴스보기
+            <news-zoom v-bind:idx='this.idx'></news-zoom>
+            <news-next v-bind:idx='this.idx'></news-next>
         </div>
     </div>
     `,
       components: {
         'news-search': _component_news_search__WEBPACK_IMPORTED_MODULE_0__["default"],
         'news-nav': _component_news_nav__WEBPACK_IMPORTED_MODULE_1__["default"],
+        'news-zoom':_component_news_zoom__WEBPACK_IMPORTED_MODULE_2__["default"],
+        'news-next':_component_news_next__WEBPACK_IMPORTED_MODULE_3__["default"]
       },
       created() {
-          console.log(this.idx)
-        // const baseURI = 'api/getdata.news.php';
-        // axios.post(`${baseURI}`, {})
-        //   .then((result) => {
-        //     if (result.data.phpResult == 'ok') {
-        //       this.lists = result.data.result
-        //       this.results = this.lists;
-        //     } else {
-    
-        //       this.lists = [{
-        //           idx: 0,
-        //           cate: '삼성',
-        //           title: '1천안 북부지역 개발의 선두 천안 성거산업단지 올해 첫삽',
-        //           subTitle: 'sub_title1111',
-        //           img: 'images/con4-panel1.png',
-        //           desc: '천안은 6년 이상 산업단지 공급이 없어, 제조공장을 찾는 기업체들의 아쉬움이 많았다. 그런데, 2020년 새해 시작부터 천안지역에 ',
-        //           join: 10
-        //         },
-        //         {
-        //           idx: 0,
-        //           cate: '삼성',
-        //           title: '1천안 북부지역 개발의 선두 천안 성거산업단지 올해 첫삽',
-        //           subTitle: 'sub_title1111',
-        //           img: 'images/con4-panel1.png',
-        //           desc: '천안은 6년 이상 산업단지 공급이 없어, 제조공장을 찾는 기업체들의 아쉬움이 많았다. 그런데, 2020년 새해 시작부터 천안지역에 ',
-        //           join: 10
-        //         },
-        //         {
-        //           idx: 0,
-        //           cate: '삼성',
-        //           title: '1천안 북부지역 개발의 선두 천안 성거산업단지 올해 첫삽',
-        //           subTitle: 'sub_title1111',
-        //           img: 'images/con4-panel1.png',
-        //           desc: '천안은 6년 이상 산업단지 공급이 없어, 제조공장을 찾는 기업체들의 아쉬움이 많았다. 그런데, 2020년 새해 시작부터 천안지역에 ',
-        //           join: 10
-        //         }
-        //       ]
-    
-        //       this.results = this.lists;
-        //     }
-        //     eventBus.$emit('listUpadate', this.lists)
-        //   })
-        //   .catch(err => console.log('Login: ', err));
-        // eventBus.$on('seachCate', (Data) => {
-        //   if (Data.cate == 'all') {
-        //     this.results = this.lists;
-        //   } else {
-        //     this.results = this.lists.filter((x) => {
-        //       return x.cate == Data.cate;
-        //     })
-        //   }
-        //   eventBus.$emit('cateChange', this.results)
-    
-        // })
-        // eventBus.$on('seachTitle', (Data) => {
-        //   console.log(Data)
-        // })
-    
+        _component_eventbus__WEBPACK_IMPORTED_MODULE_4__["default"].$on('prevPage',(Data)=>{
+          _router__WEBPACK_IMPORTED_MODULE_5__["default"].push({
+            name:'news-view',
+            path:'/news/:'+Data.prevIdx
+          })
+        })
+
+        _component_eventbus__WEBPACK_IMPORTED_MODULE_4__["default"].$on('NextPage',(Data)=>{
+          _router__WEBPACK_IMPORTED_MODULE_5__["default"].push({
+              name:'news-view',
+            path:'/news/:'+Data.nextIdx
+          })
+          
+        })
       },
       data() {
         return {

@@ -25,19 +25,21 @@ const newsTableMain = {
     this.getdata(postcate)
 
     eventBus.$on('seachCate', (Data) => {
-      this.getdata(Data.cate)
+      this.getdata(Data)
       eventBus.$emit('cateChange', this.results)
     })
     eventBus.$on('seachTitle', (Data) => {
-      console.log(Data)
+      this.getdata(Data)
+
     })
   },
   methods: {
 
-    getdata(cate) {
+    getdata(Data) {
       const baseURI = 'api/getdata.news.php';
       axios.post(`${baseURI}`, {
-          cate: cate
+          title:Data.title,
+          cate: Data.cate
         })
         .then((result) => {
           if (result.data.phpResult == 'ok') {

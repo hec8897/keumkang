@@ -6,8 +6,27 @@
 
     $idx = $data['idx'];
     $cate = $data['cate'];
+    $title = $data['title'];
+
 
     if(isset($idx)){
+        $mode = $data['mode'];
+        if(isset($mode)){
+            $Standardsql = "SELECT * FROM `tb_news` WHERE `idx` = '$idx'";
+            $Standardquery = mysqli_query($conn,$Standardsql);
+            $Standardrow = mysqli_fetch_array($Standardquery);
+            $Standard = $Standardrow['standard'];
+
+            $sql = "SELECT * FROM `tb_news` WHERE `standard` = '$Standard'";
+            $query = mysqli_query($conn,$sql);
+            while($row = mysqli_fetch_array($query)){
+                array_push($result,array(
+                    $row['idx']
+                ));
+            }
+
+        }
+        else{
         $sql = "SELECT * FROM `tb_news` WHERE `idx` = '$idx'";
         $query = mysqli_query($conn,$sql);
         $row = mysqli_fetch_array($query);
@@ -20,9 +39,13 @@
                 "link"=>$row['link'],
                 "writer"=>$row['writer'],
                 "desc"=>$row['note_desc'],
-                "descImg"=>$row['note_img']
+                "descImg"=>$row['note_img'],
+                "insertDate"=>$row['insertdate'],
+                "join"=>$row['join_count']
 
             ));
+        }
+
     }
     else{
         if(isset($cate)){
@@ -32,6 +55,10 @@
             else{
                 $sql = "SELECT * FROM `tb_news` WHERE `standard` = '$cate' ORDER BY `idx` DESC";
             }
+        }
+        else if(isset($title)){
+            $sql = "SELECT * FROM `tb_news` WHERE `title` LIKE '%$title%    ' ORDER BY `idx` DESC";
+
         }
         else{
             $sql = "SELECT * FROM `tb_news` ORDER BY `idx` DESC";
@@ -57,7 +84,8 @@
     $json =  json_encode(
         array(
             "result"=>$result,
-            "phpResult"=>$phpResult
+            "phpResult"=>$phpResult,
+            'test'=>$sql
     )); 
 
     echo urldecode($json);
