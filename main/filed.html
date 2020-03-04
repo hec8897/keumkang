@@ -46,12 +46,15 @@
                     <h3>조감도</h3>
                     <div class="galluery">
                         <div class="main_img">
-                            <!-- <div class="navi">
+                            <div class='main_img_bg'>
+
+                            </div>
+                            <div class="navi">
                                 <ul>
-                                    <li></li>
-                                    <li></li>
+                                    <li class='nav_prev'></li>
+                                    <li class='nav_next'></li>
                                 </ul>
-                            </div> -->
+                            </div>
                         </div>
                         <div class="sub_img sub_img1">
                             <div class="active"></div>
@@ -70,44 +73,112 @@
             </section>
 
             <script>
-                $(document).ready(function(){
-                    $('.sub_img').click(function(){
-                        var Images = ['images/filed-con2-gall1.jpg','images/filed-con2-gall2.jpg','images/filed-con2-gall3.jpg','images/filed-con2-gall4.jpg']
-                        $('.sub_img div').removeClass('active')
-                        $(this).children('div').not().addClass('active')
 
-                        let ImgClassName = $(this).attr('class')
-                        if(ImgClassName == "sub_img sub_img1"){
-                            $('.main_img').css({
-                                "opacity":0.0,
-                                "background-image":" url("+Images[0]+")"
-                            })
-                                $('.main_img').delay(0).animate({"opacity":"1.0"})
-                        }
-                        else if(ImgClassName == "sub_img sub_img2"){
-                            $('.main_img').css({
-                                "opacity":0.0,
-                                "background-image":" url("+Images[1]+")"
-                            })
-                                $('.main_img').delay(0).animate({"opacity":"1.0"})
-                        }
-                        else if(ImgClassName == "sub_img sub_img3"){
-                            $('.main_img').css({
-                                "opacity":0.0,
-                                "background-image":" url("+Images[2]+")"
-                            })
-                                $('.main_img').delay(0).animate({"opacity":"1.0"})
-                        }
-                        else if(ImgClassName == "sub_img sub_img4"){
-                            $('.main_img').css({
-                                "opacity":0.0,
-                                "background-image":" url("+Images[3]+")"
-                            })
-                                $('.main_img').delay(0).animate({"opacity":"1.0"})
-                        }
-                    })
+                count = 0;
+                $(document).ready(function () {
+                var Images = ['images/filed-con2-gall1.jpg', 'images/filed-con2-gall2.jpg', 'images/filed-con2-gall3.jpg', 'images/filed-con2-gall4.jpg'];
+                setInterval(function () {
+                    if (count >= 3) {
+                    count = 0;
+                    } else {
+                    count += 1;
+                    }
 
-                })
+                    $('.main_img_bg').css({
+                    "opacity": 0.0,
+                    "background-image": " url(" + Images[count] + ")"
+                    });
+                    $('.main_img_bg').delay(0).animate({
+                    "opacity": "1.0"
+                    });
+                    console.log('.sub_img' + divCount + '>div');
+                    var divCount = Number(count) + 1;
+                    $('.sub_img div').removeClass('active');
+                    $('.sub_img' + divCount + '>div').addClass('active');
+                }, 3000);
+                $('.nav_prev').click(function () {
+                    if (count == 0) {
+                    count = 3;
+                    } else {
+                    count -= 1;
+                    }
+
+                    $('.main_img_bg').css({
+                    "opacity": 0.0,
+                    "background-image": " url(" + Images[count] + ")"
+                    });
+                    $('.main_img_bg').delay(0).animate({
+                    "opacity": "1.0"
+                    });
+                    console.log('.sub_img' + divCount + '>div');
+                    var divCount = Number(count) + 1;
+                    $('.sub_img div').removeClass('active');
+                    $('.sub_img' + divCount + '>div').addClass('active');
+                });
+                $('.nav_next').click(function () {
+                    if (count >= 3) {
+                    count = 0;
+                    } else {
+                    count += 1;
+                    }
+
+                    $('.main_img_bg').css({
+                    "opacity": 0.0,
+                    "background-image": " url(" + Images[count] + ")"
+                    });
+                    $('.main_img_bg').delay(0).animate({
+                    "opacity": "1.0"
+                    });
+                    var divCount = Number(count) + 1;
+                    console.log('.sub_img' + divCount + '>div');
+                    $('.sub_img div').removeClass('active');
+                    $('.sub_img' + divCount + '>div').addClass('active');
+                });
+                $('.sub_img').click(function () {
+                    var Images = ['images/filed-con2-gall1.jpg', 'images/filed-con2-gall2.jpg', 'images/filed-con2-gall3.jpg', 'images/filed-con2-gall4.jpg'];
+                    $('.sub_img div').removeClass('active');
+                    $(this).children('div').not().addClass('active');
+                    var ImgClassName = $(this).attr('class');
+
+                    if (ImgClassName == "sub_img sub_img1") {
+                    count = 0;
+                    $('.main_img_bg').css({
+                        "opacity": 0.0,
+                        "background-image": " url(" + Images[0] + ")"
+                    });
+                    $('.main_img_bg').delay(0).animate({
+                        "opacity": "1.0"
+                    });
+                    } else if (ImgClassName == "sub_img sub_img2") {
+                    count = 1;
+                    $('.main_img_bg').css({
+                        "opacity": 0.0,
+                        "background-image": " url(" + Images[1] + ")"
+                    });
+                    $('.main_img_bg').delay(0).animate({
+                        "opacity": "1.0"
+                    });
+                    } else if (ImgClassName == "sub_img sub_img3") {
+                    count = 2;
+                    $('.main_img_bg').css({
+                        "opacity": 0.0,
+                        "background-image": " url(" + Images[2] + ")"
+                    });
+                    $('.main_img_bg').delay(0).animate({
+                        "opacity": "1.0"
+                    });
+                    } else if (ImgClassName == "sub_img sub_img4") {
+                    count = 3;
+                    $('.main_img_bg').css({
+                        "opacity": 0.0,
+                        "background-image": " url(" + Images[3] + ")"
+                    });
+                    $('.main_img_bg').delay(0).animate({
+                        "opacity": "1.0"
+                    });
+                    }
+                });
+                });
 
             </script>
 

@@ -261,7 +261,7 @@ textarea:focus{border:1px solid #666; background:#f9f9f9}
 html,body,ul,ol,li,img,div,span,iframe,a,p,input,textarea,select,i{
 	font-family:'Roboto','Noto Sans KR', sans-serif; font-weight:400; font-style:normal; font-size:16px; word-break:keep-all; color:#222;text-decoration: none;
 }
-html,body{overflow-x: hidden;}
+html,body{overflow-x: hidden; min-width: 360px;}
 img{width: 100%; vertical-align: middle;}
 h1,h2,h3,h4,h5,h6,p,div,span{letter-spacing: -1px;}
 h2{font-size: 5rem; text-align: center;}/*80px*/

@@ -13,7 +13,11 @@ const router = new VueRouter({
         path:'/newstb/:cate',
         props:true,
         name:'new-table',
-        component:newTableMain
+        component:newTableMain,
+        beforeRouteUpdate(){
+          location.reload()
+          console.log(1)
+        }
     },
       {
           path:'/news/:idx',

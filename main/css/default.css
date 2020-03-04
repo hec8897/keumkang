@@ -149,7 +149,8 @@ section.filed.con2{padding-top: 100px; height: 750px; position: relative; backgr
 /* section.filed.con2 div.wrap{height: 750px;} */
 section.filed.con2 div.obj{position: absolute; width: 39.3%; height: 550px; bottom: 0px; background-color: #e8f1f3; right: 0;   }
 section.filed.con2 div.galluery{width: 100%;  margin-top: 50px;}
-section.filed.con2 div.galluery div.main_img{max-width: 950px; width: 75%; height:540px; float: left; position: relative; background-image: url(../images/filed-con2-gall1.jpg);}
+section.filed.con2 div.galluery div.main_img{max-width: 950px; width: 75%; height:540px; float: left; position: relative;}
+section.filed.con2 div.galluery div.main_img div.main_img_bg{width: 100%; height: 100%;  background-image: url(../images/filed-con2-gall1.jpg); position: absolute;}
 section.filed.con2 div.galluery div.main_img div.navi{width: 150px; height: 70px; position: absolute; right:  0; bottom: 0; background-color: white;}
 section.filed.con2 div.galluery div.main_img div.navi ul{width: 100%; height: 100%;}
 section.filed.con2 div.galluery div.main_img div.navi ul li{width: 50%; height: 100%;float: left; background-size: 10px; cursor: pointer;}

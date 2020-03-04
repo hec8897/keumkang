@@ -251,7 +251,7 @@
     section.news.con2 div.news_list div.news_lists{margin-top: 20px;}
     section.news.con2 div.news_list div.news_lists ul li{height: 100px; padding: 0px;}
     section.news.con2 div.news_list div.prev_desc{box-sizing: border-box; padding-top: 10px;}
-    section.news.con2 div.search_ui{line-height: initial; padding:40px 0px; box-sizing: border-box  ;}
+    section.news.con2 div.search_ui{line-height: normal; padding:40px 0px; box-sizing: border-box  ;}
     section.consult.con3 div.wrap div.panel{
         height: 260px;
     }

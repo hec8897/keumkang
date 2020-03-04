@@ -84,9 +84,9 @@ let HeaderFooterNavRender = () => {
                         </ul>
                         <h4 id='tit_nav4'>보도자료</h4>
                         <ul id='mo_nav4' class="nav_mo none">    
-                             <li><a href='news.html#/newstb/삼성'><span>-</span>삼성관련</a></li>
-                             <li><a href='news.html#/newstb/천안'><span>-</span>천안&middot;아산관련</a></li>
-                             <li><a href='news.html#/newstb/부동산'><span>-</span>부동산이슈</a></li>
+                             <li><a href='http://kumkangenc.kr/news.html/newstb/삼성'><span>-</span>삼성관련</a></li>
+                             <li><a href='http://kumkangenc.kr/news.html/newstb/천안'><span>-</span>천안&middot;아산관련</a></li>
+                             <li><a href='http://kumkangenc.kr/news.html/newstb/부동산'><span>-</span>부동산이슈</a></li>
                         </ul>
                         <h4 id='tit_nav5'>회사소개</h4>
                         <ul id='mo_nav5' class="nav_mo none">    
@@ -190,9 +190,9 @@ if (htmlFile[0] == 'complex.html') {
                                 <li>
                                     <div class="line" id='nav_line4'></div>
                                     <ul>
-                                        <li><a href='news.html#/newstb/삼성'>삼성관련</a></li>
-                                        <li><a href='news.html#/newstb/천안'>천안&middot;아산관련</a></li>
-                                        <li><a href='news.html#/newstb/부동산'>부동산이슈</a></li>
+                                        <li><a href='http://kumkangenc.kr/news.html#/newstb/삼성'>삼성관련</a></li>
+                                        <li><a href='http://kumkangenc.kr/news.html#/newstb/천안'>천안&middot;아산관련</a></li>
+                                        <li><a href='http://kumkangenc.kr/news.html#/newstb/부동산'>부동산이슈</a></li>
                                     </ul>
                                 </li>
                                 <li>
