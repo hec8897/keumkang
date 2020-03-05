@@ -327,20 +327,34 @@ function MoNavFade() {
 LinkCheck = () =>{
     //Get QueryString
     params = {};
-    window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (str, key, value) {
-        params[key] = value;
-    });
-    let paramsSection = params.section
-    let paramsID = params.id;
+  window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi, function (str, key, value) {
+    params[key] = value;
+  });
+  var paramsSection = params.section;
+  console.log(paramsSection)
 
-    if(paramsID!=undefined){
-        sessionStorage.setItem('queryid',paramsID)
-    }
-    if(paramsSection!=undefined){
-      let jb = $( '.con'+paramsSection ).offset();
-      $('html, body').animate({scrollTop : jb.top},100);
-    }
-    
-    return params;
+  var paramsID = params.id;
+
+  if (paramsID != undefined) {
+    sessionStorage.setItem('queryid', paramsID);
+  }
+
+  if (paramsSection != undefined) {
+    var jb = $('.con' + paramsSection).offset();
+    $('html, body').animate({
+      scrollTop: jb.top-150
+    }, 100);
+  }
+
+  if(paramsSection == '4'){
+    var Footer = $('Footer').offset();
+
+    $('html, body').animate({
+
+      scrollTop:Footer.top
+    }, 100);
+  }
+
+  return params;
  }
  LinkCheck ()

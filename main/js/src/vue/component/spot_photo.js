@@ -1,13 +1,15 @@
 import listNumber from './list-numbering';
+import SpotPopup from './spot-popup'
 import eventBus from './eventbus.js';
 
 const SpotPhoto = {
     template:`<div class="wrap">
+                    <spot-popup></spot-popup>
                     <h3>현장사진</h3>
                     <ul>
                         <li v-for = "(list,i) in lists" v-if='i < limit && start <= i'>
                                 <div class="photo" v-bind:style="{backgroundImage:'url(' +list.img+')'}">
-                                    <div>
+                                    <div @click="popupOpen(list.img)">
                                         <img src="images/plus.png" alt="plus">
                                     </div>
                                 </div>
@@ -23,7 +25,8 @@ const SpotPhoto = {
 
             </div>`,
             components:{
-                'list-number':listNumber
+                'list-number':listNumber,
+                'spot-popup':SpotPopup
             },
             data(){
                 return{
@@ -110,6 +113,16 @@ const SpotPhoto = {
                     this.start = Data * 10-1;
                     this.limit = (Data * 10) + 9
                 })
+            },
+            methods:{
+                popupOpen(listImg){
+                    const popupBg = document.getElementById('popup_bg')
+                    popupBg.style.display='block'
+                    setTimeout(() => {
+                        popupBg.style.opacity='1.0'
+                    }, 100);
+                    eventBus.$emit('imgPopup',listImg)
+                }
             }
         }
 

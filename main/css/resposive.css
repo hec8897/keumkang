@@ -37,7 +37,7 @@
     section.con4 div.panel{max-width: 31%; height: 360px; top: -80px;}
     section.con4 div.panel2{margin: 0px 10px;}
     section.con4 div.panel a.panel_btn{max-width: 85%;}
-    section.con6 ul li{max-width: 23%; margin: 0px 10px;}
+    section.con6 ul a{max-width: 23%; margin: 0px 10px;}
     section.consult.con3 div.wrap div.panel div.tit{max-width: 50%;}
     section.consult.con3 div.wrap div.panel a.btn{margin-left: 0;}
     /* sub */
@@ -53,7 +53,7 @@
     header div.mo div{width: 100%; height: 3px; background-color: #222;margin: 7px 0px;}
     header div.mo div:nth-last-child(1){background-color: #d6b545;}
     /* main */
-    section.con6 ul li{max-width: 100%; width: 23%; margin: 0px 5px;}
+    section.con6 ul a{max-width: 100%; width: 23%; margin: 0px 5px;}
     /*sub*/
     section.saleguide.con2{height: 550px;}
     section.filed.con2 div.galluery div.main_img{max-width: 100%; width: 100%;float: initial;}
@@ -93,7 +93,7 @@
     section.con4 div.panel a.panel_btn div{width: 30px; height: 30px; line-height: 27px; margin-top: 14px;}
     section.con5 ul.news_section li{padding: 20px; height: 120px;}
     section.con5 ul.news_section li div.tits_new{width: 80%;}
-    section.con6 ul li p {font-size: 0.875rem;}
+    section.con6 ul a p {font-size: 0.875rem;}
     /* sub */
     section.sub.con1 div.title h3{font-size: 42px; margin-bottom: 20px;}
     section.sub.con1 div.title h3.mid{font-size: 24px; line-height: 30px;}
@@ -148,9 +148,9 @@
     section.con5 ul.news_section li div.tits_new p,
     section.con5 ul.news_section li div.tits_new h5{text-overflow:ellipsis; overflow: hidden; white-space:nowrap; -webkit-line-clamp: 2;}
     section.con6{height: 750px;}
-    section.con6 ul li{width: 45%; max-width: 50%; margin: 0; margin: 5px;}
-    section.con6 ul li:nth-child(1n){margin-left: 0px;}
-    section.con6 ul li:nth-child(2n){margin-right: 0px;}
+    section.con6 ul a{width: 45%; max-width: 50%; margin: 0; margin: 5px;}
+    section.con6 ul a:nth-child(1n){margin-left: 0px;}
+    section.con6 ul a:nth-child(2n){margin-right: 0px;}
     /*sub*/
     section.sub.con1 div.title{max-width: 70%; margin: 0 auto;}
     section.complex.con2 div.wrap{padding-top: 0px; margin-top: -50px;}
@@ -271,6 +271,9 @@
     section.news.con2 div.news_zoom div.desc_area{padding: 20px 0px;}
     section.news.con2 div.next_news img{padding-top: 25px;}
     section.news.con2 div.news_zoom div.head_line{border-top: 0px;}
+    section.filed.con3 h3{margin-bottom: 50px;}
+    section.filed.con3 div.wrap ul{padding: 0; text-align: center;}
+    section.filed.con3 div.popup{width: 95%;}
 
 
 }
@@ -296,7 +299,7 @@
     section.con5 ul.news_section li{height: 80px;}
     section.con5 ul.news_section li div.header_new{padding: 10px; height: 60px; width: 60px; font-size: 1rem;}
     section.con6{height:670px;} 
-    section.con6 ul li{height: 250px; padding-top: 30px;}
+    section.con6 ul a{height: 250px; padding-top: 30px;}
     /* sub */
     section.complex.con3 div.left_panel{margin: 50px auto;}
     section.complex.con4{height: auto; margin-top: 120px; padding-bottom: 50px;}
@@ -336,7 +339,7 @@
     section.con3 h4{float: left;;}
     section.con6{height:550px;} 
     section.con6 h4{margin-top: 25px;}
-    section.con6 ul li{height: 210px;}
+    section.con6 ul a{height: 210px;}
     /* sub */
     section.complex.con3{height:900px; margin-bottom: 50px;}
     section.complex.con2{margin-bottom: 50px;}
