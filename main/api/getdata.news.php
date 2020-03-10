@@ -73,7 +73,8 @@
                 "img"=>$row['main_img'],
                 "desc"=>$row['note_desc'],
                 "insertdate"=>$row['insertdate'],
-                "join"=>$row['join_count']
+                "join"=>$row['join_count'],
+                "link"=>$row['link']
             ));
         }
     }

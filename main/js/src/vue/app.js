@@ -1,6 +1,7 @@
 import '@babel/polyfill'
 import SpotPhoto from './component/spot_photo'
 import router from './router'
+import Maincon5 from './component/main-con5'
 
 
 new Vue({
@@ -22,3 +23,13 @@ new Vue({
                 <router-view></router-view>
             </section>`
 }).$mount('#news')
+
+new Vue({
+  router,
+  template: `  <section class="con5" id='main-con5'>
+              <main-con5></main-con5>
+              </section>`,
+  components: {
+    'main-con5': Maincon5
+  }
+}).$mount('#main-con5')
