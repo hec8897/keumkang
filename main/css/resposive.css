@@ -1,10 +1,7 @@
 @media (max-width:1440px){
     /* common */
     header,nav{padding: 0px 10px; box-sizing: border-box;}
-    /* main */
-    section.con1 div.slider-1{background-image: url(../images/slider1.jpg);}
-    section.con1 div.slide div.wrap>video{display: none;}
-    section.con1 div.slide div.wrap>video{max-width: 120%;}
+
     /* sub */
     section.saleguide.con4 ul {
         width: 45%;
@@ -41,6 +38,13 @@
     section.consult.con3 div.wrap div.panel div.tit{max-width: 50%;}
     section.consult.con3 div.wrap div.panel a.btn{margin-left: 0;}
     /* sub */
+}
+@media (max-width:1190px){
+        /* main */
+        section.con1 div.slider-1{background-image: url(../images/slider1.jpg);}
+        section.con1 div.slide div.wrap>video{display: none;}
+        section.con1 div.slide div.wrap>video{max-width: 120%;}
+
 }
 @media (max-width:1024px){
     /* common */
