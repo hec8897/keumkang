@@ -163,7 +163,7 @@ section.saleguide.con2 h3{margin-bottom: 50px;}
 
 section.filed.con2{padding-top: 100px; height: 750px; position: relative; background-color: white;}
 /* section.filed.con2 div.wrap{height: 750px;} */
-section.filed.con2 div.obj{position: absolute; width: 39.3%; height: 550px; bottom: 80px; background-color: #e8f1f3; right: 0;   }
+section.filed.con2 div.obj{position: absolute; width: 42.1%; height: 550px; bottom: 80px; background-color: #e8f1f3; right: 0;   }
 section.filed.con2 div.galluery{width: 100%;  margin-top: 50px;}
 section.filed.con2 div.galluery div.main_img{max-width: 950px; width: 75%; height:540px; float: left; position: relative;}
 section.filed.con2 div.galluery div.main_img div.main_img_bg{width: 100%; height: 100%;  background-image: url(../images/filed-con2-gall1.jpg); position: absolute;}
@@ -340,7 +340,7 @@ section.filed.con3 div.wrap ul li div.tit{position: relative;; height: 70px;}
 section.filed.con3 div.wrap ul li div.tit p{text-align: left; position: absolute; top: 50%; transform: translateY(-50%); padding-left: 30px;}
 section.filed.con3 div.wrap ul li div.tit p span{display: block; margin-top: 10px; font-size: 0.875rem; color: #666;}
 section.filed.con3 div.popup_bg{position: fixed; width: 100%; height: 100vh; background-color: rgba(0,0,0,0.7); z-index: 999; left: 0; top: 0; transition: 0.2s ease-in-out; opacity: 0.0; display: none;  cursor: pointer;}
-section.filed.con3 div.popup{width: 40%; height:auto; background-color: white; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);}
+section.filed.con3 div.popup{width: 80%; height:auto; background-color: white; position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%);}
 
 
 section.complex.con4{background-color: white;padding-top: 100px; height: 1350px;}
