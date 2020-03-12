@@ -2,6 +2,10 @@ import SaveModal from '../../glc/save-modal.js';
 import DelteModal from '../../glc/del-modal.js';
 import eventBus from '../../glc/eventbus.js';
 import router from '../../router'
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+import CKEditor from 'ckeditor4-vue';
+
+Vue.use(CKEditor);
 
 const NewsView = {
     props: ['id'],
@@ -26,7 +30,6 @@ const NewsView = {
                         <option value='삼성'>삼성</option>
                         <option value='천안'>천안</option>
                         <option value='부동산'>부동산</option>
-                        <option value='기타'>기타</option>
                     </select>
                     <select v-else id='standard'>
                         <option v-if="list.cate === ''" value='' selected>분류</option>
@@ -41,8 +44,7 @@ const NewsView = {
                         <option v-if="list.cate === '부동산'" value='부동산' selected>부동산</option>
                         <option v-else value='부동산'>부동산</option>
 
-                        <option v-if="list.cate === '기타'" value='기타' selected>기타</option>
-                        <option v-else value='기타'>기타</option>
+            
 
                     </select>
                 </li>
@@ -63,8 +65,8 @@ const NewsView = {
                 </li>
                 <li><h5>대표이미지</h5></li>
                 <li>
-                <div class="input-file" v-if="id ==='new' || list.img === ''">
-                    <input type="text" readonly="readonly" class="file-name" id='file_input' /> 
+                <div class="input-file" v-if="id ==='new' || list.img === '' || list.img === 'none.jpg'">
+                    <input type="text" readonly="readonly" class="file-name" id='file_input' placeholder='2MB 이내 파일로 업로드해주세요'/> 
                     <label for="upload01" class="file-label">파일 업로드</label> 
                     <input type="file" name="" id="upload01" class="file-upload" ref="mainimg" @change='fileChange'/>
                 </div>
@@ -78,7 +80,9 @@ const NewsView = {
                 </li>
                 <li><h5>내용</h5></li>
                 <li>
-                    <iframe src="summernote.html" id='summernote_iframe'></iframe>
+                    <!-- <textarea name="content" id="editor"></textarea> -->
+                    <ckeditor type="classic" v-model="editorData" :config="editorConfig"></ckeditor>
+                    <!-- <iframe src="summernote.html" id='summernote_iframe'></iframe> -->
                 </li>
             </ul>
             </div>
@@ -96,13 +100,36 @@ const NewsView = {
     components: {
         'save-modal': SaveModal,
         'delte-modal': DelteModal,
+        'ckeditor': CKEditor.component
     },
     data() {
         return {
-            idx:'',
-            list:'',
-            descImgArray:'',
-            refFile: ''
+            idx: '',
+            list: '',
+            descImgArray: '',
+            refFile: '',
+            editorData: '<p>Content of the editor.</p>',
+            editors: {
+                classic: ClassicEditor
+            },
+            editorConfig: {
+                extraPlugins: 'image2,uploadimage',
+                language: 'ko',
+                filebrowserBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html',
+                filebrowserImageBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html?type=Images',
+                // filebrowserUploadUrl: 'api/test.php?command=QuickUpload&type=Files',
+                filebrowserUploadUrl: '/editor/upload.php',
+                filebrowserImageUploadUrl: 'api/test.php?command=QuickUpload&type=Files',
+
+                // Upload dropped or pasted images to the CKFinder connector (note that the response type is set to JSON).
+                uploadUrl: 'api/test.php?command=QuickUpload&type=Files',
+
+                // Reduce the list of block elements listed in the Format drop-down to the most commonly used.
+                format_tags: 'p;h1;h2;h3;pre',
+                // Simplify the Image and Link dialog windows. The "Advanced" tab is not needed in most cases.
+                removeDialogTabs: 'image:advanced;link:advanced',
+                height: 550
+            }
         }
     },
     created() {
@@ -110,6 +137,12 @@ const NewsView = {
         if (this.id != 'new') {
             this.getData()
         }
+
+
+
+    },
+    mounted() {
+
     },
     methods: {
         PostData(mode) {
@@ -132,7 +165,7 @@ const NewsView = {
             } else if (Standard.value == "") {
                 alert('분류를 입력해주세요')
             } else {
-                this.OpenSaveModal(mode,'new')
+                this.OpenSaveModal(mode, 'new')
 
                 let idx = this.id;
 
@@ -147,7 +180,6 @@ const NewsView = {
                     InsertData.append('standard', Standard.value)
                     InsertData.append('link', link.value)
 
-
                     InsertData.append('mainImg', mainImg)
                     InsertData.append('noteDescImg', noteDescImg)
                     InsertData.append('noteDesc', noteDesc)
@@ -158,16 +190,14 @@ const NewsView = {
                         )
                         .then((result) => {
                             if (result.data.phpResult == 'ok') {
-                                if(result.data.mode == 'new'){
+                                if (result.data.mode == 'new') {
                                     eventBus.$emit('updateNews', 'ok')
                                     router.push({
                                         name: 'newbord',
                                         path: '/newsbord',
                                     })
-
-
-                                }
-                                else{
+                                    location.reload()
+                                } else {
                                     location.reload()
                                 }
                             } else {
@@ -186,6 +216,8 @@ const NewsView = {
                 })
                 .then((result) => {
                     if (result.data.phpResult == 'ok') {
+                        console.log(result)
+
                         this.list = result.data.result[0]
                         let DescImg = this.list.descImg.split(',')
                         $('#summernote_iframe').load(function () {
@@ -200,11 +232,11 @@ const NewsView = {
                             img: "",
                             link: 'http://123213',
                             title: '천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
-                            subTitle:'부제목 천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
+                            subTitle: '부제목 천안 북부지역 개발의 선두 천안성거산업단지 올해 첫 삽 뜬다',
                             join: 340,
                             cate: "천안",
                             desc: "",
-                            descImg:""
+                            descImg: ""
                         }]
                     }
                 })
@@ -274,25 +306,23 @@ const NewsView = {
             if (mode == 'new_news') {
                 const sumNoteImgs = $('#summernote_iframe').get(0).contentWindow.ImgArray
                 eventBus.$emit(mode, sumNoteImgs)
-            } 
-            else if(mode == 'delte_news'){
+            } else if (mode == 'delte_news') {
                 let DescImg = this.list.descImg
                 let PostData = {
-                    mainImg:this.list.img,
-                    descImg:DescImg.split(","),
-                    idx:this.id
+                    mainImg: this.list.img,
+                    descImg: DescImg.split(","),
+                    idx: this.id
                 }
                 eventBus.$emit(mode, PostData)
-            }
-            else {
+            } else {
                 let PostData = {
                     Data,
-                    idx:this.id
+                    idx: this.id
                 }
                 eventBus.$emit(mode, PostData)
             }
         },
-        backPage(){
+        backPage() {
             const Modal = document.getElementById('modal-alert')
             Modal.style.display = 'block';
             setTimeout(() => {
