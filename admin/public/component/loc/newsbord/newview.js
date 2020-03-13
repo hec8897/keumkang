@@ -2,7 +2,7 @@ import SaveModal from '../../glc/save-modal.js';
 import DelteModal from '../../glc/del-modal.js';
 import eventBus from '../../glc/eventbus.js';
 import router from '../../router'
-import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
+// import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
 import CKEditor from 'ckeditor4-vue';
 
 Vue.use(CKEditor);
@@ -110,25 +110,17 @@ const NewsView = {
             refFile: '',
             editorData: '<p>Content of the editor.</p>',
             editors: {
-                classic: ClassicEditor
+                // classic: ClassicEditor
             },
+            removePlugins: 'image2',
             editorConfig: {
-                extraPlugins: 'image2,uploadimage',
+                extraPlugins: 'image2,uploadimage,colorbutton,font',
                 language: 'ko',
-                filebrowserBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html',
-                filebrowserImageBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html?type=Images',
-                // filebrowserUploadUrl: 'api/test.php?command=QuickUpload&type=Files',
-                filebrowserUploadUrl: '/editor/upload.php',
                 filebrowserImageUploadUrl: 'api/test.php?command=QuickUpload&type=Files',
-
-                // Upload dropped or pasted images to the CKFinder connector (note that the response type is set to JSON).
                 uploadUrl: 'api/test.php?command=QuickUpload&type=Files',
-
-                // Reduce the list of block elements listed in the Format drop-down to the most commonly used.
                 format_tags: 'p;h1;h2;h3;pre',
-                // Simplify the Image and Link dialog windows. The "Advanced" tab is not needed in most cases.
                 removeDialogTabs: 'image:advanced;link:advanced',
-                height: 550
+                height: 650
             }
         }
     },
@@ -137,9 +129,6 @@ const NewsView = {
         if (this.id != 'new') {
             this.getData()
         }
-
-
-
     },
     mounted() {
 
