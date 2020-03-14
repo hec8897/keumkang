@@ -40,71 +40,59 @@
 
     <textarea name="content" id='summernote'></textarea>
     <script>
-        $('#summernote').summernote({
-            height: 700,
-            focus: false,
-            tooltip: false,
-            // resize: false,
-            lang: 'ko-KR', // 기본 메뉴언어 US->KR로 변경
-            toolbar: [
-                // [groupName, [list of button]]
-                ['style', ['bold', 'underline', 'clear']],
-                ['para', ['paragraph']],
-                ['font', ['strikethrough', 'superscript', 'subscript']],
-                ['fontsize', ['fontsize']],
-                ['color', ['color']],
-                ['height', ['height']],
-                ['hr', ['hr']],
-                ['picture', ['picture']],
-            ],
-            popover: {
-                image: [
-                ['image', ['resizeFull', 'resizeHalf', 'resizeQuarter']],
-                ['float', ['floatLeft', 'floatRight']],
-                ['remove', ['removeMedia']]
-                ],
-            },
 
+$('#summernote').summernote({
+  height: 700,
+  focus: false,
+  tooltip: false,
+  placeholder: "\n            \u203B\uC8FC\uC758\uC0AC\uD56D</br>\n            \uB124\uC774\uBC84 \uBE14\uB85C\uADF8\uB098 \uC77C\uBD80 SNS\uC5D0\uC11C \uBCF5\uC0AC \uD574\uC62C \uACBD\uC6B0 \uC0AC\uC9C4\uC774 \uC815\uC0C1\uC801\uC73C\uB85C \uB098\uC624\uC9C0 \uC54A\uC744 \uC218 \uC788\uC2B5\uB2C8\uB2E4.</br>\n            \uC774\uBBF8\uC9C0 \uC6A9\uB7C9\uC740 \uAC00\uAE09\uC801 1MB\uC774\uB0B4\uB85C \uC5C5\uB85C\uB4DC\uD574\uC8FC\uC138\uC694(\uC6A9\uB7C9\uC774 \uB192\uC744\uC218\uB85D \uC11C\uBC84 \uB85C\uB529 \uC2DC\uAC04\uC774 \uC99D\uAC00\uD569\uB2C8\uB2E4.)",
+// ※주의사항</br>
+// 네이버 블로그나 일부 SNS에서 복사 해올 경우 사진이 정상적으로 나오지 않을 수 있습니다.</br>
+// 이미지 용량은 가급적 1MB이내로 업로드해주세요(용량이 높을수록 서버 로딩 시간이 증가합니다.)
+  lang: 'ko-KR',
+  toolbar: [// [groupName, [list of button]]
+  ['style', ['bold', 'underline', 'clear']], ['para', ['paragraph']], ['font', ['strikethrough', 'superscript', 'subscript']], ['fontsize', ['fontsize']], ['color', ['color']], ['height', ['height']], ['hr', ['hr']], ['picture', ['picture']]],
+  popover: {
+    image: [['image', ['resizeFull', 'resizeHalf', 'resizeQuarter']], ['float', ['floatLeft', 'floatRight']], ['remove', ['removeMedia']]]
+  },
+  callbacks: {
+    onImageUpload: function onImageUpload(files, editor, welEditable) {
+      for (var i = files.length - 1; i >= 0; i--) {
+        sendFile(files[i], this);
+      }
+    }
+  }
+});
 
-            callbacks: {
-                onImageUpload: function (files, editor, welEditable) {
-                    for (var i = files.length - 1; i >= 0; i--) {
-                        sendFile(files[i], this);
-                    }
-                }
-            }
-        });
+function InsertDesc(DESC) {
+  $('#summernote').summernote('code', DESC);
+}
 
-        function InsertDesc(DESC) {
-            $('#summernote').summernote('code', DESC);
-        }
-        $('.note-statusbar').hide()
+$('.note-statusbar').hide();
+ImgArray = []; // NewImgArray = [];
 
-        ImgArray = [];
-        // NewImgArray = [];
-        function sendFile(file, el) {
-            formData = new FormData();
-            formData.append('file', file);
-            formData.append('mode', 'upload_img');
-
-            var baseURI = 'api/news.upload.img.php';
-            axios.post(baseURI, formData).then(function (result) {
-                if (result.data.file == 'fileNo') {
-                    alert('파일이없습니다');
-                } else if (result.data.file == 'noExt') {
-                    alert('사용할수없는확장자입니다');
-                } else if (result.data.file == 'huge') {
-                    alert('사이즈가너무큽니다.');
-                } else {
-                    var url = 'http://kumkangenc.kr/admin/news/' + result.data.file;
-                    $(el).summernote('editor.insertImage', url);
-                    $('#imageBoard > ul').append('<li class="summernote_img"><img src="' + url + '"/></li>');
-                    ImgArray.push(result.data.file);
-                }
-            }).catch(function (err) {
-                return console.log('Login: ', err);
-            });
-        }
+function sendFile(file, el) {
+  formData = new FormData();
+  formData.append('file', file);
+  formData.append('mode', 'upload_img');
+  var baseURI = 'api/news.upload.img.php';
+  axios.post(baseURI, formData).then(function (result) {
+    if (result.data.file == 'fileNo') {
+      alert('파일이없습니다');
+    } else if (result.data.file == 'noExt') {
+      alert('사용할수없는확장자입니다');
+    } else if (result.data.file == 'huge') {
+      alert('사이즈가너무큽니다.');
+    } else {
+      var url = 'http://kumkangenc.kr/admin/news/' + result.data.file;
+      $(el).summernote('editor.insertImage', url);
+      $('#imageBoard > ul').append('<li class="summernote_img"><img src="' + url + '"/></li>');
+      ImgArray.push(result.data.file);
+    }
+  }).catch(function (err) {
+    return console.log('Login: ', err);
+  });
+}
 
     </script>
 
@@ -112,3 +100,4 @@
 </body>
 
 </html>
+

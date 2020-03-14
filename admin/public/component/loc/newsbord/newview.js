@@ -2,10 +2,7 @@ import SaveModal from '../../glc/save-modal.js';
 import DelteModal from '../../glc/del-modal.js';
 import eventBus from '../../glc/eventbus.js';
 import router from '../../router'
-// import ClassicEditor from '@ckeditor/ckeditor5-build-classic'
-import CKEditor from 'ckeditor4-vue';
 
-Vue.use(CKEditor);
 
 const NewsView = {
     props: ['id'],
@@ -44,8 +41,6 @@ const NewsView = {
                         <option v-if="list.cate === '부동산'" value='부동산' selected>부동산</option>
                         <option v-else value='부동산'>부동산</option>
 
-            
-
                     </select>
                 </li>
                 <li><h5>제목</h5></li>
@@ -80,7 +75,7 @@ const NewsView = {
                 </li>
                 <li><h5>내용</h5></li>
                 <li>
-                    <ckeditor id='editor' type="classic" v-model="editorData" :config="editorConfig"></ckeditor>
+                    <iframe src="summernote.html" id='summernote_iframe'></iframe>
                 </li>
             </ul>
             </div>
@@ -90,7 +85,6 @@ const NewsView = {
                 <span class="b_red" v-else v-on:click="OpenDelteModal(list.idx,'delte_news')">삭제</span>
                 <span class="b_blue" v-if="id === 'new'" v-on:click="PostData('new')">등록</span>
                 <span class="b_blue" v-else v-on:click="PostData('update')">수정</span>
-                <span class="b_blue" v-on:click="getDataNote()">테스트</span>
                 <span class="b_sgrey" v-on:click="backPage">목록</span>
             </div>
 
@@ -99,7 +93,6 @@ const NewsView = {
     components: {
         'save-modal': SaveModal,
         'delte-modal': DelteModal,
-        'ckeditor': CKEditor.component
     },
     data() {
         return {
@@ -107,21 +100,6 @@ const NewsView = {
             list: '',
             descImgArray: '',
             refFile: '',
-            editorData: '블로그나 기타 SNS에서 직접 복사해서 사용하실 경우 데이터가 제대로 표시되지 않습니다.',
-            editors: {
-                // classic: ClassicEditor
-            },
-            removePlugins: 'image2',
-            editorConfig: {
-                extraPlugins: 'image2,uploadimage,colorbutton,font,justify',
-                language: 'ko',
-                filebrowserBrowseUrl: '/apps/ckfinder/3.4.5/ckfinder.html',
-                filebrowserImageUploadUrl: 'api/news_board.php?command=QuickUpload&type=Files',
-                uploadUrl: 'api/news_board.php?command=QuickUpload&type=Files',
-                format_tags: 'p;h1;h2;h3;pre',
-                removeDialogTabs: 'image:advanced;link:advanced',
-                height: 650
-            }
         }
     },
     created() {
@@ -134,12 +112,6 @@ const NewsView = {
 
     },
     methods: {
-        getDataNote(){
-            // CKEDITOR.instances.textarea_id.getData()
-            let test = CKEDITOR.instances.editor1.getData();
-            console.log(test)
-            // CKEditor.instances.editor1.setData('<p>집어넣을 데이터</p>')
-        },
         PostData(mode) {
             const sumNote = document.getElementById('summernote_iframe').contentWindow.document.getElementById("summernote");
             const sumNoteImgs = $('#summernote_iframe').get(0).contentWindow.ImgArray;
@@ -211,14 +183,11 @@ const NewsView = {
                 })
                 .then((result) => {
                     if (result.data.phpResult == 'ok') {
-                        console.log(result)
-
                         this.list = result.data.result[0]
                         let DescImg = this.list.descImg.split(',')
                         $('#summernote_iframe').load(function () {
                             $('#summernote_iframe').get(0).contentWindow.InsertDesc(result.data.result[0].desc)
                             $('#summernote_iframe').get(0).contentWindow.ImgArray = DescImg
-
                         })
                     } else {
                         this.list = [{
@@ -269,12 +238,6 @@ const NewsView = {
                             var $this = $fileBox.eq(ids),
                                 $btnUpload = $this.find('[type="file"]'),
                                 $label = $this.find('.file-label');
-                            // $btnUpload.on('change', function () {
-                            //     var $target = $(this),
-                            //         fileName = $target.val(),
-                            //         $fileText = $target.siblings('.file-name');
-                            //     $fileText.val(fileName);
-                            // })
                             $btnUpload.on('focusin focusout',
                                 function (e) {
                                     e.type == 'focusin' ? $label.addClass('file-focus') : $label.removeClass('file-focus');

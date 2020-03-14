@@ -24,6 +24,7 @@
     "@ckeditor/ckeditor5-editor-classic": "^17.0.0",
     "@ckeditor/ckeditor5-theme-lark": "^17.0.0",
     "babel-polyfill": "^6.26.0",
+    "ckeditor4-vue": "^0.2.0",
     "postcss-loader": "^3.0.0",
     "raw-loader": "^3.1.0",
     "style-loader": "^1.1.3",
